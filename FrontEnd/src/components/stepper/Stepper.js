@@ -11,6 +11,7 @@ import { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { CircularProgress } from "@mui/material";
+import { useNavigate, useNavigation } from "react-router-dom";
 
 const steps = [
   "Personal Details",
@@ -126,46 +127,50 @@ TabPanel.propTypes = {
 const StepperComp = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState(initialValues);
-  const [completedSteps, setCompletedSteps] = useState({});
+  const [completed, setCompleted] = useState({});
+
+  const navigate = useNavigate()
 
   const totalSteps = () => {
     return steps.length;
   };
 
+  const completedSteps = () => {
+    return Object.keys(completed).length;
+  };
+
+  const isLastStep = () => {
+    return activeStep === totalSteps() - 1;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
+
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const newActiveStep =
+      isLastStep() && !allStepsCompleted()
+        ? steps.findIndex((step, i) => !(i in completed))
+        : activeStep + 1;
+    setActiveStep(newActiveStep);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const handleStep = (step) => () => {
+    setActiveStep(step);
   };
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+  const handleComplete = () => {
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    handleNext();
+  };
+
+  const handleSubmit = (values) => {
     const newFormData = { ...formData, ...values };
     setFormData(newFormData);
-
-    setCompletedSteps({ ...completedSteps, [activeStep]: true });
-
-    if (activeStep < totalSteps() - 1) {
-      handleNext();
-    } else {
-      if (activeStep === 3) {
-        // Check if the active step is the third tab (index 3)
-        console.log("Initial Data:", formData); // Log the initial data
-      }
-      // Perform the final submission when you reach the last step
-      // You can use newFormData for the complete data
-      // Submit the data to your backend or perform any final actions
-      // Reset the form and completion status for the next signup
-      resetForm();
-      setCompletedSteps({});
-      setActiveStep(0);
-    }
-
-    setSubmitting(false);
+    console.log("Complete Data:", formData);
   };
-
-  const isLastStep = activeStep === totalSteps() - 1;
 
   return (
     <div className="flex justify-center items-center w-full text-base p-2.5 pt-6">
@@ -175,9 +180,9 @@ const StepperComp = () => {
             <Step
               sx={{ flexDirection: "column" }}
               key={label}
-              completed={completedSteps[index]}
+              completed={completed[index]}
             >
-              <StepButton color="inherit" onClick={() => setActiveStep(index)}>
+              <StepButton color="inherit" onClick={handleStep(index)}>
                 <StepLabel sx={{ flexDirection: "column" }}> {label}</StepLabel>
               </StepButton>
             </Step>
@@ -376,10 +381,7 @@ const StepperComp = () => {
                     </div>
 
                     <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label
-                        className="flex w-40 px-1 pt-2"
-                        htmlFor="category"
-                      >
+                      <label className="flex w-40 px-1 pt-2" htmlFor="category">
                         Category
                       </label>
                       <Field
@@ -512,45 +514,28 @@ const StepperComp = () => {
                       </span>
                     </div> */}
                   </TabPanel>
-
                   <div className="w-full py-8 box-border">
-                    {isLastStep ? (
-                      <Button
-                        type="submit"
-                        size={"large"}
-                        fullWidth
-                        // disabled={
-                        //   !(formik.isValid && formik.dirty) ||
-                        //   formik.isSubmitting
-                        //   // completed[activeStep]
-                        // }
-                        variant="contained"
-                        startIcon={
-                          formik.isSubmitting ? (
-                            <CircularProgress
-                              style={{
-                                color: "rgba(0, 0, 0, 0.26)",
-                                width: "1rem",
-                                height: "1rem",
-                              }}
-                            />
-                          ) : (
-                            ""
-                          )
-                        }
-                      >
-                        Submit
-                      </Button>
+                    {allStepsCompleted() ? (
+                      <React.Fragment>
+                        {/* Content for when all steps are completed */}
+                      </React.Fragment>
                     ) : (
-                      <Button
-                        onClick={handleNext}
-                        size="large"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                      >
-                        Next
-                      </Button>
+                      <React.Fragment>
+                        <Box
+                          sx={{ display: "flex", flexDirection: "row", pt: 2 }}
+                        >
+                          <Box sx={{ flex: "1 1 auto" }} />
+                          {activeStep !== steps.length &&
+                            (completed[activeStep] ? (
+                              <p>Already completed</p>
+                            ) : completedSteps() === totalSteps() - 1 ? (
+                              <Button type='submit'
+                              >FINISH</Button>
+                            ) : (
+                              <Button onClick={handleComplete}>NEXT</Button>
+                            ))}
+                        </Box>
+                      </React.Fragment>
                     )}
                   </div>
                 </Form>
