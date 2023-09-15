@@ -7,14 +7,95 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { StepLabel } from "@mui/material";
 import PropTypes from "prop-types";
-import Signup from "../signup/Signup";
+import { useState } from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { CircularProgress } from "@mui/material";
 
 const steps = [
   "Personal Details",
-  "Skill Details",
   "Other Details",
+  "Skill Details",
   "Assignment",
 ];
+const categoryOptions = ["Option 1", "Option 2", "Option 3"];
+
+const initialValues = {
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  phone_no: "",
+  dob: "",
+  location: "",
+  language: "",
+  occupation: "",
+  category: "",
+  experience: "",
+  barNo: "",
+};
+
+const validate = (values) => {
+  let error = {};
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+  let confirmPasswordRegex =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+
+  if (!values.username) {
+    error.username = "Required!";
+  }
+
+  if (!values.email) {
+    error.email = "Required!";
+  } else if (!emailRegex.test(values.email)) {
+    error.email = "Invalid email format";
+  }
+
+  if (!values.password) {
+    error.password = "Required!";
+  } else if (!passwordRegex.test(values.password)) {
+    error.password =
+      "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+  }
+
+  if (!values.confirmPassword) {
+    error.confirmPassword = "Required!";
+  } else if (!confirmPasswordRegex.test(values.confirmPassword)) {
+    error.confirmPassword =
+      "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+  }
+
+  if (!values.phone_no) {
+    error.phone_no = "Required!";
+  }
+
+  if (!values.dob) {
+    error.dob = "Required!";
+  }
+
+  if (!values.location) {
+    error.location = "Required!";
+  }
+
+  if (!values.language) {
+    error.language = "Required!";
+  }
+  if (!values.occupation) {
+    error.occupation = "Required!";
+  }
+  if (!values.category) {
+    error.category = "Required!";
+  }
+  if (!values.experience) {
+    error.experience = "Required!";
+  }
+  if (!values.barNo) {
+    error.barNo = "Required!";
+  }
+
+  return error;
+};
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,48 +124,48 @@ TabPanel.propTypes = {
 };
 
 const StepperComp = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [completed, setCompleted] = React.useState({});
+  const [activeStep, setActiveStep] = useState(0);
+  const [formData, setFormData] = useState(initialValues);
+  const [completedSteps, setCompletedSteps] = useState({});
 
   const totalSteps = () => {
     return steps.length;
   };
 
-  const completedSteps = () => {
-    return Object.keys(completed).length;
-  };
-
-  const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
-  };
-
-  const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
-  };
-
   const handleNext = () => {
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    setActiveStep(newActiveStep);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    const newFormData = { ...formData, ...values };
+    setFormData(newFormData);
+
+    setCompletedSteps({ ...completedSteps, [activeStep]: true });
+
+    if (activeStep < totalSteps() - 1) {
+      handleNext();
+    } else {
+      if (activeStep === 3) {
+        // Check if the active step is the third tab (index 3)
+        console.log("Initial Data:", formData); // Log the initial data
+      }
+      // Perform the final submission when you reach the last step
+      // You can use newFormData for the complete data
+      // Submit the data to your backend or perform any final actions
+      // Reset the form and completion status for the next signup
+      resetForm();
+      setCompletedSteps({});
+      setActiveStep(0);
+    }
+
+    setSubmitting(false);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-  };
+  const isLastStep = activeStep === totalSteps() - 1;
 
   return (
     <div className="flex justify-center items-center w-full text-base p-2.5 pt-6">
@@ -94,71 +175,388 @@ const StepperComp = () => {
             <Step
               sx={{ flexDirection: "column" }}
               key={label}
-              completed={completed[index]}
+              completed={completedSteps[index]}
             >
-              <StepButton color="inherit" onClick={handleStep(index)}>
+              <StepButton color="inherit" onClick={() => setActiveStep(index)}>
                 <StepLabel sx={{ flexDirection: "column" }}> {label}</StepLabel>
               </StepButton>
             </Step>
           ))}
         </Stepper>
-        <TabPanel value={activeStep} index={0}>
-          <Signup
-            handleComplete={handleComplete}
-            completed={completed}
-            activeStep={activeStep}
-          />
-        </TabPanel>
-        <TabPanel value={activeStep} index={1}>
-          <Signup
-            handleComplete={handleComplete}
-            completed={completed}
-            activeStep={activeStep}
-          />
-        </TabPanel>
-        <TabPanel value={activeStep} index={2}>
-          <Signup
-            handleComplete={handleComplete}
-            completed={completed}
-            activeStep={activeStep}
-          />
-        </TabPanel>
-        <TabPanel value={activeStep} index={3}>
-          <Signup
-            handleComplete={handleComplete}
-            completed={completed}
-            activeStep={activeStep}
-          />
-        </TabPanel>
-        <div>
-          {allStepsCompleted() && (
-            <React.Fragment>
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                All steps completed - you&apos;re finished
-              </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Box sx={{ flex: "1 1 auto" }} />
-                <Button onClick={handleReset}>Reset</Button>
-              </Box>
-            </React.Fragment>
+        <div className="flex justify-center items-center h-full w-full text-base">
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            // validate={validate}
+          >
+            {(formik) => {
+              return (
+                <Form className="container h-fit max-w-sm md:max-w-md px-4 sm:px-8 rounded flex flex-col border border-gray-400">
+                  <TabPanel value={activeStep} index={0}>
+                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
+                      <p>
+                        <LockOutlinedIcon />
+                      </p>
+                      <p>Signup</p>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex px-1 pt-2 w-40" htmlFor="username">
+                        Username
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="username"
+                        name="username"
+                        autoComplete="off"
+                        placeholder="Username"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="username" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="email">
+                        Email
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="email"
+                        id="email"
+                        name="email"
+                        autoComplete="off"
+                        placeholder="Email"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="email" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="password">
+                        Password
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="password"
+                        id="password"
+                        name="password"
+                        autoComplete="off"
+                        placeholder="Password"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="password" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label
+                        className="flex w-40 px-1 pt-2"
+                        htmlFor="confirmPassword"
+                      >
+                        Confirm Password
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        autoComplete="off"
+                        placeholder="Confirm Password"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="confirmPassword" />
+                      </span>
+                    </div>
+                  </TabPanel>
+                  <TabPanel value={activeStep} index={1}>
+                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
+                      <p>
+                        <LockOutlinedIcon />
+                      </p>
+                      <p>Signup</p>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex px-1 pt-2 w-40" htmlFor="phone_no">
+                        Phone No.
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="phone_no"
+                        name="phone_no"
+                        autoComplete="off"
+                        placeholder="Phone No."
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="phone_no" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="dob">
+                        Date Of Birth
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="dob"
+                        name="dob"
+                        autoComplete="off"
+                        placeholder="10/09/2003"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="dob" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="location">
+                        Location
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="location"
+                        name="location"
+                        autoComplete="off"
+                        placeholder="noida,delhi"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="location" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="language">
+                        Languages
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="language"
+                        name="language"
+                        autoComplete="off"
+                        placeholder="english,hindi"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="language" />
+                      </span>
+                    </div>
+                  </TabPanel>
+                  <TabPanel value={activeStep} index={2}>
+                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
+                      <p>
+                        <LockOutlinedIcon />
+                      </p>
+                      <p>Signup</p>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label
+                        className="flex px-1 pt-2 w-40"
+                        htmlFor="occupation "
+                      >
+                        Occupation
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="occupation "
+                        name="occupation "
+                        autoComplete="off"
+                        placeholder="Occupation"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="occupation" />
+                      </span>
+                    </div>
 
-            //   ) : (
-            //     <React.Fragment>
-            //       <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            //         <Box sx={{ flex: "1 1 auto" }} />
-            //         {activeStep !== steps.length &&
-            //           (completed[activeStep] ? (
-            //             <p>Already completed</p>
-            //           ) : (
-            //             <Button onClick={handleComplete}>
-            //               {completedSteps() === totalSteps() - 1
-            //                 ? "Finish"
-            //                 : "Next"}
-            //             </Button>
-            //           ))}
-            //       </Box>
-            //     </React.Fragment>
-          )}
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label
+                        className="flex w-40 px-1 pt-2"
+                        htmlFor="category"
+                      >
+                        Category
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="category"
+                        name="category"
+                        autoComplete="off"
+                        placeholder="category"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="category" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label
+                        className="flex w-40 px-1 pt-2"
+                        htmlFor="experience"
+                      >
+                        Experience
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="experience"
+                        name="experience"
+                        autoComplete="off"
+                        placeholder="experience"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="experience" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="exper">
+                        Bar Number
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="barNo"
+                        name="exper"
+                        autoComplete="off"
+                        placeholder="Bar N"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="exper" />
+                      </span>
+                    </div>
+                  </TabPanel>
+                  <TabPanel value={activeStep} index={3}>
+                    {/* <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
+                      <p>
+                        <LockOutlinedIcon />
+                      </p>
+                      <p>Signup</p>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex px-1 pt-2 w-40" htmlFor="username">
+                        Username
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="text"
+                        id="username"
+                        name="username"
+                        autoComplete="off"
+                        placeholder="Username"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="username" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="email">
+                        Email
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="email"
+                        id="email"
+                        name="email"
+                        autoComplete="off"
+                        placeholder="Email"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="email" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label className="flex w-40 px-1 pt-2" htmlFor="password">
+                        Password
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="password"
+                        id="password"
+                        name="password"
+                        autoComplete="off"
+                        placeholder="Password"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="password" />
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                      <label
+                        className="flex w-40 px-1 pt-2"
+                        htmlFor="confirmPassword"
+                      >
+                        Confirm Password
+                      </label>
+                      <Field
+                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        autoComplete="off"
+                        placeholder="Confirm Password"
+                      />
+                      <br></br>
+                      <span className="w-full text-end text-sm px-2 text-red-800">
+                        <ErrorMessage name="confirmPassword" />
+                      </span>
+                    </div> */}
+                  </TabPanel>
+
+                  <div className="w-full py-8 box-border">
+                    {isLastStep ? (
+                      <Button
+                        type="submit"
+                        size={"large"}
+                        fullWidth
+                        // disabled={
+                        //   !(formik.isValid && formik.dirty) ||
+                        //   formik.isSubmitting
+                        //   // completed[activeStep]
+                        // }
+                        variant="contained"
+                        startIcon={
+                          formik.isSubmitting ? (
+                            <CircularProgress
+                              style={{
+                                color: "rgba(0, 0, 0, 0.26)",
+                                width: "1rem",
+                                height: "1rem",
+                              }}
+                            />
+                          ) : (
+                            ""
+                          )
+                        }
+                      >
+                        Submit
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={handleNext}
+                        size="large"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                      >
+                        Next
+                      </Button>
+                    )}
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
         </div>
       </div>
     </div>
