@@ -1,13 +1,14 @@
-const Registeration = require("../controllers/Registeration")
-const Login = require("../controllers/Login")
+const userRegisteration = require("../controllers/userRegisteration")
+const userLogin = require("../controllers/userLogin")
 const SendOtp = require("../controllers/SendOtp")
+const userLogout = require("../controllers/userLogout")
 
 const express = require('express');
 const router = express.Router();
 
-// route.get('/workerregisteration', (req, res) => { res.render('worker_registeration') });
-router.post('/register', Registeration)
-router.post('/login', Login)
+router.post('/register', userRegisteration)
+router.post('/login', userLogin)
 router.post('/send-otp', SendOtp)
+router.get('/logout', userLogout);
 
 module.exports = router;

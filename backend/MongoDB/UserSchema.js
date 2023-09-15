@@ -5,7 +5,10 @@ const USER = new Schema({
     username: {
         type: String
     },
-    firstname: {
+    name: {
+        type: String
+    },
+    password: {
         type: String
     },
     email: {
@@ -28,7 +31,7 @@ const USER = new Schema({
         type: Array
     },
     location: {
-        type: Array
+        type: String
     },
     language: {
         type: Array
@@ -37,7 +40,7 @@ const USER = new Schema({
         type: Number
     },
     rank: {
-        type: number
+        type: Number
     },
     char: {
         type: Array
