@@ -17,4 +17,4 @@ const SendOtp = async (req, res) => {
     }
 }
 
-module.exports = SendOtp;
+module.exports = SendOtp
