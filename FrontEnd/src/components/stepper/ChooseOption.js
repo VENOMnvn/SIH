@@ -22,7 +22,7 @@ const ChooseOption = () => {
       <div className="container px-5 py-24 mx-auto ">
         <div className="  flex flex-wrap w-full mb-20 flex-col items-center text-center">
           <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-            How do you want to use HackerRank?
+            How do you want to use Our Site
           </h1>
           <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">
             We’ll personalize your setup experience accordingly.
