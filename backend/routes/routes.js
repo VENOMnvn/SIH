@@ -11,4 +11,5 @@ router.post('/login', userLogin)
 router.post('/send-otp', SendOtp)
 router.get('/logout', userLogout);
 
+
 module.exports = router;
