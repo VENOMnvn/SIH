@@ -47,7 +47,7 @@ const validate = (values) => {
   return error;
 };
 
-const Signup = () => {
+const Signup = ({handleComplete, completed ,activeStep}) => {
   const { setMessage, setOpenNotifi, backendUrl } =
     useUserAuth();
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ const Signup = () => {
           setOpenNotifi(true);
           onSubmitProps.resetForm();
           onSubmitProps.setSubmitting(false);
-          navigate("/everi");
+          handleComplete();
       })
       .catch(err => {
         setOpenNotifi(false);
@@ -86,7 +86,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full w-full text-base p-2.5">
+    <div className="flex justify-center items-center h-full w-full text-base">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -179,7 +179,7 @@ const Signup = () => {
                   size={"large"}
                   fullWidth
                   disabled={
-                    !(formik.isValid && formik.dirty) || formik.isSubmitting
+                    !(formik.isValid && formik.dirty) || formik.isSubmitting || completed[activeStep]
                   }
                   variant="contained"
                   startIcon={

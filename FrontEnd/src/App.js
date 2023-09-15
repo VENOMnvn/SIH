@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Notifications from "./components/Notifications";
 import { UserAuthProvider } from "./context/userContext";
+import StepperComp from "./components/stepper/Stepper";
 
 const LazySignup = lazy(() => import("./components/signup/Signup"));
 const LazyLogin = lazy(() => import("./components/login/Login"));
@@ -29,6 +30,7 @@ function App() {
               </Suspense>
             }
           />
+          <Route path="/" element={<StepperComp/>}/>
         </Routes>
       </UserAuthProvider>
     </div>
