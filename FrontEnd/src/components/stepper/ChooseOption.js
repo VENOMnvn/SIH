@@ -13,7 +13,9 @@ const ChooseOption = () => {
         navigate('/signup'); // Redirect to the login page if isSelected is false
     }
   };
-  console.log(isSelected)
+//   console.log(isSelected)
+  const divOneClassNames = `p-4 flex border-2 cursor-pointer border-gray-200 border-opacity-50 rounded-lg ${isSelected === true ? 'border-opacity-100 border-sky-600' : ''}`;
+  const divTwoClassNames = `p-4 flex border-2 cursor-pointer border-gray-200 border-opacity-50 rounded-lg ${isSelected === false ? 'border-opacity-100 border-sky-600' : ''}`;
   return (
     
     <section className="text-gray-600 body-font max-w-xl ml-20">
@@ -27,7 +29,7 @@ const ChooseOption = () => {
           </p>
         </div>
         <div className="flex flex-wrap flex-col sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-6 space-y-6">
-          <div className="p-4 flex border-2 cursor-pointer border-gray-200 border-opacity-50  rounded-lg" onClick={() => setIsSelected(true)}>
+          <div className={divOneClassNames} onClick={() => setIsSelected(true)}>
             <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4 flex-shrink-0">
               <svg
                 fill="none"
@@ -51,7 +53,7 @@ const ChooseOption = () => {
               </p>
             </div>
           </div>
-          <div className='p-4 flex border-2 cursor-pointer border-gray-200 border-opacity-50  rounded-lg' onClick={() => setIsSelected(false)}>
+          <div className={divTwoClassNames} onClick={() => setIsSelected(false)}>
             <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4 flex-shrink-0">
               <svg
                 fill="none"
