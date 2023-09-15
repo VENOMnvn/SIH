@@ -34,6 +34,7 @@ const initialValues = {
   category: "",
   experience: "",
   barNo: "",
+  extra:''
 };
 
 const validate = (values) => {
@@ -436,30 +437,30 @@ const StepperComp = () => {
                     </div>
                   </TabPanel>
                   <TabPanel value={activeStep} index={3}>
-                    {/* <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
+                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
                       <p>
                         <LockOutlinedIcon />
                       </p>
                       <p>Signup</p>
                     </div>
                     <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex px-1 pt-2 w-40" htmlFor="username">
-                        Username
+                      <label className="flex px-1 pt-2 w-40" htmlFor="extra">
+                        Extra
                       </label>
                       <Field
                         className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
                         type="text"
-                        id="username"
-                        name="username"
+                        id="extra"
+                        name="extra"
                         autoComplete="off"
-                        placeholder="Username"
+                        placeholder="extra"
                       />
                       <br></br>
                       <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="username" />
+                        <ErrorMessage name="extra" />
                       </span>
                     </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
+                    {/* <div className="flex flex-wrap w-full box-boder md:py-2">
                       <label className="flex w-40 px-1 pt-2" htmlFor="email">
                         Email
                       </label>
