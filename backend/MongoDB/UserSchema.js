@@ -1,48 +1,48 @@
 const { model, Schema } = require("mongoose");
 const mongoose = require('mongoose');
 
-const USER = new Schema({
-    username: {
+const USER = new Schema ({
+    username : {
+        type : String
+    },
+    firstname : {
+        type : String
+    },
+    email :{
         type: String
     },
-    firstname: {
-        type: String
+    number : {
+        type : Number
     },
-    email: {
-        type: String
+    dob : {
+        type : Date
     },
-    number: {
-        type: Number
+    IsServiceProvider : {
+        type : Boolean,
+        default : false
     },
-    dob: {
-        type: Date
+    profession : {
+        type : Object
     },
-    IsServiceProvider: {
-        type: Boolean,
-        default: false
+    history : {
+        type : Array
     },
-    profession: {
-        type: Object
+    location : {
+        type : Array
     },
-    history: {
-        type: Array
+    language : {
+        type : Array
     },
-    location: {
-        type: Array
+    rating : {
+        type : Number
     },
-    language: {
-        type: Array
+    rank : {
+        type : number
     },
-    rating: {
-        type: Number
-    },
-    rank: {
-        type: number
-    },
-    char: {
-        type: Array
+    char : {
+        type :Array
     }
 });
 
-const User = mongoose.model("User", USER);
+const User = mongoose.model("User",USER);
 module.exports = User;
