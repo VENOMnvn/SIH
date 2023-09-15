@@ -1,34 +1,25 @@
 const http = require('http');
 const express = require('express')
 const cors = require('cors');
+const connectdb = require('./config/connectdb.js')
+const routes = require('./routes/routes.js')
 
-const app=express();
+const app = express();
 const port = process.env.PORT || 4004;
 app.use(cors());
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // DataBase Connection
-const my_db = process.env.MONGO_URL || `mongodb+srv://venomnvn:4WiZsBIgRP94yqa8@cluster0.ne2cxnd.mongodb.net/`;    // Connection
-const mongoose = require('mongoose');   // Atlas URL
+connectdb();
 
-mongoose.connect(my_db, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, "connection error:"));
-db.once('open', () => {
-    console.log("\nDB connected\nEnjoy Surfing");
-});
-//
-
- 
-app.get("/",(req,res) => {
+app.get("/", (req, res) => {
     res.send("working");
 })
 
-app.listen(port,()=>{
+app.use('/api', routes);
+
+app.listen(port, () => {
     console.log(`run on the ${port}`);
 })
