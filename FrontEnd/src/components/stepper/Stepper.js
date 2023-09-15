@@ -13,7 +13,7 @@ const steps = [
   "Personal Details",
   "Skill Details",
   "Other Details",
-  "Assignment"
+  "Assignment",
 ];
 
 function TabPanel(props) {
@@ -103,16 +103,32 @@ const StepperComp = () => {
           ))}
         </Stepper>
         <TabPanel value={activeStep} index={0}>
-          <Signup handleComplete={handleComplete} completed={completed} activeStep={activeStep}/>
+          <Signup
+            handleComplete={handleComplete}
+            completed={completed}
+            activeStep={activeStep}
+          />
         </TabPanel>
         <TabPanel value={activeStep} index={1}>
-          <Signup handleComplete={handleComplete} completed={completed} activeStep={activeStep}/>
+          <Signup
+            handleComplete={handleComplete}
+            completed={completed}
+            activeStep={activeStep}
+          />
         </TabPanel>
         <TabPanel value={activeStep} index={2}>
-          <Signup handleComplete={handleComplete} completed={completed} activeStep={activeStep}/>
+          <Signup
+            handleComplete={handleComplete}
+            completed={completed}
+            activeStep={activeStep}
+          />
         </TabPanel>
         <TabPanel value={activeStep} index={3}>
-          <Signup handleComplete={handleComplete} completed={completed} activeStep={activeStep}/>
+          <Signup
+            handleComplete={handleComplete}
+            completed={completed}
+            activeStep={activeStep}
+          />
         </TabPanel>
         <div>
           {allStepsCompleted() && (
@@ -125,23 +141,23 @@ const StepperComp = () => {
                 <Button onClick={handleReset}>Reset</Button>
               </Box>
             </React.Fragment>
-            
-        //   ) : (
-        //     <React.Fragment>
-        //       <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-        //         <Box sx={{ flex: "1 1 auto" }} />
-        //         {activeStep !== steps.length &&
-        //           (completed[activeStep] ? (
-        //             <p>Already completed</p>
-        //           ) : (
-        //             <Button onClick={handleComplete}>
-        //               {completedSteps() === totalSteps() - 1
-        //                 ? "Finish"
-        //                 : "Next"}
-        //             </Button>
-        //           ))}
-        //       </Box>
-        //     </React.Fragment>
+
+            //   ) : (
+            //     <React.Fragment>
+            //       <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            //         <Box sx={{ flex: "1 1 auto" }} />
+            //         {activeStep !== steps.length &&
+            //           (completed[activeStep] ? (
+            //             <p>Already completed</p>
+            //           ) : (
+            //             <Button onClick={handleComplete}>
+            //               {completedSteps() === totalSteps() - 1
+            //                 ? "Finish"
+            //                 : "Next"}
+            //             </Button>
+            //           ))}
+            //       </Box>
+            //     </React.Fragment>
           )}
         </div>
       </div>

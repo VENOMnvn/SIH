@@ -47,9 +47,8 @@ const validate = (values) => {
   return error;
 };
 
-const Signup = ({handleComplete, completed ,activeStep}) => {
-  const { setMessage, setOpenNotifi, backendUrl } =
-    useUserAuth();
+const Signup = ({ handleComplete, completed, activeStep }) => {
+  const { setMessage, setOpenNotifi, backendUrl } = useUserAuth();
   const navigate = useNavigate();
 
   const onSubmit = (values, onSubmitProps) => {
@@ -68,16 +67,17 @@ const Signup = ({handleComplete, completed ,activeStep}) => {
       password: values.password,
     };
 
-    axios.post(`${backendUrl}/user/signup`, data)
+    axios
+      .post(`${backendUrl}/user/signup`, data)
       .then((res) => {
         setOpenNotifi(false);
-          setMessage(["Success", "success"]);
-          setOpenNotifi(true);
-          onSubmitProps.resetForm();
-          onSubmitProps.setSubmitting(false);
-          handleComplete();
+        setMessage(["Success", "success"]);
+        setOpenNotifi(true);
+        onSubmitProps.resetForm();
+        onSubmitProps.setSubmitting(false);
+        handleComplete();
       })
-      .catch(err => {
+      .catch((err) => {
         setOpenNotifi(false);
         setMessage([err?.response?.data?.error || "Unknown error!", "error"]);
         setOpenNotifi(true);
@@ -179,7 +179,9 @@ const Signup = ({handleComplete, completed ,activeStep}) => {
                   size={"large"}
                   fullWidth
                   disabled={
-                    !(formik.isValid && formik.dirty) || formik.isSubmitting || completed[activeStep]
+                    !(formik.isValid && formik.dirty) ||
+                    formik.isSubmitting ||
+                    completed[activeStep]
                   }
                   variant="contained"
                   startIcon={
