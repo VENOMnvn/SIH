@@ -3,9 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import Notifications from "./components/Notifications";
 import { UserAuthProvider } from "./context/userContext";
-import StepperComp from "./components/stepper/Stepper";
+import ChooseOption from "./components/stepper/ChooseOption";
 
 const LazySignup = lazy(() => import("./components/signup/Signup"));
+const LazyStepper = lazy(() => import("./components/stepper/Stepper"));
 const LazyLogin = lazy(() => import("./components/login/Login"));
 
 function App() {
@@ -30,7 +31,15 @@ function App() {
               </Suspense>
             }
           />
-          <Route path="/" element={<StepperComp/>}/>
+          <Route
+            path="stepper"
+            element={
+              <Suspense fallback="Loading...">
+                <LazyStepper />
+              </Suspense>
+            }
+          />
+          <Route path="/" element={<ChooseOption/>}/>
         </Routes>
       </UserAuthProvider>
     </div>
