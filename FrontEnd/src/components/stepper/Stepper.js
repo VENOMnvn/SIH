@@ -33,7 +33,7 @@ const initialValues = {
   category: "",
   experience: "",
   barNo: "",
-  extra:''
+  extra: ''
 };
 
 const validate = (values) => {
@@ -42,6 +42,8 @@ const validate = (values) => {
   let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
   let confirmPasswordRegex =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+  let phone_noRegex = /^[0-9]{10}$/;
+  let dobRegex = /(^0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}$)/;
 
   if (!values.username) {
     error.username = "Required!";
@@ -65,14 +67,21 @@ const validate = (values) => {
   } else if (!confirmPasswordRegex.test(values.confirmPassword)) {
     error.confirmPassword =
       "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+  } else if (values.password !== values.confirmPassword) {
+    error.password = "Password and confirm password must be same";
+    error.confirmPassword = "Password and confirm password must be same";
   }
 
   if (!values.phone_no) {
     error.phone_no = "Required!";
+  } else if (!phone_noRegex.test(values.phone_no)) {
+    error.phone_no = "Phone number must be of 10 digits";
   }
 
   if (!values.dob) {
     error.dob = "Required!";
+  } else if (!dobRegex.test(values.dob)) {
+    error.dob = "Date must be in correct dd/mm/yyyy format";
   }
 
   if (!values.location) {

@@ -15,6 +15,7 @@ const initialValues = {
 
 const validate = (values) => {
   let error = {};
+  let usernameRegex = /^\w{4,}$/;
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
   let confirmPasswordRegex =
@@ -22,6 +23,8 @@ const validate = (values) => {
 
   if (!values.username) {
     error.username = "Required!";
+  } else if (!usernameRegex.test(values.username)) {
+    error.username = "Username must be of 4 or more characters";
   }
 
   if (!values.email) {
@@ -42,6 +45,9 @@ const validate = (values) => {
   } else if (!confirmPasswordRegex.test(values.confirmPassword)) {
     error.confirmPassword =
       "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+  } else if (values.password !== values.confirmPassword) {
+    error.password = "Password and confirm password must be same";
+    error.confirmPassword = "Password and confirm password must be same";
   }
 
   return error;
