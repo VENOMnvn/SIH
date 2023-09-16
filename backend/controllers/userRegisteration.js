@@ -50,7 +50,8 @@ const userRegisteration = async (req, res) => {
                     Experience,
                     BarNumber,
                     Occupation:occupation,
-                    name
+                    name,
+                    Location : location
                 });
 
                 const resByProffesion = await userProfession.save();

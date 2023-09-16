@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 
 
 const PROFESSION = new Schema({
-    userid : String,
+    userid : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    },
     Occupation : String,
     name:String,
     Category : String,
@@ -16,6 +19,10 @@ const PROFESSION = new Schema({
     DateOfPractice : Date,
     Badges : String,
     Tag: Array,
+    Location:{
+        type:String,
+        default:"Agra"
+    },
     NoOfCase: Number,
     IsLegalAdvisor : Boolean,
     RateOfAdvise  : Number,
@@ -23,5 +30,5 @@ const PROFESSION = new Schema({
     History : Array
 })
 
-const ProfessionModel = mongoose.model("proffesion",PROFESSION);
+const ProfessionModel = mongoose.model("proffesions",PROFESSION);
 module.exports = ProfessionModel;

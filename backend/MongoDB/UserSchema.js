@@ -30,7 +30,8 @@ const USER = new Schema ({
         default : false
     },
     professionDetails : {
-        type :String
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "proffesions"
     },
     location: {
         type: String
