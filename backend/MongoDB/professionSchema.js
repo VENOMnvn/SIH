@@ -22,3 +22,6 @@ const PROFESSION = new Schema({
     ContactNumber : Number,
     History : Array
 })
+
+const ProfessionModel = mongoose.model("proffesion",PROFESSION);
+module.exports = ProfessionModel;
