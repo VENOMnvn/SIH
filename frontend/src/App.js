@@ -28,7 +28,7 @@ function App() {
             <Route path="login" element={<Login />} />
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
-          <Route path="/chat" element={<ChatbotBox></ChatbotBox>}></Route>
+          <Route path="chat" element={<ChatbotBox/>}></Route>
         </Routes>
       </UserAuthProvider>
     </div>

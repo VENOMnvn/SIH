@@ -1,0 +1,17 @@
+.chatbot{
+    height:500px
+}
+.typesOfCases{
+  background-color: #F6F8FA;
+  border-radius: 20px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: min-content;
+  padding: 10px;
+  margin: 2px 2px;
+  width: max-content;
+}
+.typesOfCases:hover{
+    background-color: black;
+    color:white;
+}
