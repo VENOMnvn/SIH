@@ -1,20 +1,6 @@
 const { model, Schema } = require("mongoose");
 const mongoose = require('mongoose');
 
-Occupation : 
-Category : 
-Experience : 
-Salary :
-Details : 
-Education: 
-BarNumber :
-DateOfPractice :
-Badges :
-Tag:
-NoOfCase:
-IsLegalAdvisor :  BOOL
-RateOfAdvise  :
-ContactNumber :
 
 
 const PROFESSION = new Schema({
