@@ -1,26 +1,22 @@
 const user = require("../MongoDB/UserSchema");
+const ProfessionModel = require('../MongoDB/professionSchema');
 
 const filterFunction = async (req,res)=>{
-     const {profession,location} = req.body;
+     const {occupation,Location,Category} = req.body;
      try{
-         if(profession && location){
-            const result = await user.find({"profession":profession,"location":location});
-            res.send(result);
-         }
-         else{
-            const result = await user.find({"profession":profession});
-            res.send(result);
-         }
+         const result = await ProfessionModel.find({Category,Location}).populate("userid");
+         res.send({
+         result
+         });
        
      }
      catch(err){
+      console.log(err);
         res.send({
             err,
             result:"Error occured"
         })
-     }
-    
-     
+     }    
 }
 
 module.exports = filterFunction;
