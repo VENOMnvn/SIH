@@ -4,9 +4,14 @@ import { Suspense, lazy } from "react";
 import Notifications from "./components/Notifications";
 import { UserAuthProvider } from "./context/userContext";
 import ChooseOption from "./components/stepper/ChooseOption";
+import NavForLogin from "./components/NavForLogin";
+import StepperComp from "./components/stepper/Stepper";
+import Signup from "./components/signup/Signup";
+import SignupRouter from "./components/SignupRouter";
+import Landingpage from "./components/landing/Landingpage";
+
 
 const LazySignup = lazy(() => import("./components/signup/Signup"));
-const LazyStepper = lazy(() => import("./components/stepper/Stepper"));
 const LazyLogin = lazy(() => import("./components/login/Login"));
 
 function App() {
@@ -31,15 +36,14 @@ function App() {
               </Suspense>
             }
           />
-          <Route
-            path="stepper"
-            element={
-              <Suspense fallback="Loading...">
-                <LazyStepper />
-              </Suspense>
-            }
-          />
-          <Route path="/" element={<ChooseOption/>}/>
+          <Route path="/" element={<NavForLogin/>}>
+              <Route index element={<Landingpage/>}/>
+              <Route path="signup" element={<SignupRouter/>}>
+                <Route index element={<ChooseOption/>}/>
+                <Route path="provider" element={<StepperComp/>}/>
+                <Route path="client" element={<Signup/>}/>
+              </Route>
+          </Route>
         </Routes>
       </UserAuthProvider>
     </div>
