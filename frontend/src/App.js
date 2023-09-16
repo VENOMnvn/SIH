@@ -3,12 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import Notifications from "./components/Notifications";
 import { UserAuthProvider } from "./context/userContext";
 import ChooseOption from "./components/stepper/ChooseOption";
+import Chatbot from "./components/Chatbot";
 import NavForLogin from "./components/NavForLogin";
 import StepperComp from "./components/stepper/Stepper";
 import Signup from "./components/signup/Signup";
 import SignupRouter from "./components/SignupRouter";
 import Landingpage from "./components/landing/Landingpage";
 import Login from "./components/login/Login";
+import ChatbotBox from "./components/ChatBox/chatbot";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             </Route>
             <Route path="login" element={<Login />} />
           </Route>
+          <Route path="chatbot" element={<Chatbot />} />
+          <Route path="/chat" element={<ChatbotBox></ChatbotBox>}></Route>
         </Routes>
       </UserAuthProvider>
     </div>
