@@ -2,9 +2,7 @@ const { model, Schema } = require("mongoose");
 const mongoose = require('mongoose');
 
 const USER = new Schema ({
-    username : {
-        type : String
-    },
+    username : String,
     name: {
         type: String
     },
@@ -25,12 +23,16 @@ const USER = new Schema ({
         default : false
     },
     profession : {
-        type : Object
+        type :String
     },
-    history : {
-        type : Array
+    isProfileComplete : {
+        type:Boolean,
+        default : false
     },
-
+    professionDetails : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "proffesions"
+    },
     location: {
         type: String
     },

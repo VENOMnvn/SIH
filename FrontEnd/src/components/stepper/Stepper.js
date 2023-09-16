@@ -10,8 +10,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { CircularProgress } from "@mui/material";
-import { useNavigate, useNavigation } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const steps = [
   "Personal Details",
@@ -19,7 +18,7 @@ const steps = [
   "Skill Details",
   "Assignment",
 ];
-const categoryOptions = ["Option 1", "Option 2", "Option 3"];
+// const categoryOptions = ["Option 1", "Option 2", "Option 3"];
 
 const initialValues = {
   username: "",
@@ -130,7 +129,7 @@ const StepperComp = () => {
   const [formData, setFormData] = useState(initialValues);
   const [completed, setCompleted] = useState({});
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const totalSteps = () => {
     return steps.length;
@@ -193,11 +192,11 @@ const StepperComp = () => {
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
-            // validate={validate}
+            validate={validate}
           >
             {(formik) => {
               return (
-                <Form className="container h-fit max-w-sm md:max-w-md px-4 sm:px-8 rounded flex flex-col border border-gray-400">
+                <Form className="container h-fit max-w-sm md:max-w-md px-2 sm:px-4 rounded flex flex-col border border-gray-400">
                   <TabPanel value={activeStep} index={0}>
                     <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
                       <p>
@@ -515,7 +514,7 @@ const StepperComp = () => {
                       </span>
                     </div> */}
                   </TabPanel>
-                  <div className="w-full py-8 box-border">
+                  <div className="w-full py-2 box-border">
                     {allStepsCompleted() ? (
                       <React.Fragment>
                         {/* Content for when all steps are completed */}
