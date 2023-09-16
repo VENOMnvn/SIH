@@ -176,7 +176,7 @@ const StepperComp = () => {
     setTimeout(() => {
       onSubmitProps.resetForm();
       onSubmitProps.setSubmitting(false);
-      navigate('/');
+      navigate('/home');
     }, 3000);
   };
 

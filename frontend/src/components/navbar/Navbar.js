@@ -1,317 +1,83 @@
-// import React, { useEffect, useRef, useState } from "react";
-// import navStyle from "./style.module.css";
-// import { Avatar, Drawer } from "@mui/material";
-// import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-// // import appNameImg from "../../static_files/tecktrek.svg";
-// // import coolicon from "../../static_files/coolicon.svg";
-// // import logoutIcon from "../../static_files/logoutIcon.svg";
-// // import crossIcon from "../../static_files/crossIcon.svg";
-// // import avatar1 from "../../static_files/avatar1.svg";
-// // import avatar2 from "../../static_files/avatar2.svg";
-// // import avatar3 from "../../static_files/avatar3.svg";
-// // import avatar4 from "../../static_files/avatar4.svg";
-// // import avatar5 from "../../static_files/avatar5.svg";
-// // import avatar6 from "../../static_files/avatar6.svg";
-// import { useUserAuth } from "../../context/UseUserAuth";
-// // import Prevent from "../Prevent";
-// // import dayjs from "dayjs";
-// import axios from "axios";
-// // var isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
-// // dayjs.extend(isSameOrAfter);
+import React from "react";
+import siteicon from "../../static/siteicon.svg";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
+import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
+import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
+import { Button, Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-// const Navbar = (props) => {
-//   const location = useLocation();
-//   const navigate = useNavigate();
-//   const [openDrawer, setOpenDrawer] = useState(false);
-//   const [isLoading, setIsLoading] = useState(true);
-//   const backgroundBlur = {
-//     background:
-//       "radial-gradient(80.95% 49.95% at 50% 100.57%, #08ac70 0%, rgba(14, 174, 115, 0) 100%)",
-//     filter: "blur(14px)",
-//   };
+const Navbar = () => {
 
-// //   const { accessToken, backendUrl, user, setUser, startDate } = useUserAuth();
+  const navigate = useNavigate();
 
-//   const avatars = [
-//     // { id: 1, img: avatar1 },
-//     // { id: 2, img: avatar2 },
-//     // { id: 3, img: avatar3 },
-//     // { id: 4, img: avatar4 },
-//     // { id: 5, img: avatar5 },
-//     // { id: 6, img: avatar6 },
-//   ];
+  return (
+    <nav className="flex z-1 border-2 border-gray-200 border-opacity-50 box-border p-4 md:px-8 fixed top-0 left-0 right-0 bg-white">
+      <div className="flex w-full">
+        <ul onClick={() => navigate('/')} className="flex items-center justify-between pr-6 cursor-pointer" style={{minWidth:"9.4rem"}}>
+          <li>
+            <img src={siteicon} alt="LeagalServices" width={"33px"}/>
+          </li>
+          <li>
+            <span className="font-bold text-1.4rem">Legal</span>
+            <span className="font-bold text-blue-700 text-1.4rem">Link</span>
+          </li>
+        </ul>
+        <Button
+          sx={{ color: "black" }}
+          endIcon={<ExpandMoreRoundedIcon fontSize="large" />}
+        >
+          English
+        </Button>
+        <ul className="flex items-center justify-between px-6 gap-x-4">
+          <li className="cursor-pointer">Home</li>
+          <li className="cursor-pointer" style={{minWidth:"4rem"}}>Legal aid</li>
+        </ul>
+        <div style={{flex:1}}></div>
+        <div
+          component="form"
+          style={{
+            border: "1.5px solid #cfd1d5",
+            borderRadius: "0.6rem",
+            padding: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: 400,
+          }}
+        >
+          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+            <SearchIcon color="info" />
+          </IconButton>
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search for names, services, titles"
+            inputProps={{ "aria-label": "Search for names, services, titles" }}
+          />
+        </div>
+        <div style={{flex:1}}></div>
+        <ul className="flex gap-4 px-4">
+          <li>
+            <IconButton aria-label="delete">
+              <NotificationsNoneRoundedIcon sx={{ color: "#595a5a" }} />
+            </IconButton>
+          </li>
+          <li>
+            <IconButton aria-label="delete">
+              <ChatBubbleOutlineRoundedIcon sx={{ color: "#595a5a" }} />
+            </IconButton>
+          </li>
+          <li></li>
+        </ul>
+        <div className="flex gap-x-4">
+          <Avatar className="cursor-pointer">L</Avatar>
+          <button style={{ color: "black", background:"rgb(227 232 240)", borderRadius:"0.6rem" , padding:"0 1rem", minWidth:"8rem"}}>Get a match</button>
+        </div>
+      </div>
+      <div className="flex"></div>
+    </nav>
+  );
+};
 
-// //   useEffect(() => {
-// //     try {
-// //       axios
-// //         .get(`${backendUrl}/accounts/api`, {
-// //           headers: {
-// //             Authorization: `Bearer ${accessToken}`,
-// //           },
-// //         })
-// //         .then((res) => {
-// //           setUser(res.data);
-// //           setIsLoading(false);
-// //         })
-// //         .catch((e) => {
-// //           setIsLoading(false);
-// //         });
-// //     } catch (e) {
-// //       setIsLoading(false);
-// //       console.log(e);
-// //       // navigate('/login')
-// //     }
-// //   }, []);
-
-//   const handleClickOpen = () => {
-//     setOpenDrawer(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpenDrawer(false);
-//   };
-
-//   const logout = () => {
-//     localStorage.removeItem("user");
-//     localStorage.removeItem("accessToken");
-//     localStorage.removeItem("token");
-//     navigate("/login");
-//   };
-
-
-
-//     return (
-//       !isLoading && (
-//         <div className={navStyle.outermostDiv}>
-//           <div className={navStyle.navbar} id={"nav"}>
-//             <div className={navStyle.leftDiv}>
-//               <div className={navStyle.appName} onClick={() => navigate("/")}>
-//                 {/* <img src={appNameImg} alt={"TeckTrek"} height="23px"></img> */}
-//               </div>
-//             </div>
-//             <div className={navStyle.rightDiv}>
-//               <div style={{ flex: "1" }} />
-//               <div className={navStyle.navigation}>
-//                 <ul>
-//                   <li>
-//                     <Link
-//                       style={
-//                         (location.pathname.match("/dashboard") ||
-//                           location.pathname.match("/")) &&
-//                         !location.pathname.match("/rules") &&
-//                         !location.pathname.match("/leaderboard")
-//                           ? { borderBottom: "0.6rem solid rgb(34, 139, 34)" }
-//                           : null
-//                       }
-//                       className={navStyle.anchor}
-//                       to="dashboard"
-//                     >
-//                       Dashboard
-//                     </Link>
-//                     <div
-//                       style={
-//                         (location.pathname.match("/dashboard") ||
-//                           location.pathname.match("/")) &&
-//                         !location.pathname.match("/rules") &&
-//                         !location.pathname.match("/leaderboard")
-//                           ? backgroundBlur
-//                           : null
-//                       }
-//                       className={navStyle.backgroundBlur}
-//                     >
-//                       Dashboard
-//                     </div>
-//                   </li>
-//                   <li>
-//                     <Link
-//                       style={
-//                         location.pathname.match("/rules")
-//                           ? { borderBottom: "0.6rem solid rgb(34, 139, 34)" }
-//                           : null
-//                       }
-//                       className={navStyle.anchor}
-//                       to="rules"
-//                     >
-//                       Rules
-//                     </Link>
-//                     <div
-//                       style={
-//                         location.pathname.match("/rules")
-//                           ? backgroundBlur
-//                           : null
-//                       }
-//                       className={navStyle.backgroundBlur}
-//                     >
-//                       Rules
-//                     </div>
-//                   </li>
-//                   <li>
-//                     <Link
-//                       style={
-//                         location.pathname.match("/leaderboard")
-//                           ? { borderBottom: "0.6rem solid rgb(34, 139, 34)" }
-//                           : null
-//                       }
-//                       className={navStyle.anchor}
-//                       to="leaderboard"
-//                     >
-//                       Leaderboard
-//                     </Link>
-//                     <div
-//                       style={
-//                         location.pathname.match("/leaderboard")
-//                           ? backgroundBlur
-//                           : null
-//                       }
-//                       className={navStyle.backgroundBlur}
-//                     >
-//                       Leaderboard
-//                     </div>
-//                   </li>
-//                 </ul>
-//               </div>
-//               <div style={{ flex: "1" }} />
-//               <div className={navStyle.userProfile}>
-//                 {/* <p>{user?.username ? user?.username : "TECH"}</p> */}
-//                 <Avatar
-//                   sx={{
-//                     bgcolor: "grey",
-//                     fontWeight: "bold",
-//                     width: "3.7rem",
-//                     height: "3.rem",
-//                     fontFamily: "Avenir",
-//                     fontSize: "1.4rem",
-//                   }}
-//                   src={
-//                     user?.avatar_no
-//                       ? avatars[user.avatar_no - 1].img
-//                       : avatars[1].img
-//                   }
-//                 ></Avatar>
-//                 <div className={navStyle.icons}>
-//                   <img
-//                     onClick={() => navigate("/login")}
-//                     src={logoutIcon}
-//                     alt="logoutIcon"
-//                   ></img>
-//                 </div>
-//               </div>
-//             </div>
-//             <div className={navStyle.hamburger}>
-//               <img
-//                 onClick={handleClickOpen}
-//                 src={coolicon}
-//                 alt="hamburger"
-//                 width={"20px"}
-//               ></img>
-//             </div>
-//           </div>
-//           <Drawer
-//             className={navStyle.drawerComp}
-//             anchor={"top"}
-//             open={openDrawer}
-//             onClose={handleClose}
-//           >
-//             <>
-//               <div className={navStyle.navbar}>
-//                 <div className={navStyle.leftDivDrawer}>
-//                   <div className={navStyle.userProfileOnPhone}>
-//                     <Avatar
-//                       sx={{
-//                         bgcolor: "grey",
-//                         cursor: "pointer",
-//                         width: "3.8rem",
-//                         height: "3.8rem",
-//                         fontFamily: "Avenir",
-//                         fontSize: "1.4rem",
-//                         fontWeight: "600",
-//                       }}
-//                       src={
-//                         user?.avatar_no
-//                           ? avatars[user.avatar_no - 1].img
-//                           : avatars[1].img
-//                       }
-//                     />
-//                     <p>{user?.username ? user?.username : "TECH"}</p>
-//                   </div>
-//                 </div>
-//                 <div style={{ flex: "1" }} />
-//                 <div className={navStyle.crossIconDrawer}>
-//                   <img
-//                     onClick={handleClose}
-//                     src={crossIcon}
-//                     alt="hamburger"
-//                     width={"13px"}
-//                   ></img>
-//                 </div>
-//               </div>
-//               <div className={navStyle.drawerContent}>
-//                 <ul>
-//                   <li
-//                     style={
-//                       (location.pathname.match("/dashboard") ||
-//                         location.pathname.match("/")) &&
-//                       !location.pathname.match("/rules") &&
-//                       !location.pathname.match("/leaderboard")
-//                         ? {
-//                             background: "#08AC70",
-//                             borderLeft: "8px solid #005435",
-//                           }
-//                         : null
-//                     }
-//                     onClick={() => navigate("/dashboard")}
-//                   >
-//                     Dashboard
-//                   </li>
-//                   <li
-//                     style={
-//                       location.pathname.match("/rules")
-//                         ? {
-//                             background: "#08AC70",
-//                             borderLeft: "8px solid #005435",
-//                           }
-//                         : null
-//                     }
-//                     onClick={() => navigate("/rules")}
-//                   >
-//                     Rules
-//                   </li>
-//                   <li
-//                     style={
-//                       location.pathname.match("/leaderboard")
-//                         ? {
-//                             background: "#08AC70",
-//                             borderLeft: "8px solid #005435",
-//                           }
-//                         : null
-//                     }
-//                     onClick={() => navigate("/leaderboard")}
-//                   >
-//                     Leaderboard
-//                   </li>
-//                   <li onClick={logout}>
-//                     <span>Logout</span>
-//                   </li>
-//                   {/* <li onClick={musicPlayer}>
-//                     {music ? (
-//                       <img src={volume_up} alt="sound" height={"24px"} />
-//                     ) : (
-//                       <img src={mute} alt="sound" height={"20px"} />
-//                     )}
-//                   </li> */}
-//                 </ul>
-//               </div>
-//             </>
-//           </Drawer>
-//           {/* <Prevent> */}
-//             {/* <Outlet /> */}
-//           {/* </Prevent> */}
-//         </div>
-//       )
-//     );
-// };
-
-// export default Navbar;
-
-
-
+export default Navbar;

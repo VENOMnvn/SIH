@@ -11,6 +11,7 @@ import SignupRouter from "./components/SignupRouter";
 import Landingpage from "./components/landing/Landingpage";
 import Login from "./components/login/Login";
 import ChatbotBox from "./components/ChatBox/chatbot";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <UserAuthProvider>
         <Notifications />
         <Routes>
+          <Route path="/home" element={<Navbar/>}/>
           <Route path="/" element={<NavForLogin />}>
             <Route index element={<Landingpage />} />
             <Route path="signup" element={<SignupRouter />}>
