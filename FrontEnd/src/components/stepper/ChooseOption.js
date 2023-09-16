@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import client from "../../static/client.svg";
 import provider from "../../static/provider.svg";
 import backg from "../../static/backg.svg";
@@ -65,6 +65,17 @@ const ChooseOption = () => {
                 <p className=" text-base">Look for legal advice and lawyers</p>
               </div>
             </div>
+            <div className="w-full py-2 box-border">
+                <div className="w-full py-2 px-1 m-0 text-base box-border text-start">
+                  Already have an account?{" "}
+                  <Link
+                    className="underline cursor-pointer text-blue-800"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
+                </div>
+              </div>
           </div>
         </div>
       </div>
