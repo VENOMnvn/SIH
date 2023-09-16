@@ -29,7 +29,6 @@ const ChooseOption = () => {
 
   return (
     <section className="flex box-border w-full min-h-full items-center justify-between">
-      <NavForLogin />
       <div className="flex flex-col items-center min-h-full box-border w-full md:w-1/2 gap-y-6">
         <div className="flex flex-col text-left min-h-full box-border w-4/5 md:w-3/4 sm-w-full gap-y-6">
           <div className="flex w-full flex-col gap-y-6">

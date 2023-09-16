@@ -1,16 +1,17 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { StepLabel } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import {
+  Button,
+  CircularProgress,
+  Typography,
+  LinearProgress,
+} from "@mui/material";
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-// import { useNavigate } from "react-router-dom";
+import backg from "../../static/backg.svg";
+import { useUserAuth } from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   "Personal Details",
@@ -33,7 +34,7 @@ const initialValues = {
   category: "",
   experience: "",
   barNo: "",
-  extra:''
+  extra: "",
 };
 
 const validate = (values) => {
@@ -126,10 +127,11 @@ TabPanel.propTypes = {
 
 const StepperComp = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [formData, setFormData] = useState(initialValues);
   const [completed, setCompleted] = useState({});
+  const [progress, setProgree] = useState(0);
+  const { setMessage, setOpenNotifi } = useUserAuth();
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const totalSteps = () => {
     return steps.length;
@@ -155,8 +157,8 @@ const StepperComp = () => {
     setActiveStep(newActiveStep);
   };
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleComplete = () => {
@@ -166,300 +168,333 @@ const StepperComp = () => {
     handleNext();
   };
 
-  const handleSubmit = (values) => {
-    const newFormData = { ...formData, ...values };
-    setFormData(newFormData);
-    console.log("Complete Data:", formData);
+  const onSubmit = (values, onSubmitProps) => {
+    setMessage(["Submitting", "info"]);
+    setOpenNotifi(true);
+
+    console.log("Complete Data:", values);
+    setTimeout(() => {
+      onSubmitProps.resetForm();
+      onSubmitProps.setSubmitting(false);
+      navigate('/');
+    }, 3000);
   };
 
-  return (
-    <div className="flex justify-center items-center w-full text-base p-2.5 pt-6">
-      <div className="w-full">
-        <Stepper className="py-4" nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step
-              sx={{ flexDirection: "column" }}
-              key={label}
-              completed={completed[index]}
-            >
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                <StepLabel sx={{ flexDirection: "column" }}> {label}</StepLabel>
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        <div className="flex justify-center items-center h-full w-full text-base">
-          <Formik
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validate={validate}
-          >
-            {(formik) => {
-              return (
-                <Form className="container h-fit max-w-sm md:max-w-md px-2 sm:px-4 rounded flex flex-col border border-gray-400">
-                  <TabPanel value={activeStep} index={0}>
-                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
-                      <p>
-                        <LockOutlinedIcon />
-                      </p>
-                      <p>Signup</p>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex px-1 pt-2 w-40" htmlFor="username">
-                        Username
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="username"
-                        name="username"
-                        autoComplete="off"
-                        placeholder="Username"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="username" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex w-40 px-1 pt-2" htmlFor="email">
-                        Email
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="email"
-                        id="email"
-                        name="email"
-                        autoComplete="off"
-                        placeholder="Email"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="email" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex w-40 px-1 pt-2" htmlFor="password">
-                        Password
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="password"
-                        id="password"
-                        name="password"
-                        autoComplete="off"
-                        placeholder="Password"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="password" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label
-                        className="flex w-40 px-1 pt-2"
-                        htmlFor="confirmPassword"
-                      >
-                        Confirm Password
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        autoComplete="off"
-                        placeholder="Confirm Password"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="confirmPassword" />
-                      </span>
-                    </div>
-                  </TabPanel>
-                  <TabPanel value={activeStep} index={1}>
-                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
-                      <p>
-                        <LockOutlinedIcon />
-                      </p>
-                      <p>Signup</p>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex px-1 pt-2 w-40" htmlFor="phone_no">
-                        Phone No.
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="phone_no"
-                        name="phone_no"
-                        autoComplete="off"
-                        placeholder="Phone No."
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="phone_no" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex w-40 px-1 pt-2" htmlFor="dob">
-                        Date Of Birth
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="dob"
-                        name="dob"
-                        autoComplete="off"
-                        placeholder="10/09/2003"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="dob" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex w-40 px-1 pt-2" htmlFor="location">
-                        Location
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="location"
-                        name="location"
-                        autoComplete="off"
-                        placeholder="noida,delhi"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="location" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex w-40 px-1 pt-2" htmlFor="language">
-                        Languages
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="language"
-                        name="language"
-                        autoComplete="off"
-                        placeholder="english,hindi"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="language" />
-                      </span>
-                    </div>
-                  </TabPanel>
-                  <TabPanel value={activeStep} index={2}>
-                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
-                      <p>
-                        <LockOutlinedIcon />
-                      </p>
-                      <p>Signup</p>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label
-                        className="flex px-1 pt-2 w-40"
-                        htmlFor="occupation "
-                      >
-                        Occupation
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="occupation "
-                        name="occupation "
-                        autoComplete="off"
-                        placeholder="Occupation"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="occupation" />
-                      </span>
-                    </div>
+  useEffect(() => {
+    setProgree(activeStep * 25);
+  }, [activeStep]);
 
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex w-40 px-1 pt-2" htmlFor="category">
-                        Category
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="category"
-                        name="category"
-                        autoComplete="off"
-                        placeholder="category"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="category" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label
-                        className="flex w-40 px-1 pt-2"
-                        htmlFor="experience"
-                      >
-                        Experience
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="experience"
-                        name="experience"
-                        autoComplete="off"
-                        placeholder="experience"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="experience" />
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex w-40 px-1 pt-2" htmlFor="exper">
-                        Bar Number
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="barNo"
-                        name="exper"
-                        autoComplete="off"
-                        placeholder="Bar N"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="exper" />
-                      </span>
-                    </div>
-                  </TabPanel>
-                  <TabPanel value={activeStep} index={3}>
-                    <div className="flex flex-col item-center justify-center w-full py-8 font-semibold text-lg">
-                      <p>
-                        <LockOutlinedIcon />
-                      </p>
-                      <p>Signup</p>
-                    </div>
-                    <div className="flex flex-wrap w-full box-boder md:py-2">
-                      <label className="flex px-1 pt-2 w-40" htmlFor="extra">
-                        Extra
-                      </label>
-                      <Field
-                        className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                        type="text"
-                        id="extra"
-                        name="extra"
-                        autoComplete="off"
-                        placeholder="extra"
-                      />
-                      <br></br>
-                      <span className="w-full text-end text-sm px-2 text-red-800">
-                        <ErrorMessage name="extra" />
-                      </span>
-                    </div>
-                    {/* <div className="flex flex-wrap w-full box-boder md:py-2">
+  return (
+    <div className="flex flex-col box-border w-full min-h-full items-center justify-between">
+      <div className="w-full fixed top-16">
+        <LinearProgress
+          sx={{ height: "6px" }}
+          variant="determinate"
+          value={progress}
+        />
+      </div>
+      <div className="flex w-full min-h-full items-center justify-between">
+        <div className="flex flex-col items-center min-h-full box-border w-full md:w-1/2 gap-y-6 pt-20">
+          <div className="flex flex-col text-left min-h-full box-border w-4/5 md:w-3/4 sm-w-full gap-y-6">
+            <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmit}
+              validate={validate}
+            >
+              {(formik) => {
+                console.log(formik.errors);
+                return (
+                  <Form className="flex flex-col w-full gap-y-4">
+                    <TabPanel value={activeStep} index={0}>
+                      <div className="flex w-full flex-col pb-6">
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+                          Tell us about yourself
+                        </h1>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder py-2">
+                        <label
+                          className="flex px-1 pt-2 w-40"
+                          htmlFor="username"
+                        >
+                          Username
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="username"
+                          name="username"
+                          autoComplete="off"
+                          placeholder="Username"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="username" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder py-2">
+                        <label className="flex w-40 px-1 pt-2" htmlFor="email">
+                          Email
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="pb-2 flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="email"
+                          id="email"
+                          name="email"
+                          autoComplete="off"
+                          placeholder="Email"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="email" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder py-2">
+                        <label
+                          className="flex w-40 px-1 pt-2"
+                          htmlFor="password"
+                        >
+                          Password
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="pb-2 flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="password"
+                          id="password"
+                          name="password"
+                          autoComplete="off"
+                          placeholder="Password"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="password" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder py-2">
+                        <label
+                          className="flex w-40 px-1 pt-2"
+                          htmlFor="confirmPassword"
+                        >
+                          Confirm Password
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="password"
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          autoComplete="off"
+                          placeholder="Confirm Password"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="confirmPassword" />
+                        </span>
+                      </div>
+                    </TabPanel>
+                    <TabPanel value={activeStep} index={1}>
+                      <div className="flex w-full flex-col pb-6">
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+                          Tell us about yourself
+                        </h1>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label
+                          className="flex px-1 pt-2 w-40"
+                          htmlFor="phone_no"
+                        >
+                          Phone No.
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="tel"
+                          id="phone_no"
+                          name="phone_no"
+                          autoComplete="off"
+                          placeholder="Phone No."
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="phone_no" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label className="flex w-40 px-1 pt-2" htmlFor="dob">
+                          Date Of Birth
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="date"
+                          id="dob"
+                          name="dob"
+                          autoComplete="off"
+                          placeholder="10/09/2003"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="dob" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label
+                          className="flex w-40 px-1 pt-2"
+                          htmlFor="location"
+                        >
+                          Location
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="location"
+                          name="location"
+                          autoComplete="off"
+                          placeholder="noida,delhi"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="location" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label
+                          className="flex w-40 px-1 pt-2"
+                          htmlFor="language"
+                        >
+                          Languages
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="language"
+                          name="language"
+                          autoComplete="off"
+                          placeholder="english,hindi"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="language" />
+                        </span>
+                      </div>
+                    </TabPanel>
+                    <TabPanel value={activeStep} index={2}>
+                      <div className="flex w-full flex-col pb-6">
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+                          Tell us about yourself
+                        </h1>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label
+                          className="flex px-1 pt-2 w-40"
+                          htmlFor="occupation"
+                        >
+                          Occupation
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="occupation"
+                          name="occupation"
+                          autoComplete="off"
+                          placeholder="Occupation"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="occupation" />
+                        </span>
+                      </div>
+
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label
+                          className="flex w-40 px-1 pt-2"
+                          htmlFor="category"
+                        >
+                          Category
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="category"
+                          name="category"
+                          autoComplete="off"
+                          placeholder="category"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="category" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label
+                          className="flex w-40 px-1 pt-2"
+                          htmlFor="experience"
+                        >
+                          Experience
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="experience"
+                          name="experience"
+                          autoComplete="off"
+                          placeholder="experience"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="experience" />
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label className="flex w-40 px-1 pt-2" htmlFor="exper">
+                          Bar Number
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="barNo"
+                          name="barNo"
+                          autoComplete="off"
+                          placeholder="Bar Number"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="exper" />
+                        </span>
+                      </div>
+                    </TabPanel>
+                    <TabPanel value={activeStep} index={3}>
+                      <div className="flex w-full flex-col pb-6">
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+                          Tell us about yourself
+                        </h1>
+                      </div>
+                      <div className="flex flex-wrap w-full box-boder md:py-2">
+                        <label className="flex px-1 pt-2 w-40" htmlFor="extra">
+                          Extra
+                        </label>
+                        <Field
+                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
+                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
+                          type="text"
+                          id="extra"
+                          name="extra"
+                          autoComplete="off"
+                          placeholder="extra"
+                        />
+                        <br></br>
+                        <span className="w-full text-end text-sm px-2 text-red-800">
+                          <ErrorMessage name="extra" />
+                        </span>
+                      </div>
+                      {/* <div className="flex flex-wrap w-full box-boder md:py-2">
                       <label className="flex w-40 px-1 pt-2" htmlFor="email">
                         Email
                       </label>
@@ -513,36 +548,87 @@ const StepperComp = () => {
                         <ErrorMessage name="confirmPassword" />
                       </span>
                     </div> */}
-                  </TabPanel>
-                  <div className="w-full py-2 box-border">
-                    {allStepsCompleted() ? (
-                      <React.Fragment>
-                        {/* Content for when all steps are completed */}
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <Box
-                          sx={{ display: "flex", flexDirection: "row", pt: 2 }}
-                        >
-                          <Box sx={{ flex: "1 1 auto" }} />
-                          {activeStep !== steps.length &&
-                            (completed[activeStep] ? (
-                              <p>Already completed</p>
-                            ) : completedSteps() === totalSteps() - 1 ? (
-                              <Button type='submit'
-                              >FINISH</Button>
+                    </TabPanel>
+                    <div className="w-full py-2 box-border">
+                      {allStepsCompleted() ? (
+                        <React.Fragment>
+                          Content for when all steps are completed
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              pt: 2,
+                            }}
+                          >
+                            <Button
+                              color="inherit"
+                              startIcon={<ArrowBackIosNewIcon />}
+                              disabled={activeStep === 0}
+                              disableRipple
+                              onClick={handleBack}
+                            >
+                              Back
+                            </Button>
+                            <Box sx={{ flex: "1 1 auto" }} />
+                            {activeStep === totalSteps() - 1 ? (
+                              <Button
+                                sx={{ backgroundColor: "black" }}
+                                variant="contained"
+                                type="submit"
+                                disabled={
+                                  !(formik.isValid && formik.dirty) ||
+                                  formik.isSubmitting
+                                }
+                                startIcon={
+                                  formik.isSubmitting ? (
+                                    <CircularProgress
+                                      style={{
+                                        color: "rgba(0, 0, 0, 0.26)",
+                                        width: "1rem",
+                                        height: "1rem",
+                                      }}
+                                    />
+                                  ) : (
+                                    ""
+                                  )
+                                }
+                              >
+                                Finish
+                              </Button>
                             ) : (
-                              <Button onClick={handleComplete}>NEXT</Button>
-                            ))}
-                        </Box>
-                      </React.Fragment>
-                    )}
-                  </div>
-                </Form>
-              );
-            }}
-          </Formik>
+                              <p
+                                style={{
+                                  backgroundColor: "black",
+                                  color: "white",
+                                  borderRadius: "6px",
+                                  display:"flex",
+                                  alignItems:"center",
+                                  justifyContent:"center",
+                                  padding:"2px 1.6rem",
+                                  cursor:"pointer"
+                                }}
+                                onClick={handleComplete}
+                              >
+                                Continue
+                              </p>
+                            )}
+                          </Box>
+                        </React.Fragment>
+                      )}
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
         </div>
+        <div
+          style={{ backgroundImage: `url(${backg})` }}
+          className="flex flex-col items-center box-border w-1/2 hidden md:block bg-cover bg-center bg-no-repeat h-screen"
+        ></div>
       </div>
     </div>
   );
