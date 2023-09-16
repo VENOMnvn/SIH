@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import client from "../../static/client.svg";
 import provider from "../../static/provider.svg";
 import backg from "../../static/backg.svg";
-import NavForLogin from "../NavForLogin";
 
 const ChooseOption = () => {
   const [isProvider, setIsProvider] = useState(null);
