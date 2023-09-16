@@ -4,6 +4,7 @@ import { Suspense, lazy } from "react";
 import Notifications from "./components/Notifications";
 import { UserAuthProvider } from "./context/userContext";
 import ChooseOption from "./components/stepper/ChooseOption";
+import Chatbot from "./components/Chatbot";
 
 const LazySignup = lazy(() => import("./components/signup/Signup"));
 const LazyStepper = lazy(() => import("./components/stepper/Stepper"));
@@ -39,7 +40,8 @@ function App() {
               </Suspense>
             }
           />
-          <Route path="/" element={<ChooseOption/>}/>
+          <Route path="chatbot" element={<Chatbot />} />
+          <Route path="/" element={<ChooseOption />} />
         </Routes>
       </UserAuthProvider>
     </div>
