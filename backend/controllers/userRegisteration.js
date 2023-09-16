@@ -85,4 +85,17 @@ const userRegisteration = async (req, res) => {
     }
 }
 
-module.exports = userRegisteration;
+
+
+
+const proffesionalData = (req , res)=>{
+    console.log(res.body);
+    res.send("OK")
+}
+
+const profileComplete = (req , res)=>{
+    console.log(res.body);
+    res.send("OK")
+}
+
+module.exports = {userRegisteration,proffesionalData,profileComplete};
