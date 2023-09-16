@@ -25,7 +25,10 @@ const USER = new Schema ({
     profession : {
         type :String
     },
-    isProfileComplete : Boolean,
+    isProfileComplete : {
+        type:Boolean,
+        default : false
+    },
     professionDetails : {
         type :String
     },
