@@ -25,12 +25,12 @@ const USER = new Schema ({
         default : false
     },
     profession : {
-        type : Object
+        type :String
     },
-    history : {
-        type : Array
+    isProfileComplete : Boolean,
+    professionDetails : {
+        type :String
     },
-
     location: {
         type: String
     },

@@ -3,8 +3,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const maxAge = 3 * 24 * 60 * 60;  // 3 days
+
+
 const userRegisteration = async (req, res) => {
-    const { name, number, email, password, location } = req.body
+
+    const { name, number, email, password, location  } = req.body
+    
     const user = await User.findOne({ email: email })
     if (user) {
         res.send({ "status": "failed", "message": "Email already exists" })
@@ -18,7 +22,8 @@ const userRegisteration = async (req, res) => {
                     number: number,
                     email: email,
                     password: hashPassword,
-                    location: location
+                    location: location,
+                    profession:"Lawyer"
                 })
                 const user = await doc.save()
                 const token = jwt.sign({ userID: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '3d' })
@@ -32,7 +37,8 @@ const userRegisteration = async (req, res) => {
             }
 
         } else {
-            res.send({ "status": "failed", "message": "All fields are required" })
+            console.log(name,email,location,password,number);
+            res.send({ "status": "failed", "message": "All fields ar required" })
         }
     }
 }
