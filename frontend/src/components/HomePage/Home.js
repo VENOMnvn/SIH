@@ -11,6 +11,7 @@ import bookings from "./time-outline.png";
 import briefcase from "./briefcase_5548926 1.png";
 import frame from "./Frame 38.png";
 import userimage from "./Frame 26.png";
+import { fontSize } from "@mui/system";
 
 const Home = () => {
   const toggleModal = useRef();
@@ -78,7 +79,15 @@ const Home = () => {
         </div>
       </div>
       <div className="center">
-        <div className="upper"></div>
+        <div className="upper">
+          <div className="wel" style={{ color: "#000000" }}>
+            Welcome
+          </div>
+          <div style={{ fontsize: "1px" }}>
+            you have{" "}
+            <span style={{ color: "#414BF4" }}>1 upcoming session</span>
+          </div>
+        </div>
         <div className="mid"></div>
         <div className="last"></div>
       </div>
