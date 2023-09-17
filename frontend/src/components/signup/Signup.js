@@ -5,6 +5,7 @@ import { useUserAuth } from "../../context/userContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import axios from "axios";
+import backg from "../../static/backg.svg";
 
 const initialValues = {
   username: "",
