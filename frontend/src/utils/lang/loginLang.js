@@ -1,5 +1,5 @@
 const lang = {
-    en: {
+    english: {
         username: "Username",
         password: "Password",
         continue: "Login to Continue",

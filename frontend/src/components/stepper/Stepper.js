@@ -13,129 +13,134 @@ import backg from "../../static/backg.svg";
 import { useUserAuth } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
+import lang from "../../utils/lang/stepperLang";
+import { useSelector } from "react-redux";
 
-const steps = [
-  "Personal Details",
-  "Other Details",
-  "Skill Details",
-  "Assignment",
-];
-// const categoryOptions = ["Option 1", "Option 2", "Option 3"];
-
-const initialValues = {
-  username: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  phone_no: "",
-  dob: "",
-  location: "",
-  language: "",
-  occupation: "",
-  category: "",
-  experience: "",
-  barNo: "",
-  extra: ''
-};
-
-const validate = (values) => {
-  let error = {};
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  let confirmPasswordRegex =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  let phone_noRegex = /^[0-9]{10}$/;
-  let dobRegex = /(^0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}$)/;
-
-  if (!values.username) {
-    error.username = "Required!";
-  }
-
-  if (!values.email) {
-    error.email = "Required!";
-  } else if (!emailRegex.test(values.email)) {
-    error.email = "Invalid email format";
-  }
-
-  if (!values.password) {
-    error.password = "Required!";
-  } else if (!passwordRegex.test(values.password)) {
-    error.password =
-      "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
-  }
-
-  if (!values.confirmPassword) {
-    error.confirmPassword = "Required!";
-  } else if (!confirmPasswordRegex.test(values.confirmPassword)) {
-    error.confirmPassword =
-      "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
-  } else if (values.password !== values.confirmPassword) {
-    error.password = "Password and confirm password must be same";
-    error.confirmPassword = "Password and confirm password must be same";
-  }
-
-  if (!values.phone_no) {
-    error.phone_no = "Required!";
-  } else if (!phone_noRegex.test(values.phone_no)) {
-    error.phone_no = "Phone number must be of 10 digits";
-  }
-
-  if (!values.dob) {
-    error.dob = "Required!";
-  } else if (!dobRegex.test(values.dob)) {
-    error.dob = "Date must be in correct dd/mm/yyyy format";
-  }
-
-  if (!values.location) {
-    error.location = "Required!";
-  }
-
-  if (!values.language) {
-    error.language = "Required!";
-  }
-  if (!values.occupation) {
-    error.occupation = "Required!";
-  }
-  if (!values.category) {
-    error.category = "Required!";
-  }
-  if (!values.experience) {
-    error.experience = "Required!";
-  }
-  if (!values.barNo) {
-    error.barNo = "Required!";
-  }
-
-  return error;
-};
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 const StepperComp = () => {
+  const langKey = useSelector((store) => store.lang.lang);
+  const steps = [
+    "Personal Details",
+    "Other Details",
+    "Skill Details",
+    "Assignment",
+  ];
+  // const categoryOptions = ["Option 1", "Option 2", "Option 3"];
+
+  const initialValues = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone_no: "",
+    dob: "",
+    location: "",
+    language: "",
+    occupation: "",
+    category: "",
+    experience: "",
+    barNo: "",
+    extra: ''
+  };
+
+  const validate = (values) => {
+    let error = {};
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+    let confirmPasswordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+    let phone_noRegex = /^[0-9]{10}$/;
+    let dobRegex = /(^0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}$)/;
+
+    if (!values.username) {
+      error.username = lang[langKey].required
+    }
+
+    if (!values.email) {
+      error.email = lang[langKey].required;
+    } else if (!emailRegex.test(values.email)) {
+      error.email = "Invalid email format";
+    }
+
+    if (!values.password) {
+      error.password = lang[langKey].required;
+    } else if (!passwordRegex.test(values.password)) {
+      error.password =
+        "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+    }
+
+    if (!values.confirmPassword) {
+      error.confirmPassword = lang[langKey].required;
+    } else if (!confirmPasswordRegex.test(values.confirmPassword)) {
+      error.confirmPassword =
+        "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+    } else if (values.password !== values.confirmPassword) {
+      error.password = "Password and confirm password must be same";
+      error.confirmPassword = "Password and confirm password must be same";
+    }
+
+    if (!values.phone_no) {
+      error.phone_no = lang[langKey].required;
+    } else if (!phone_noRegex.test(values.phone_no)) {
+      error.phone_no = "Phone number must be of 10 digits";
+    }
+
+    if (!values.dob) {
+      error.dob = lang[langKey].required;
+    } else if (!dobRegex.test(values.dob)) {
+      error.dob = "Date must be in correct dd/mm/yyyy format";
+    }
+
+    if (!values.location) {
+      error.location = lang[langKey].required;
+    }
+
+    if (!values.language) {
+      error.language = lang[langKey].required;
+    }
+    if (!values.occupation) {
+      error.occupation = lang[langKey].required;
+    }
+    if (!values.category) {
+      error.category = lang[langKey].required;
+    }
+    if (!values.experience) {
+      error.experience = lang[langKey].required;
+    }
+    if (!values.barNo) {
+      error.barNo = lang[langKey].required;
+    }
+
+    return error;
+  };
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`full-width-tabpanel-${index}`}
+        aria-labelledby={`full-width-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+
+
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [progress, setProgree] = useState(0);
@@ -218,7 +223,7 @@ const StepperComp = () => {
                     <TabPanel value={activeStep} index={0}>
                       <div className="flex w-full flex-col pb-6">
                         <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-                          Tell us about yourself
+                          {lang[langKey].tell}
                         </h1>
                       </div>
                       <div className="flex flex-wrap w-full box-boder py-2">
@@ -226,7 +231,7 @@ const StepperComp = () => {
                           className="flex px-1 pt-2 w-40"
                           htmlFor="username"
                         >
-                          Username
+                          {lang[langKey].username}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -235,7 +240,7 @@ const StepperComp = () => {
                           id="username"
                           name="username"
                           autoComplete="off"
-                          placeholder="Username"
+                          placeholder={lang[langKey].username}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -244,7 +249,7 @@ const StepperComp = () => {
                       </div>
                       <div className="flex flex-wrap w-full box-boder py-2">
                         <label className="flex w-40 px-1 pt-2" htmlFor="email">
-                          Email
+                          {lang[langKey].email}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -253,7 +258,7 @@ const StepperComp = () => {
                           id="email"
                           name="email"
                           autoComplete="off"
-                          placeholder="Email"
+                          placeholder={lang[langKey].email}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -265,7 +270,7 @@ const StepperComp = () => {
                           className="flex w-40 px-1 pt-2"
                           htmlFor="password"
                         >
-                          Password
+                          {lang[langKey].password}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -274,7 +279,7 @@ const StepperComp = () => {
                           id="password"
                           name="password"
                           autoComplete="off"
-                          placeholder="Password"
+                          placeholder={lang[langKey].password}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -286,7 +291,7 @@ const StepperComp = () => {
                           className="flex w-40 px-1 pt-2"
                           htmlFor="confirmPassword"
                         >
-                          Confirm Password
+                          {lang[langKey].confirm}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -295,7 +300,7 @@ const StepperComp = () => {
                           id="confirmPassword"
                           name="confirmPassword"
                           autoComplete="off"
-                          placeholder="Confirm Password"
+                          placeholder={lang[langKey].confirm}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -306,7 +311,7 @@ const StepperComp = () => {
                     <TabPanel value={activeStep} index={1}>
                       <div className="flex w-full flex-col pb-6">
                         <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-                          Tell us about yourself
+                          {lang[langKey].tell}
                         </h1>
                       </div>
                       <div className="flex flex-wrap w-full box-boder md:py-2">
@@ -314,7 +319,7 @@ const StepperComp = () => {
                           className="flex px-1 pt-2 w-40"
                           htmlFor="phone_no"
                         >
-                          Phone No.
+                          {lang[langKey].phoneno}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -323,7 +328,7 @@ const StepperComp = () => {
                           id="phone_no"
                           name="phone_no"
                           autoComplete="off"
-                          placeholder="Phone No."
+                          placeholder={lang[langKey].phoneno}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -332,7 +337,7 @@ const StepperComp = () => {
                       </div>
                       <div className="flex flex-wrap w-full box-boder md:py-2">
                         <label className="flex w-40 px-1 pt-2" htmlFor="dob">
-                          Date Of Birth
+                          {lang[langKey].dob}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -353,7 +358,7 @@ const StepperComp = () => {
                           className="flex w-40 px-1 pt-2"
                           htmlFor="location"
                         >
-                          Location
+                          {lang[langKey].location}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -362,7 +367,7 @@ const StepperComp = () => {
                           id="location"
                           name="location"
                           autoComplete="off"
-                          placeholder="noida,delhi"
+                          placeholder="Noida, Delhi"
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -374,7 +379,7 @@ const StepperComp = () => {
                           className="flex w-40 px-1 pt-2"
                           htmlFor="language"
                         >
-                          Languages
+                          {lang[langKey].languages}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -383,7 +388,7 @@ const StepperComp = () => {
                           id="language"
                           name="language"
                           autoComplete="off"
-                          placeholder="english,hindi"
+                          placeholder="English, Hindi"
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -394,7 +399,7 @@ const StepperComp = () => {
                     <TabPanel value={activeStep} index={2}>
                       <div className="flex w-full flex-col pb-6">
                         <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-                          Tell us about yourself
+                          {lang[langKey].tell}
                         </h1>
                       </div>
                       <div className="flex flex-wrap w-full box-boder md:py-2">
@@ -402,7 +407,7 @@ const StepperComp = () => {
                           className="flex px-1 pt-2 w-40"
                           htmlFor="occupation"
                         >
-                          Occupation
+                          {lang[langKey].occupation}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -411,7 +416,7 @@ const StepperComp = () => {
                           id="occupation"
                           name="occupation"
                           autoComplete="off"
-                          placeholder="Occupation"
+                          placeholder={lang[langKey].occupation}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -424,7 +429,7 @@ const StepperComp = () => {
                           className="flex w-40 px-1 pt-2"
                           htmlFor="category"
                         >
-                          Category
+                          {lang[langKey].category}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -433,7 +438,7 @@ const StepperComp = () => {
                           id="category"
                           name="category"
                           autoComplete="off"
-                          placeholder="category"
+                          placeholder={lang[langKey].category}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -445,7 +450,7 @@ const StepperComp = () => {
                           className="flex w-40 px-1 pt-2"
                           htmlFor="experience"
                         >
-                          Experience
+                          {lang[langKey].experience}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -454,7 +459,7 @@ const StepperComp = () => {
                           id="experience"
                           name="experience"
                           autoComplete="off"
-                          placeholder="experience"
+                          placeholder={lang[langKey].experience}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -463,7 +468,7 @@ const StepperComp = () => {
                       </div>
                       <div className="flex flex-wrap w-full box-boder md:py-2">
                         <label className="flex w-40 px-1 pt-2" htmlFor="exper">
-                          Bar Number
+                          {lang[langKey].barno}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -472,7 +477,7 @@ const StepperComp = () => {
                           id="barNo"
                           name="barNo"
                           autoComplete="off"
-                          placeholder="Bar Number"
+                          placeholder={lang[langKey].barno}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -483,12 +488,12 @@ const StepperComp = () => {
                     <TabPanel value={activeStep} index={3}>
                       <div className="flex w-full flex-col pb-6">
                         <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-                          Tell us about yourself
+                          {lang[langKey].tell}
                         </h1>
                       </div>
                       <div className="flex flex-wrap w-full box-boder md:py-2">
                         <label className="flex px-1 pt-2 w-40" htmlFor="extra">
-                          Extra
+                          {lang[langKey].extra}
                         </label>
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -497,7 +502,7 @@ const StepperComp = () => {
                           id="extra"
                           name="extra"
                           autoComplete="off"
-                          placeholder="extra"
+                          placeholder={lang[langKey].barno}
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -580,7 +585,7 @@ const StepperComp = () => {
                               disableRipple
                               onClick={handleBack}
                             >
-                              Back
+                              {lang[langKey].back}
                             </Button>
                             <Box sx={{ flex: "1 1 auto" }} />
                             {activeStep === totalSteps() - 1 ? (
@@ -614,15 +619,15 @@ const StepperComp = () => {
                                   backgroundColor: "black",
                                   color: "white",
                                   borderRadius: "6px",
-                                  display:"flex",
-                                  alignItems:"center",
-                                  justifyContent:"center",
-                                  padding:"2px 1.6rem",
-                                  cursor:"pointer"
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  padding: "2px 1.6rem",
+                                  cursor: "pointer"
                                 }}
                                 onClick={handleComplete}
                               >
-                                Continue
+                                {lang[langKey].continue}
                               </p>
                             )}
                           </Box>
