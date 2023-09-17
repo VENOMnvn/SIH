@@ -201,7 +201,7 @@ const StepperComp = () => {
 
   return (
     <div className="flex flex-col box-border w-full min-h-full items-center justify-between">
-      <div className="w-full fixed top-16">
+      <div className="w-full fixed top-0">
         <LinearProgress
           sx={{ height: "6px" }}
           variant="determinate"

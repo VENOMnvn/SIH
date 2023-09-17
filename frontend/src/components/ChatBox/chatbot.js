@@ -131,7 +131,7 @@ const ChatbotBox = (params) => {
   //   }
   //   if(Stage >= 4){
   //     msgContent = "Please Wait..."
-  //     params.idea();
+      
   //   }
 
   //   setTimeout(()=>{
@@ -143,6 +143,9 @@ const ChatbotBox = (params) => {
   // }
 
   const submitMsg = () => {
+    if(submitBtn.current.value == "Yes" && Stage == 5){
+      params.idea();
+    }
     setMsgAry([...msgAry, { sender: "user", msg: submitBtn.current.value }]);
     setStage(Stage + 1);
     setReplyTurn(!replyTurn);

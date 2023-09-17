@@ -27,7 +27,7 @@ function App() {
 
   useEffect(()=>{
     console.log(location);
-    if(location.pathname == '/signup' || location.pathname == '/login'){
+    if(location.pathname.includes('/signup')  || location.pathname.includes('/login') ){
       setShow(false); 
     }
     else{
