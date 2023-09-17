@@ -1,4 +1,3 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { CircularProgress, Button } from "@mui/material";
 import React from "react";
 import { useUserAuth } from "../../context/userContext";
@@ -6,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import backg from "../../static/backg.svg";
 import axios from "axios";
-import backg from "../../static/backg.svg";
 
 const initialValues = {
   username: "",
