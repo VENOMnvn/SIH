@@ -15,21 +15,35 @@ import Navbar from "./components/navbar/Navbar";
 import Profile from "./components/profile/Profile";
 import Footer from "./components/footer/Footer";
 import Home from "./components/HomePage/Home";
-import MyForm from "./components/form/Form";
-import { useState } from "react";
+import MyForm from './components/form/Form';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { setNestedObjectValues } from "formik";
 
 function App() {
+
+  const location = useLocation();
+  const [canShow,setShow] = useState(true);
+
+  useEffect(()=>{
+    console.log(location);
+    if(location.pathname == '/signup' || location.pathname == '/login'){
+      setShow(false); 
+    }
+    else{
+      setShow(true);
+    }
+  },[location])
 
 
   return (
     <div className="App">
-      <Navbar></Navbar>
+      {canShow && <Navbar></Navbar>}
+        
       <UserAuthProvider>
         <Notifications />
         <Routes>
-  
             {/* <Route index element={<ChooseOption s/>} /> */}
-        
           <Route path="/profile" element={<Profile></Profile>}></Route>
           <Route path="myForm" element={<MyForm/>}></Route>
           <Route path="/">
@@ -43,10 +57,11 @@ function App() {
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
           <Route path="chat" element={<ChatbotBox/>}></Route>
-         
+          
         </Routes>
       </UserAuthProvider>
-      <Footer></Footer>
+      {canShow && <Footer></Footer>}
+      
     </div>
   );
 }

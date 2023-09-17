@@ -11,7 +11,7 @@ const PROFESSION = new Schema({
     Occupation : String,
     name:String,
     Category : String,
-    Experience : String,
+    Experience : Array,
     Salary : Number,
     Details : String,
     Education: String,
@@ -20,14 +20,47 @@ const PROFESSION = new Schema({
     Badges : String,
     Tag: Array,
     Location:{
-        type:String,
-        default:"Agra"
+        type:String
     },
     NoOfCase: Number,
     IsLegalAdvisor : Boolean,
     RateOfAdvise  : Number,
     ContactNumber : Number,
-    History : Array
+    History : Array,
+    adharNo : Number,
+    panNo: Number,
+    licenseNo: Number,
+    barCouncilNo: Number,
+    officeAddress: Number,
+    specilization:String,
+    ahdharimage : {
+        type : Object,
+        default:{
+            public_id :"",
+            url : ""
+        }
+    },
+    panImage : {
+        type : Object,
+        default:{
+            public_id :"",
+            url : ""
+        }
+    },
+    licenseImage :{
+        type : Object,
+        default:{
+            public_id :"",
+            url : ""
+        }
+    },
+    certificateImage : {
+        type : Object,
+        default:{
+            public_id :"",
+            url : ""
+        }
+    }
 })
 
 const ProfessionModel = mongoose.model("proffesions",PROFESSION);

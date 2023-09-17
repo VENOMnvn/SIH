@@ -100,14 +100,13 @@ const userRegisteration = async (req, res) => {
 
 const addDetails = async (req, res) => {
   const { adharNo, panNo, licenseNo, barCouncilNo, officeAddress } = req.body;
-
   console.log("Aadhar No:", adharNo);
   console.log("Pan No:", panNo);
   console.log("License No:", licenseNo);
   console.log("Bar Council No:", barCouncilNo);
   console.log("Office Address:", officeAddress);
-
   res.send("OK");
+
 };
 
 const uploadDocs = async (req, res) => {
@@ -142,7 +141,13 @@ const uploadDocs = async (req, res) => {
       educationalCertificateResultUri.content
     );
 
-    res.send("OK");
+    res.send({
+      mycloudAdhar,
+      mycloudPan,
+      mycloudLicense,
+      mycloudCertificate
+    });
+
   } catch (error) {
     console.error("Error uploading files:", error);
     res.status(500).json({ error: "Error uploading files" });
@@ -151,18 +156,44 @@ const uploadDocs = async (req, res) => {
 
 const addExperience = (req, res) => {
   const submittedData = req.body;
-
   console.log("Received data on the server:", submittedData);
-
   res.json({ message: "Data received successfully on the server." });
 };
+
+
 const proffesionalData = (req, res) => {
   console.log(res.body);
   res.send("OK");
 };
-const profileComplete = (req, res) => {
-  console.log(res.body);
-  res.send("OK");
+
+
+const profileComplete = async (req, res) => {
+  console.log(req.body);
+
+  console.log("RUn");
+
+  const {adharNo,
+    panNo,
+    licenseNo,
+    barCouncilNo,
+    officeAddress,
+    user_id ,
+    specilization,
+    experiences
+  } = req.body;
+
+   const result = await ProfessionModel.findByIdAndUpdate(user_id,{
+    adharNo,
+    panNo,
+    licenseNo,
+    barCouncilNo,
+    officeAddress,
+    specilization,
+    Experience:experiences
+    });
+
+    console.log(result);
+    res.send("OK");
 };
 
 module.exports = {

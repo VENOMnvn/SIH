@@ -34,9 +34,9 @@ router.post(
   ]),
   uploadDocs
 );
+
+
 router.post("/addExperience", addExperience);
-
-
-router.post("/profileComplete", profileComplete);
+router.post("/proffesionalData", profileComplete);
 
 module.exports = router;
