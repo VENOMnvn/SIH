@@ -88,7 +88,15 @@ const Home = () => {
  
 </div>
     </div>
-    <div className="center"></div>
+    <div className="center">
+      <div className="upper">
+
+      </div>
+      <div className="mid">
+
+      </div>
+      <div className="last"></div>
+    </div>
     <div className="right">
       <div className="chatboxtitle"><img src={chatbot} /> Gobot</div>
       <ChatbotBox idea={togglingModal}></ChatbotBox></div>

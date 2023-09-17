@@ -14,11 +14,11 @@ border:1px solid black;
 .img{
     margin-left: 20%;
     margin-right: 0;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
 }
 .user{
-    margin-top:15px;
+    margin-top:10px;
     /* font-size:13px; */
     display: flex;
     flex-direction: column;
@@ -41,10 +41,11 @@ color: black;
     font-size: 9px;
 }
 .homelogo{
-    margin-top: 35px;
+    margin-top: 40px;
     display: flex;
     gap:10px;
     margin-left: 20%;
 }
 .name{
+    color: rgb(10, 9, 9);
 }
