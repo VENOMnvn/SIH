@@ -4,7 +4,7 @@ import chatbotsvg from "./chatbot.svg";
 import { useRef, useState ,useEffect } from "react";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 
-const ChatbotBox = () => {
+const ChatbotBox = (params) => {
 
   const submitBtn = useRef();
   const navigate = useNavigate();
@@ -29,8 +29,7 @@ const ChatbotBox = () => {
     }
     if(Stage >= 4){
       msgContent = "Please Wait..."
-      navigate('/')
-      
+      params.idea();
     }
 
     setTimeout(()=>{
@@ -59,10 +58,11 @@ const ChatbotBox = () => {
     }
   },[msgAry]);
 
+  
+
   return (
 
-    <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden h-[100vh] m-auto">
-   
+    <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden h-full m-auto">
       <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
         {msgAry.map((msg) =>
           msg.sender == "bot" ? (
@@ -115,6 +115,7 @@ const ChatbotBox = () => {
           type="text"
           placeholder="Type your message…"
           ref={submitBtn}
+          onKeyDown={(res)=> res.code == "Enter"? submitMsg() :""}
         />
 
         <div onClick={submitMsg}>

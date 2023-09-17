@@ -14,18 +14,24 @@ import ChatbotBox from "./components/ChatBox/chatbot";
 import Navbar from "./components/navbar/Navbar";   
 import Profile from "./components/profile/Profile";
 import Footer from "./components/footer/Footer";
+import Home from "./components/HomePage/Home";
+import { useState } from "react";
 
 function App() {
+
+
   return (
     <div className="App">
+      <Navbar></Navbar>
       <UserAuthProvider>
         <Notifications />
         <Routes>
-          <Route path="home" element={<Profile/>}>
-            {/* <Route index element={<ChooseOption />} /> */}
-          </Route>
-          <Route path="/" element={<NavForLogin />}>
-            <Route index element={<Landingpage />} />
+  
+            {/* <Route index element={<ChooseOption s/>} /> */}
+        
+          <Route path="/profile" element={<Profile></Profile>}></Route>
+          <Route path="/">
+            <Route index element={<Home/>} />
             <Route path="signup" element={<SignupRouter />}>
               <Route index element={<ChooseOption />} />
               <Route path="provider" element={<StepperComp />} />
@@ -35,9 +41,9 @@ function App() {
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
           <Route path="chat" element={<ChatbotBox/>}></Route>
-          <Route path="/footer" element ={<Footer/>}/>
         </Routes>
       </UserAuthProvider>
+      <Footer></Footer>
     </div>
   );
 }
