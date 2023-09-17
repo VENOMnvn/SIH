@@ -38,7 +38,7 @@ const lang = {
         extra: "अतिरिक्त",
         finish: "समाप्त",
         back: "पीछे जाएं",
-        continue: "जारी रखें",
+        continue: "आगे जाएं",
         signup: "साइन अप करें",
     },
     bengali: {
@@ -83,7 +83,7 @@ const lang = {
         continue: "தொடர்க",
         signup: "பதிவு செய்க"
     },
-    telegu: {
+    telugu: {
         tell: "మీ గురిపరిచయం చెప్పండి",
         username: "యూజర్ పేరు",
         email: "ఇమెయిల్",
