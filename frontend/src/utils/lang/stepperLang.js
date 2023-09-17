@@ -1,5 +1,5 @@
 const lang = {
-    en: {
+    english: {
         tell: "Tell us about yourself",
         username: "Username",
         email: "Email",
