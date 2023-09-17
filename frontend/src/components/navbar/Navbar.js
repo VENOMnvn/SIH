@@ -8,13 +8,14 @@ import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneR
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import { Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
   const navigate = useNavigate();
 
   return (
-    <nav className="flex z-1 border-2 border-gray-200 border-opacity-50 box-border p-4 md:px-8 fixed top-0 left-0 right-0 bg-white">
+    <nav className="flex z-1 border-2 border-gray-200 border-opacity-50 box-border p-4 md:px-8  top-0 left-0 right-0 bg-white">
       <div className="flex w-full">
         <ul onClick={() => navigate('/')} className="flex items-center justify-between pr-6 cursor-pointer" style={{minWidth:"9.4rem"}}>
           <li>
@@ -70,10 +71,14 @@ const Navbar = () => {
           </li>
           <li></li>
         </ul>
-        <div className="flex gap-x-4">
+        {
+          true ? <Button><Link to="/signup">Signup</Link></Button> : 
+          <div className="flex gap-x-4">
           <Avatar className="cursor-pointer">L</Avatar>
           <button style={{ color: "black", background:"rgb(227 232 240)", borderRadius:"0.6rem" , padding:"0 1rem", minWidth:"8rem"}}>Get a match</button>
         </div>
+        }
+        
       </div>
       <div className="flex"></div>
     </nav>
