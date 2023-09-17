@@ -49,3 +49,97 @@ color: black;
 .name{
     color: rgb(10, 9, 9);
 }
+.upper{
+    margin-left:-500px;
+    margin-top: 20px;
+    left:10px;
+    /* gap: -1px; */
+
+}
+.wel{
+font-size: 2rem;
+font-weight: 600;
+margin-left:-76px ;
+}
+.session{
+    font-size: .8rem;
+    margin-left: -40px;
+    margin-top: -4px;
+}
+.mid{
+    width: 693px;
+height: 200px;
+top: 409px;
+left: 300px;
+margin-left: 20px;
+margin-top: 20px;
+
+padding: 28px, 6px, 36px, 28px;
+border-radius: 8px;
+background:  #f9f8f8;
+padding-left: 2px;
+;
+}
+.book{
+    margin-left: -172px;
+    color:#000000 ;
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 20px;
+}
+.ses{
+    margin-left: -307px;
+    color: #585858;
+    font-weight: 100;
+    font-size: .8rem;
+
+}
+.button{
+    border:2px solid #414BF4;
+    max-width: 190px;
+    padding: 10px;
+    padding-right: 19px;
+    margin-left: 15px;
+    margin-top: 40px;
+    padding-top: 10px;
+    background-color: #414BF4;
+    color: white;
+    border-radius: .4rem;
+}
+.vector{
+    padding-left: 140px;
+    padding-top: -210px;
+    margin-top: -17px;
+    /* width: 900px; */
+}
+.datas{
+    margin-top: 10px;
+    margin-left: -40px;
+    font-size: .8rem;
+}
+.nam{
+    
+color:#000000;
+size: 18px;
+font-weight: 600;
+gap:4px;
+}
+.lawyer{
+    margin-left: 30px;
+    margin-top: 20px;
+    /* display: flex; */
+}
+.last{
+    margin-top: 50px;
+}
+.datas p{
+    color:
+    #585858;
+}
+.head{
+    margin-left: -400px;
+    font-size: 23px;
+}
+.all{
+    display: flex;
+}
