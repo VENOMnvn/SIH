@@ -40,6 +40,7 @@ const MyForm = () => {
           licenseNo,
           barCouncilNo,
           officeAddress,
+          user_id : '6506f685087d5150aff2b1b6'
         }
       );
 
@@ -144,7 +145,7 @@ const MyForm = () => {
       try {
         const response = await Axios.post(
           "http://localhost:4004/api/proffesionalData",
-          submittedData,
+          {...submittedData,user_id:"6506f685087d5150aff2b1b6"},
         );
         console.log("Response:", response.data);
       } catch (error) {
