@@ -15,6 +15,7 @@ import Navbar from "./components/navbar/Navbar";
 import Profile from "./components/profile/Profile";
 import Footer from "./components/footer/Footer";
 import Home from "./components/HomePage/Home";
+import MyForm from "./components/form/Form";
 import { useState } from "react";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             {/* <Route index element={<ChooseOption s/>} /> */}
         
           <Route path="/profile" element={<Profile></Profile>}></Route>
+          <Route path="myForm" element={<MyForm/>}></Route>
           <Route path="/">
             <Route index element={<Home/>} />
             <Route path="signup" element={<SignupRouter />}>
@@ -41,6 +43,7 @@ function App() {
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
           <Route path="chat" element={<ChatbotBox/>}></Route>
+         
         </Routes>
       </UserAuthProvider>
       <Footer></Footer>
