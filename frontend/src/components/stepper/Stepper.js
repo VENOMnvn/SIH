@@ -337,7 +337,7 @@ const StepperComp = () => {
                         <Field
                           style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
                           className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                          type="date"
+                          type="text"
                           id="dob"
                           name="dob"
                           autoComplete="off"

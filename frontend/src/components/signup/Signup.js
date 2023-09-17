@@ -2,8 +2,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { CircularProgress, Button } from "@mui/material";
 import React from "react";
 import { useUserAuth } from "../../context/userContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import backg from "../../static/backg.svg";
 import axios from "axios";
 
 const initialValues = {
@@ -18,8 +19,7 @@ const validate = (values) => {
   let usernameRegex = /^\w{4,}$/;
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  let confirmPasswordRegex =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+  let confirmPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
   if (!values.username) {
     error.username = "Required!";
@@ -166,10 +166,7 @@ const Signup = () => {
                     </span>
                   </div>
                   <div className="flex flex-wrap w-full box-boder py-2">
-                    <label
-                      className="flex w-40 px-1"
-                      htmlFor="confirmPassword"
-                    >
+                    <label className="flex w-40 px-1" htmlFor="confirmPassword">
                       Confirm Password
                     </label>
                     <Field

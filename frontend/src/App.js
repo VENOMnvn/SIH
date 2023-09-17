@@ -12,6 +12,8 @@ import Landingpage from "./components/landing/Landingpage";
 import Login from "./components/login/Login";
 import ChatbotBox from "./components/ChatBox/chatbot";
 import Navbar from "./components/navbar/Navbar";
+import Dropdown from "./components/dropdown/Dropdown";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
@@ -19,7 +21,10 @@ function App() {
       <UserAuthProvider>
         <Notifications />
         <Routes>
-          <Route path="/home" element={<Navbar/>}/>
+          <Route path="home" element={<Profile/>}>
+            {/* <Route index element={<Dropdown/>}/> */}
+            {/* <Route index element={<ChooseOption />} /> */}
+          </Route>
           <Route path="/" element={<NavForLogin />}>
             <Route index element={<Landingpage />} />
             <Route path="signup" element={<SignupRouter />}>
