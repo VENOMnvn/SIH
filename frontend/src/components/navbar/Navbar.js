@@ -131,7 +131,7 @@ const Navbar = () => {
           <li></li>
         </ul>
         {
-          true ? <Button><Link to="/signup">Signup</Link></Button> :
+          true ? <Button><Link to="/signup">{lang[langKey].signup}</Link></Button> :
             <div className="flex gap-x-4">
               <Avatar className="cursor-pointer">L</Avatar>
               <button style={{ color: "black", background: "rgb(227 232 240)", borderRadius: "0.6rem", padding: "0 1rem", minWidth: "8rem" }}>{lang[langKey].match}</button>
