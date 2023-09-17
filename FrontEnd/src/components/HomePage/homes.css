@@ -1,0 +1,51 @@
+/* .left .box{
+    Width:Hug (192px);
+Height:Hug (396px);
+Top:431px;
+Left:63px;
+Gap:52px;
+border:1px solid black;
+} */
+.data{
+    margin-top: 38px;
+    display: flex;
+    gap:5px;
+}
+.img{
+    margin-left: 20%;
+    margin-right: 0;
+    height: 50px;
+    width: 50px;
+}
+.user{
+    margin-top:10px;
+    /* font-size:13px; */
+    display: flex;
+    flex-direction: column;
+    width: Hug (116px);
+height: Hug (45px);
+gap: 1px;
+/* margin-left: 50px; */
+color: black;
+
+    flex-direction: column;
+}
+.h{
+    color:#414BF4;
+}
+.username{
+    font-size: 14px;
+    color: black;
+}
+.profile{
+    font-size: 9px;
+}
+.homelogo{
+    margin-top: 40px;
+    display: flex;
+    gap:10px;
+    margin-left: 20%;
+}
+.name{
+    color: rgb(10, 9, 9);
+}

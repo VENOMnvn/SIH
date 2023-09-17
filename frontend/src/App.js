@@ -11,18 +11,29 @@ import SignupRouter from "./components/SignupRouter";
 import Landingpage from "./components/landing/Landingpage";
 import Login from "./components/login/Login";
 import ChatbotBox from "./components/ChatBox/chatbot";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";   
+import Profile from "./components/profile/Profile";
 import Footer from "./components/footer/Footer";
+import Home from "./components/HomePage/Home";
+import MyForm from "./components/form/Form";
+import { useState } from "react";
 
 function App() {
+
+
   return (
     <div className="App">
+      <Navbar></Navbar>
       <UserAuthProvider>
         <Notifications />
         <Routes>
-          <Route path="/home" element={<Navbar/>}/>
-          <Route path="/" element={<NavForLogin />}>
-            <Route index element={<Landingpage />} />
+  
+            {/* <Route index element={<ChooseOption s/>} /> */}
+        
+          <Route path="/profile" element={<Profile></Profile>}></Route>
+          <Route path="myForm" element={<MyForm/>}></Route>
+          <Route path="/">
+            <Route index element={<Home/>} />
             <Route path="signup" element={<SignupRouter />}>
               <Route index element={<ChooseOption />} />
               <Route path="provider" element={<StepperComp />} />
@@ -32,9 +43,10 @@ function App() {
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
           <Route path="chat" element={<ChatbotBox/>}></Route>
-          <Route path="/footer" element ={<Footer/>}/>
+         
         </Routes>
       </UserAuthProvider>
+      <Footer></Footer>
     </div>
   );
 }
