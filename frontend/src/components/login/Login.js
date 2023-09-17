@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import axios from "axios";
 import backg from "../../static/backg.svg";
+import { useSelector } from "react-redux";
+import lang from "../../utils/lang/loginLang";
 
 const initialValues = {
   username: "",
@@ -28,6 +30,8 @@ const validate = (values) => {
 const Login = () => {
   const { setMessage, setOpenNotifi, backendUrl, setUser } = useUserAuth();
   const navigate = useNavigate();
+
+  const langKey = useSelector((store) => store.lang.lang);
 
   const onSubmit = (values, onSubmitProps) => {
     setMessage(["Logging in...", "info"]);
@@ -75,12 +79,12 @@ const Login = () => {
                 <Form className="flex flex-col w-full">
                   <div className="flex w-full flex-col pb-6">
                     <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-                      Login to Continue
+                      {lang[langKey].continue}
                     </h1>
                   </div>
                   <div className="flex flex-wrap w-full box-boder md:py-2">
                     <label className="flex px-1 w-40" htmlFor="username">
-                      Username
+                      {lang[langKey].username}
                     </label>
                     <Field
                       style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -90,7 +94,7 @@ const Login = () => {
                       id="username"
                       name="username"
                       autoComplete="off"
-                      placeholder="Username"
+                      placeholder={lang[langKey].username}
                     />
                     <br></br>
                     <span className="w-full text-end text-sm px-2 text-red-800">
@@ -99,7 +103,7 @@ const Login = () => {
                   </div>
                   <div className="flex flex-wrap w-full box-boder md:py-2">
                     <label className="flex w-40 px-1" htmlFor="password">
-                      Password
+                      {lang[langKey].password}
                     </label>
                     <Field
                       style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -108,7 +112,7 @@ const Login = () => {
                       id="password"
                       name="password"
                       autoComplete="off"
-                      placeholder="Password"
+                      placeholder={lang[langKey].password}
                     />
                     <br></br>
                     <span className="w-full text-end text-sm px-2 text-red-800">
@@ -138,17 +142,17 @@ const Login = () => {
                         )
                       }
                     >
-                      Login
+                      {lang[langKey].login}
                     </Button>
                   </div>
                   <div className="w-full py-2 box-border">
                     <div className="w-full py-2 px-1 m-0 text-base box-border text-start">
-                      Don't have an account?{" "}
+                      {lang[langKey].noaccount}{" "}
                       <Link
                         className="underline cursor-pointer text-blue-800"
                         to="/signup"
                       >
-                        Signup
+                        {lang[langKey].signup}
                       </Link>
                     </div>
                   </div>

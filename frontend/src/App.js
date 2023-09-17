@@ -12,8 +12,8 @@ import Landingpage from "./components/landing/Landingpage";
 import Login from "./components/login/Login";
 import ChatbotBox from "./components/ChatBox/chatbot";
 import Navbar from "./components/navbar/Navbar";
-import Dropdown from "./components/dropdown/Dropdown";
 import Profile from "./components/profile/Profile";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
@@ -22,7 +22,6 @@ function App() {
         <Notifications />
         <Routes>
           <Route path="home" element={<Profile/>}>
-            {/* <Route index element={<Dropdown/>}/> */}
             {/* <Route index element={<ChooseOption />} /> */}
           </Route>
           <Route path="/" element={<NavForLogin />}>
@@ -36,6 +35,7 @@ function App() {
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
           <Route path="chat" element={<ChatbotBox/>}></Route>
+          <Route path="/footer" element ={<Footer/>}/>
         </Routes>
       </UserAuthProvider>
     </div>
