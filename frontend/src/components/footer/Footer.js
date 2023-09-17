@@ -1,20 +1,23 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import lang from "../../utils/lang/footerLang";
 
 export default function Footer() {
+  const langKey = useSelector((store) => store.lang.lang);
   return (
     <>
       <footer className="relative bg-gray-300 pt-9 pb-6 mt-56">
-        
+
 
 
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
             <div className="w-full lg:w-6/12 px-4">
               <h4 className="text-3xl font-semibold">
-                Let's keep in touch!
+                {lang[langKey].touch}
               </h4>
               <h5 className="text-lg mt-0 mb-2 text-gray-700">
-                Find us on any of these platforms, we respond 1-2 business days.
+                {lang[langKey].find}
               </h5>
               <div className="mt-6">
                 <button
@@ -47,27 +50,27 @@ export default function Footer() {
               <div className="flex flex-wrap items-top mb-6">
                 <div className="w-full lg:w-4/12 px-4 ml-auto">
                   <span className="block uppercase text-gray-600 text-sm font-semibold mb-2">
-                    Useful Links
+                    {lang[langKey].useful}
                   </span>
                   <ul className="list-unstyled">
                     <li>
                       <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                         href="https://www.creative-tim.com/presentation">About Us
+                        href="https://www.creative-tim.com/presentation">{lang[langKey].aboutus}
                       </a>
                     </li>
                     <li>
                       <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                         href="https://blog.creative-tim.com">Blog
+                        href="https://blog.creative-tim.com">{lang[langKey].blog}
                       </a>
                     </li>
                     <li>
                       <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                         href="https://www.github.com/creativetimofficial">Github
+                        href="https://www.github.com/creativetimofficial">{lang[langKey].github}
                       </a>
                     </li>
                     <li>
                       <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                         href="https://www.creative-tim.com/bootstrap-themes/free">Free Products
+                        href="https://www.creative-tim.com/bootstrap-themes/free">{lang[langKey].free}
                       </a>
                     </li>
 
@@ -75,27 +78,27 @@ export default function Footer() {
                 </div>
                 <div className="w-full lg:w-4/12 px-4">
                   <span className="block uppercase text-gray-600 text-sm font-semibold mb-2">
-                    Other Resources
+                    {lang[langKey].other}
                   </span>
                   <ul className="list-unstyled">
                     <li>
                       <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                      href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md">MIT License
-                    </a>
-                    </li>
-                    <li>
-                      <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                         href="https://creative-tim.com/terms">Terms & Conditions
+                        href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md">{lang[langKey].mit}
                       </a>
                     </li>
                     <li>
                       <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                         href="https://creative-tim.com/privacy">Privacy Policy
+                        href="https://creative-tim.com/terms">{lang[langKey].terms}
                       </a>
                     </li>
                     <li>
                       <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                         href="https://creative-tim.com/contact-us">Contact Us
+                        href="https://creative-tim.com/privacy">{lang[langKey].privacy}
+                      </a>
+                    </li>
+                    <li>
+                      <a className="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+                        href="https://creative-tim.com/contact-us">{lang[langKey].contact}
                       </a>
                     </li>
                   </ul>
@@ -108,7 +111,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-gray-600 font-semibold py-1">
-                Copyright © {new Date().getFullYear()}{" "}Tailwind Starter Kit by{" "}
+                {lang[langKey].copyright}
                 <a
                   href="https://www.creative-tim.com"
                   className="text-gray-600 hover:text-gray-900"
