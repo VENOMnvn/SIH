@@ -11,7 +11,7 @@ import SignupRouter from "./components/SignupRouter";
 import Landingpage from "./components/landing/Landingpage";
 import Login from "./components/login/Login";
 import ChatbotBox from "./components/ChatBox/chatbot";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";   
 import Profile from "./components/profile/Profile";
 import Footer from "./components/footer/Footer";
 
