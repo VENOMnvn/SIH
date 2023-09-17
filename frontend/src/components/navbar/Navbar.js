@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="flex w-full">
         <ul onClick={() => navigate('/')} className="flex items-center justify-between pr-6 cursor-pointer" style={{minWidth:"9.4rem"}}>
           <li>
-            <img src={siteicon} alt="LeagalServices" width={"33px"}/>
+            <img src={siteicon} alt="LegalServices" width={"33px"}/>
           </li>
           <li>
             <span className="font-bold text-1.4rem">Legal</span>
