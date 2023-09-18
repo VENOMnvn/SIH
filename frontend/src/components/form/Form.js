@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState } from "react";
 import { Stepper, Step, Typography } from "@material-tailwind/react";
 import {
@@ -5,17 +6,24 @@ import {
   SparklesIcon,
   CloudArrowUpIcon,
 } from "@heroicons/react/24/outline";
+=======
 import React, { useEffect, useState } from "react";
+>>>>>>> Stashed changes
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import ImageIcon from "@mui/icons-material/Image";
 import Axios from "axios";
+<<<<<<< Updated upstream
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+=======
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+
+>>>>>>> Stashed changes
 
 const MyForm = () => {
   const [activeStep, setActiveStep] = useState(0);
