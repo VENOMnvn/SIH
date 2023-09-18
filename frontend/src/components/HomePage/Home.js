@@ -12,7 +12,6 @@ import frame from "./Frame 38.png";
 import userimage from "./Frame 26.png";
 import vector from "./Vector.png";
 import lawyer from "./Rectangle 19.png";
-import { useSelector } from "react-redux";
 import { useSelector ,useDispatch} from "react-redux";
 import lang from "../../utils/lang/homeLang";
 import Button from "@mui/material/Button";
@@ -159,7 +158,6 @@ const Home = () => {
               <img src={userimage} alt="userimage"></img>
             </div>
             <div className="user">
-              <div className="username">User Name</div>
               <div className="username"> {user==false?"Signup/Login" : user.name[0].toUpperCase() + user.name.slice(1)} </div>
               <div className="profile">{lang[langKey].view}</div>
             </div>
@@ -190,8 +188,6 @@ const Home = () => {
             </div>
             <div className="name">{lang[langKey].cases}</div>
           </div>
-          <div className="homelogo">
-            <div>
          {
         // <div className="homelogo">
         //   <div>
@@ -207,8 +203,6 @@ const Home = () => {
               <img src={frame} alt="home icon"></img>
             }
             </div>
-            <div className="name">{lang[langKey].more}</div>
-          </div>
             <div className="name">Logout</div>
           </div>)
           }
