@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import client from "../../static/client.svg";
 import provider from "../../static/provider.svg";
-import backg from "../../static/backg.svg";
+import backg from "../../static/backg.png";
 import lang from "../../utils/lang/chooseOptionLang";
 import { useSelector } from "react-redux";
 

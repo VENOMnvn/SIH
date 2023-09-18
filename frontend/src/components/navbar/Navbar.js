@@ -9,15 +9,14 @@ import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineR
 import { Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../../utils/slices/langSlice";
 import lang from "../../utils/lang/navbarLang";
 
 const Navbar = () => {
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -33,17 +32,21 @@ const Navbar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  }
+  };
 
   const handleLanguageChange = (lang) => {
     dispatch(changeLanguage(lang));
     handleClose();
-  }
+  };
 
   return (
     <nav className="flex z-1 border-2 border-gray-200 border-opacity-50 box-border p-4 md:px-8  top-0 left-0 right-0 bg-white">
       <div className="flex w-full">
-        <ul onClick={() => navigate('/')} className="flex items-center justify-between pr-6 cursor-pointer" style={{ minWidth: "9.4rem" }}>
+        <ul
+          onClick={() => navigate("/")}
+          className="flex items-center justify-between pr-6 cursor-pointer"
+          style={{ minWidth: "9.4rem" }}
+        >
           <li>
             <img src={siteicon} alt="LegalServices" width={"33px"} />
           </li>
@@ -53,47 +56,60 @@ const Navbar = () => {
           </li>
         </ul>
 
-
         <div className="flex items-center" style={{ minWidth: "6.5rem" }}>
           <Button
-            id='resources-button'
+            style={{ textTransform: "none" }}
+            id="resources-button"
             onClick={handleClick}
-            aria-controls={open ? 'resorces-menu' : undefined}
-            aria-haspopup='true'
-            aria-expanded={open ? 'true' : undefined}
+            aria-controls={open ? "resorces-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
             endIcon={<KeyboardArrowDownIcon />}
             className="text-black"
           >
             {langKey}
           </Button>
 
-          <Menu id='resources-menu' anchorEl={anchorEl} open={open}
+          <Menu
+            id="resources-menu"
+            anchorEl={anchorEl}
+            open={open}
             MenuListProps={{
-              'aria-labelledby': 'resources-button',
+              "aria-labelledby": "resources-button",
             }}
             onClose={handleClose}
             anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
+              vertical: "bottom",
+              horizontal: "right",
             }}
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right",
             }}
           >
-            <MenuItem onClick={() => handleLanguageChange('english')}>English</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange('hindi')}>Hindi</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange('bengali')}>Bengali</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange('telugu')}>Telegu</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange('tamil')}>Tamil</MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("english")}>
+              English
+            </MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("hindi")}>
+              Hindi
+            </MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("bengali")}>
+              Bengali
+            </MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("telugu")}>
+              Telegu
+            </MenuItem>
+            <MenuItem onClick={() => handleLanguageChange("tamil")}>
+              Tamil
+            </MenuItem>
           </Menu>
         </div>
 
-
-
         <ul className="flex items-center justify-between px-6 gap-x-4">
           <li className="cursor-pointer">{lang[langKey].home}</li>
-          <li className="cursor-pointer" style={{ minWidth: "4rem" }}>{lang[langKey].legal_aid}</li>
+          <li className="cursor-pointer" style={{ minWidth: "4rem" }}>
+            {lang[langKey].legal_aid}
+          </li>
         </ul>
         <div style={{ flex: 1 }}></div>
         <div
@@ -130,14 +146,26 @@ const Navbar = () => {
           </li>
           <li></li>
         </ul>
-        {
-          useSelector(state=>state.user.user == false) ? <Button><Link to="/signup">{lang[langKey].signup}</Link></Button> :
-            <div className="flex gap-x-4">
-              <Avatar className="cursor-pointer">L</Avatar>
-              <button style={{ color: "black", background: "rgb(227 232 240)", borderRadius: "0.6rem", padding: "0 1rem", minWidth: "8rem" }}>{lang[langKey].match}</button>
-            </div>
-        }
-
+        {useSelector((state) => state?.user?.user === false) ? (
+          <Button>
+            <Link to="/signup">{lang[langKey].signup}</Link>
+          </Button>
+        ) : (
+          <div className="flex gap-x-4">
+            <Avatar className="cursor-pointer">L</Avatar>
+            <button
+              style={{
+                color: "black",
+                background: "rgb(227 232 240)",
+                borderRadius: "0.6rem",
+                padding: "0 1rem",
+                minWidth: "8rem",
+              }}
+            >
+              {lang[langKey].match}
+            </button>
+          </div>
+        )}
       </div>
       <div className="flex"></div>
     </nav>
