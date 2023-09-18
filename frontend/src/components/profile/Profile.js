@@ -8,6 +8,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
+import lang from "../../utils/lang/profileLang"
+import { useSelector } from "react-redux";
 
 const sessions = [
   {
@@ -79,6 +81,8 @@ const Profile = () => {
   const [value, setValue] = React.useState(0);
   const [sessionId, setSessionId] = React.useState(0);
   const [timeId, setTimeId] = React.useState(0);
+
+  const langKey = useSelector((store) => store.lang.lang);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -154,18 +158,18 @@ const Profile = () => {
                   </p>
                 </div>
                 <div className="flex flex-col gap-y-4">
-                  <h1 className="text-2xl">Background</h1>
+                  <h1 className="text-2xl">{lang[langKey].back}</h1>
                   <div className="flex box-border border-2 rounded-lg lg:w-full">
                     <div className="flex w-1/3 text-md p-4">
                       <ul
                         style={{ color: "grey" }}
                         className="flex flex-col gap-y-7 text-[1rem]"
                       >
-                        <li className="pb">Education</li>
-                        <li className="pb">Practice areas</li>
-                        <li className="pb">Location</li>
-                        <li className="pb">Fluent in</li>
-                        <li className="pb">Experience </li>
+                        <li className="pb">{lang[langKey].education}</li>
+                        <li className="pb">{lang[langKey].area}</li>
+                        <li className="pb">{lang[langKey].location}</li>
+                        <li className="pb">{lang[langKey].fluent}</li>
+                        <li className="pb">{lang[langKey].exp} </li>
                       </ul>
                     </div>
                     <div className="flex w-2/3 border-l-2 p-4">
@@ -194,9 +198,9 @@ const Profile = () => {
               <div className="box-border w-auto lg:w-1/2 lg:pl-2">
                 <div className="flex flex-col border-2 rounded-lg p-6 gap-y-4">
                   <div className="flex flex-col items-start">
-                    <p className="font-medium text-lg">Available sessions</p>
+                    <p className="font-medium text-lg">{lang[langKey].av}</p>
                     <p className="text-start" style={{ color: "grey" }}>
-                      Book 1:1 sessions from the options based on your needs
+                      {lang[langKey].book}
                     </p>
                   </div>
                   <div>
@@ -224,7 +228,7 @@ const Profile = () => {
                     </ul>
                   </div>
                   <div className="flex flex-col text-start">
-                    <p className="text-[1rem] py-2">Available time slots</p>
+                    <p className="text-[1rem] py-2">{lang[langKey].time}</p>
                     <div className="border-b-2" />
                     <div>
                       <ul className="flex flex-wrap py-2 gap-4">
@@ -249,7 +253,7 @@ const Profile = () => {
                   </div>
                   <div className="w-full">
                     <Button onClick={handleSubmit} fullWidth size="large" variant="contained">
-                      Book Session
+                      {lang[langKey].session}
                     </Button>
                   </div>
                 </div>
