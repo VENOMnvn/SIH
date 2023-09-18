@@ -5,54 +5,58 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import backg from "../../static/backg.svg";
 import axios from "axios";
+import lang from "../../utils/lang/signupLang";
+import { useSelector } from "react-redux";
 
-const initialValues = {
-  username: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
-
-const validate = (values) => {
-  let error = {};
-  let usernameRegex = /^\w{4,}$/;
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-  let confirmPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-
-  if (!values.username) {
-    error.username = "Required!";
-  } else if (!usernameRegex.test(values.username)) {
-    error.username = "Username must be of 4 or more characters";
-  }
-
-  if (!values.email) {
-    error.email = "Required!";
-  } else if (!emailRegex.test(values.email)) {
-    error.email = "Invalid email format";
-  }
-
-  if (!values.password) {
-    error.password = "Required!";
-  } else if (!passwordRegex.test(values.password)) {
-    error.password =
-      "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
-  }
-
-  if (!values.confirmPassword) {
-    error.confirmPassword = "Required!";
-  } else if (!confirmPasswordRegex.test(values.confirmPassword)) {
-    error.confirmPassword =
-      "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
-  } else if (values.password !== values.confirmPassword) {
-    error.password = "Password and confirm password must be same";
-    error.confirmPassword = "Password and confirm password must be same";
-  }
-
-  return error;
-};
 
 const Signup = () => {
+  const langKey = useSelector((store) => store.lang.lang);
+  const initialValues = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+
+  const validate = (values) => {
+    let error = {};
+    let usernameRegex = /^\w{4,}$/;
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+    let confirmPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+
+    if (!values.username) {
+      error.username = lang[langKey].required
+    } else if (!usernameRegex.test(values.username)) {
+      error.username = "Username must be of 4 or more characters";
+    }
+
+    if (!values.email) {
+      error.email = lang[langKey].required;
+    } else if (!emailRegex.test(values.email)) {
+      error.email = "Invalid email format";
+    }
+
+    if (!values.password) {
+      error.password = lang[langKey].required;
+    } else if (!passwordRegex.test(values.password)) {
+      error.password =
+        "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+    }
+
+    if (!values.confirmPassword) {
+      error.confirmPassword = lang[langKey].required;
+    } else if (!confirmPasswordRegex.test(values.confirmPassword)) {
+      error.confirmPassword =
+        "Min 8 char including at least one uppercase, one lowercase, one digit and may include one special char!";
+    } else if (values.password !== values.confirmPassword) {
+      error.password = "Password and confirm password must be same";
+      error.confirmPassword = "Password and confirm password must be same";
+    }
+
+    return error;
+  };
+
   const { setMessage, setOpenNotifi } = useUserAuth();
   const navigate = useNavigate();
 
@@ -107,12 +111,12 @@ const Signup = () => {
                 <Form className="flex flex-col w-full">
                   <div className="flex w-full flex-col pb-6">
                     <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-                      Tell us about yourself
+                      {lang[langKey].tell}
                     </h1>
                   </div>
                   <div className="flex flex-wrap w-full box-boder py-2">
                     <label className="flex px-1 w-40" htmlFor="username">
-                      Username
+                      {lang[langKey].username}
                     </label>
                     <Field
                       style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -121,7 +125,7 @@ const Signup = () => {
                       id="username"
                       name="username"
                       autoComplete="off"
-                      placeholder="Username"
+                      placeholder={lang[langKey].username}
                     />
                     <br></br>
                     <span className="w-full text-end text-sm px-2 text-red-800">
@@ -130,7 +134,7 @@ const Signup = () => {
                   </div>
                   <div className="flex flex-wrap w-full box-boder py-2">
                     <label className="flex w-40 px-1" htmlFor="email">
-                      Email
+                      {lang[langKey].email}
                     </label>
                     <Field
                       style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -139,7 +143,7 @@ const Signup = () => {
                       id="email"
                       name="email"
                       autoComplete="off"
-                      placeholder="Email"
+                      placeholder={lang[langKey].email}
                     />
                     <br></br>
                     <span className="w-full text-end text-sm px-2 text-red-800">
@@ -148,7 +152,7 @@ const Signup = () => {
                   </div>
                   <div className="flex flex-wrap w-full box-boder py-2">
                     <label className="flex w-40 px-1" htmlFor="password">
-                      Password
+                      {lang[langKey].password}
                     </label>
                     <Field
                       style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -157,7 +161,7 @@ const Signup = () => {
                       id="password"
                       name="password"
                       autoComplete="off"
-                      placeholder="Password"
+                      placeholder={lang[langKey].password}
                     />
                     <br></br>
                     <span className="w-full text-end text-sm px-2 text-red-800">
@@ -166,7 +170,7 @@ const Signup = () => {
                   </div>
                   <div className="flex flex-wrap w-full box-boder py-2">
                     <label className="flex w-40 px-1" htmlFor="confirmPassword">
-                      Confirm Password
+                      {lang[langKey].confirm}
                     </label>
                     <Field
                       style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
@@ -175,7 +179,7 @@ const Signup = () => {
                       id="confirmPassword"
                       name="confirmPassword"
                       autoComplete="off"
-                      placeholder="Confirm Password"
+                      placeholder={lang[langKey].confirm}
                     />
                     <br></br>
                     <span className="w-full text-end text-sm px-2 text-red-800">
@@ -206,7 +210,7 @@ const Signup = () => {
                         )
                       }
                     >
-                      Signup
+                      {lang[langKey].signup}
                     </Button>
                   </div>
                 </Form>
