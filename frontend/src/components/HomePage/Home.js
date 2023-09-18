@@ -12,6 +12,8 @@ import frame from "./Frame 38.png";
 import userimage from "./Frame 26.png";
 import vector from "./Vector.png";
 import lawyer from "./Rectangle 19.png";
+import lawyer2 from "./Rectangle 25.png"
+import lawyer3 from "./Rectangle 28.png"
 import { useSelector ,useDispatch} from "react-redux";
 import lang from "../../utils/lang/homeLang";
 import Button from "@mui/material/Button";
@@ -240,7 +242,7 @@ const Home = () => {
               </div>
             </div>
             <div className="lawyer">
-              <img src={lawyer} className="image-law" alt="myimg"></img>
+              <img src={lawyer2} className="image-law" alt="myimg"></img>
               <div className="datas">
                 <div className="nam">
                   Jaydee Devine{" "}
@@ -252,7 +254,7 @@ const Home = () => {
               </div>
             </div>
             <div className="lawyer">
-              <img src={lawyer} className="image-law" alt="myimg"></img>
+              <img src={lawyer3} className="image-law" alt="myimg"></img>
               <div className="datas">
                 <div className="nam">
                   Jaydee Devine{" "}
