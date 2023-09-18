@@ -116,7 +116,7 @@ const Profile = () => {
           </div>
           <div className="pl-[14rem] flex flex-col items-start h-[10rem] justify-center">
             <h1 className="text-2xl font-bold">Rashmi Babre</h1>
-            <p className="">$500/hour</p>
+            <p className="">$500/{lang[langKey].hour}</p>
             <p>3.9⭐</p>
           </div>
           <div style={{ flex: 1 }} />
@@ -140,9 +140,9 @@ const Profile = () => {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Overview" {...a11yProps(0)} />
-              <Tab label="Reviews" {...a11yProps(1)} />
-              <Tab label="Fees structure" {...a11yProps(2)} />
+              <Tab label={lang[langKey].overview} {...a11yProps(0)} />
+              <Tab label={lang[langKey].review}{...a11yProps(1)} />
+              <Tab label={lang[langKey].fees} {...a11yProps(2)} />
             </Tabs>
           </div>
           <CustomTabPanel value={value} index={0}>
@@ -166,7 +166,7 @@ const Profile = () => {
                         className="flex flex-col gap-y-7 text-[1rem]"
                       >
                         <li className="pb">{lang[langKey].education}</li>
-                        <li className="pb">{lang[langKey].area}</li>
+                        <li className="pb">{lang[langKey].areas}</li>
                         <li className="pb">{lang[langKey].location}</li>
                         <li className="pb">{lang[langKey].fluent}</li>
                         <li className="pb">{lang[langKey].exp} </li>
