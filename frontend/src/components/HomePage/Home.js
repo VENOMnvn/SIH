@@ -20,7 +20,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { removeUser } from "../../utils/slices/userSlice";
 
 const Home = () => {
-<<<<<<< Updated upstream
   const langKey = useSelector((store) => store.lang.lang);
 
   const dropdown = {
@@ -55,11 +54,9 @@ const Home = () => {
       lang[langKey].serab,
     ],
   };
-=======
 
   const dispatach = useDispatch();
 
->>>>>>> Stashed changes
 
   const toggleModal = useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);

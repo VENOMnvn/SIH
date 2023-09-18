@@ -57,12 +57,13 @@ const Login = () => {
 
           dispatch(addUser(res.data.user));
           dispatch(addProffesion(res.data.proffesional));
+
         }else{
-          
+          alert("Login Failed Check Email or password or try sometime later");
         }
 
-        if (res?.data?.token) localStorage.setItem("token", res.data.token);
-        if (res?.data?.refreshToken)
+        if(res?.data?.token) localStorage.setItem("token", res.data.token);
+        if(res?.data?.refreshToken && res.data.isLogin)
           localStorage.setItem("refreshToken", res.data.refreshToken);
         setMessage(["Success", "success"]);
         setOpenNotifi(true);

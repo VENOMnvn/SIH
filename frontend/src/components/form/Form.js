@@ -5,6 +5,7 @@ import {
   SparklesIcon,
   CloudArrowUpIcon,
 } from "@heroicons/react/24/outline";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
@@ -13,6 +14,8 @@ import Axios from "axios";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MyForm = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -44,13 +47,27 @@ const MyForm = () => {
   const [panImage, setPanImage] = useState(null);
   const [licenseImage, setLicenseImage] = useState(null);
   const [educationalCertificate, setEducationalCertificate] = useState(null);
-
+  
   const [specilization, setSpecilization] = useState("");
   const [experiences, setExperiences] = useState([]);
   const [category, setCategory] = useState("");
   const [bio, setBio] = useState("");
   const [startDate, setStartDate] = useState("");
   const [presentDate, setPresentDate] = useState("");
+
+  const navigate = useNavigate();
+
+  const user = useSelector(state=>state.user);
+  console.log(user);
+  
+  useEffect(()=>{
+    if(user.user == false){
+      console.log("run");
+      navigate('/');
+    }
+  },[]);
+
+  
 
   const submitHandlerOne = async (e) => {
     e.preventDefault();
@@ -65,7 +82,11 @@ const MyForm = () => {
           licenseNo,
           barCouncilNo,
           officeAddress,
+<<<<<<< Updated upstream
           user_id: "6506f685087d5150aff2b1b6",
+=======
+          user_id : user?.proffesion._id
+>>>>>>> Stashed changes
         }
       );
 
@@ -131,8 +152,14 @@ const MyForm = () => {
 
     try {
       const response = await Axios.post(
+<<<<<<< Updated upstream
         "http://localhost:4004/api/uploadDocs",
         formData,
+=======
+        "http://localhost:4004/api/proffesionalData",
+        {...formData,user_id:user?.proffesion._id},
+       
+>>>>>>> Stashed changes
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -167,6 +194,7 @@ const MyForm = () => {
       specilization,
       experiences,
     };
+<<<<<<< Updated upstream
     try {
       const response = await Axios.post(
         "http://localhost:4004/api/proffesionalData",
@@ -176,6 +204,18 @@ const MyForm = () => {
     } catch (error) {
       console.error("Error sending data:", error);
     }
+=======
+      try {
+
+        const response = await Axios.post(
+          "http://localhost:4004/api/proffesionalData",
+          {...submittedData,user_id:user?.proffesion._id},
+        );
+        console.log("Response:", response.data);
+      } catch (error) {
+        console.error("Error sending data:", error);
+      }
+>>>>>>> Stashed changes
   };
 
   return (

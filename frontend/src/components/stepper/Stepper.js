@@ -205,19 +205,23 @@ const StepperComp = () => {
 
 
     console.log(res);
+
     if(res?.data.isDone){
         console.log("Signing-in",res.data.UserData,res.data.ProfessionData);
         dispatch(addUser(res.data.UserData));
         dispatch(addProffesion(res.data.ProfessionData))
+    }else{
+      alert(res.data);
     }
 
 
 
 
     setTimeout(() => {
-      // onSubmitProps.resetForm();
+      onSubmitProps.resetForm();
       onSubmitProps.setSubmitting(false);
-      navigate('/');
+      navigate('/myform');
+      
     }, 3000);
 
 
