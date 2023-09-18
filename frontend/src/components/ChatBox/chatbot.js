@@ -11,12 +11,16 @@ const ChatbotBox = (params) => {
   const [replyTurn, setReplyTurn] = useState(true);
 
   const TypesOfCases = [
-    "Matrimonial",
-    "Property",
-    "Family & Inheritance",
     "Criminal",
-    "Accident & Insurance",
-    "Other",
+    "Civil",
+    "Family",
+    "Property",
+    "Immigration",
+    "Intellectual Property",
+    "Tax",
+    "Labour",
+    "Enviromental",
+    "Consumer"
   ];
   const [msgAry, setMsgAry] = useState([]);
 
@@ -60,8 +64,8 @@ const ChatbotBox = (params) => {
     if (Stage == 7) {
       AIanswer(
         "Act as a Legal Case Category suggestion System and suggest in which category my case falls in." +
-          submitBtn.current.value +
-          "Give me answer in one or two words defining the category of case."
+        submitBtn.current.value +
+        "Give me suggestion strictly from following list of categories [criminal, civil, family, property, immigration, intellectual property,tax labour, environmental, consumer]"
       );
     }
     if (Stage == 8) {
@@ -109,8 +113,8 @@ const ChatbotBox = (params) => {
       ]);
       setStage(Stage + 1);
       setReplyTurn(!replyTurn);
-    } 
-      catch (err) {
+    }
+    catch (err) {
       console.log(err);
       setStage(Stage + 1);
       setReplyTurn(!replyTurn);
@@ -131,7 +135,7 @@ const ChatbotBox = (params) => {
   //   }
   //   if(Stage >= 4){
   //     msgContent = "Please Wait..."
-      
+
   //   }
 
   //   setTimeout(()=>{
@@ -143,7 +147,7 @@ const ChatbotBox = (params) => {
   // }
 
   const submitMsg = () => {
-    if(submitBtn.current.value == "Yes" && Stage == 5){
+    if (submitBtn.current.value == "Yes" && Stage == 5) {
       params.idea();
     }
     setMsgAry([...msgAry, { sender: "user", msg: submitBtn.current.value }]);
@@ -213,7 +217,7 @@ const ChatbotBox = (params) => {
           ""
         )}
       </div>
-      
+
       <div className="bg-white p-4 flex">
         <input
           className="flex items-center h-10 w-full  px-3 text-sm rounded-l mt-2"

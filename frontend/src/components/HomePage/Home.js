@@ -18,33 +18,42 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-const dropdown = {
-  advocate: [
-    "Criminal Lawyers",
-    "Civil Lawyers",
-    "Family Lawyers",
-    "Property Lawyers",
-    "Immigration Lawyers",
-    "Intellectual Property Lawyers",
-    "Tax Lawyers",
-    "Labour Lawyers",
-    "Enviromental Lawyers",
-    "Consumer Lawyers",
-  ],
-  legal: [
-    "Corporate Legal Consultants",
-    "Tax Consultants",
-    "Intellectual Property Consultants",
-    "Family Law Consultants",
-    "Compilance Consultants",
-    "Real Estate Consultants",
-  ],
-  notary: ["Notaries for Document Verification", "NOtaries for Affidavits"],
-  mediators: ["Mediation Services"],
-  arbitrators: ["Arbitration Services"],
-};
-
 const Home = () => {
+  const langKey = useSelector((store) => store.lang.lang);
+
+  const dropdown = {
+    advocate: [
+      lang[langKey].crime,
+      lang[langKey].civil,
+      lang[langKey].family,
+      lang[langKey].property,
+      lang[langKey].immi,
+      lang[langKey].intel,
+      lang[langKey].tax,
+      lang[langKey].labour,
+      lang[langKey].env,
+      lang[langKey].con,
+    ],
+    legal: [
+      lang[langKey].corp,
+      lang[langKey].taxc,
+      lang[langKey].intelc,
+      lang[langKey].famc,
+      lang[langKey].comp,
+      lang[langKey].real,
+    ],
+    notary: [
+      lang[langKey].notdoc,
+      lang[langKey].notaff,
+    ],
+    mediators: [
+      lang[langKey].sermed,
+    ],
+    arbitrators: [
+      lang[langKey].serab,
+    ],
+  };
+
   const toggleModal = useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [field, setField] = React.useState("");
@@ -61,13 +70,12 @@ const Home = () => {
   const togglingModal = () => {
     toggleModal.current.style.display = "flex";
   };
-  const langKey = useSelector((store) => store.lang.lang);
 
   return (
     <div className="Homepage">
       <div className="top">
         <Button
-        style={{ textTransform: 'none' }}
+          style={{ textTransform: 'none' }}
           id="advocate"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -77,7 +85,7 @@ const Home = () => {
           {lang[langKey].advocates}
         </Button>
         <Button
-        style={{ textTransform: 'none' }}
+          style={{ textTransform: 'none' }}
           id="legal"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -87,7 +95,7 @@ const Home = () => {
           {lang[langKey].legal}
         </Button>
         <Button
-        style={{ textTransform: 'none' }}
+          style={{ textTransform: 'none' }}
           id="notary"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -97,7 +105,7 @@ const Home = () => {
           {lang[langKey].notary}
         </Button>
         <Button
-        style={{ textTransform: 'none' }}
+          style={{ textTransform: 'none' }}
           id="mediators"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -107,7 +115,7 @@ const Home = () => {
           {lang[langKey].mediators}
         </Button>
         <Button
-        style={{ textTransform: 'none' }}
+          style={{ textTransform: 'none' }}
           id="arbitrators"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -242,7 +250,7 @@ const Home = () => {
       </div>
       <div className="right">
         <div className="chatboxtitle">
-          <img src={chatbot} alt="myimg"/> {lang[langKey].gobot}
+          <img src={chatbot} alt="myimg" /> {lang[langKey].gobot}
         </div>
         <ChatbotBox idea={togglingModal}></ChatbotBox>
       </div>
