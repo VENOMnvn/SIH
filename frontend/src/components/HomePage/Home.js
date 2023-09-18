@@ -13,12 +13,15 @@ import userimage from "./Frame 26.png";
 import vector from "./Vector.png";
 import lawyer from "./Rectangle 19.png";
 import { useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
 import lang from "../../utils/lang/homeLang";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { removeUser } from "../../utils/slices/userSlice";
 
 const Home = () => {
+<<<<<<< Updated upstream
   const langKey = useSelector((store) => store.lang.lang);
 
   const dropdown = {
@@ -53,6 +56,11 @@ const Home = () => {
       lang[langKey].serab,
     ],
   };
+=======
+
+  const dispatach = useDispatch();
+
+>>>>>>> Stashed changes
 
   const toggleModal = useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,6 +70,8 @@ const Home = () => {
     setAnchorEl(event.currentTarget);
     setField(event.currentTarget.id);
   };
+  const user = useSelector(state => state.user.user);
+
   const handleSearch = (name) => {
     console.log(name);
     setAnchorEl(null);
@@ -150,6 +160,7 @@ const Home = () => {
             </div>
             <div className="user">
               <div className="username">User Name</div>
+              <div className="username"> {user==false?"Signup/Login" : user.name[0].toUpperCase() + user.name.slice(1)} </div>
               <div className="profile">{lang[langKey].view}</div>
             </div>
           </div>
@@ -181,10 +192,26 @@ const Home = () => {
           </div>
           <div className="homelogo">
             <div>
+         {
+        // <div className="homelogo">
+        //   <div>
+        //     <img src={frame} alt="home icon"></img>
+        //   </div>
+        //   <div className="name">{lang[langKey].more}</div>
+        // </div>
+         }
+          {
+            useSelector(state=>state.user.user == false ? "" : <div className="homelogo" onClick={()=>dispatach(removeUser())}>
+            <div >
+            {
               <img src={frame} alt="home icon"></img>
+            }
             </div>
             <div className="name">{lang[langKey].more}</div>
           </div>
+            <div className="name">Logout</div>
+          </div>)
+          }
         </div>
       </div>
       <div className="center">

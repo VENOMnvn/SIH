@@ -5,7 +5,7 @@ const UserAuthContext = createContext();
 
 export const UserAuthProvider = ({children}) => {
 
-    const backendUrl = "http://localhost:3000";
+    const backendUrl = "http://localhost:4004";
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState([null, "info"]);

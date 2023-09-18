@@ -15,6 +15,9 @@ cloudinary.config({
 const maxAge = 3 * 24 * 60 * 60; // 3 days
 
 const userRegisteration = async (req, res) => {
+
+  console.log( "Data Start Here -> ",req.body,"<- Data End Here" )
+
   const {
     name,
     number,
@@ -28,11 +31,12 @@ const userRegisteration = async (req, res) => {
     Experience,
     BarNumber,
     Category,
+    Details
   } = req.body;
 
   const user = await User.findOne({ email: email });
   if (user) {
-    res.send({ status: "failed", message: "Email already exists" });
+    res.send({ status: "failed", message: "Email already exists",isDone:false});
   } else {
     if (name && number && email && password && location) {
       try {
@@ -46,7 +50,8 @@ const userRegisteration = async (req, res) => {
           location: location,
           profession: occupation,
           dob,
-          IsServiceProvider,
+          IsServiceProvider:IsServiceProvider,
+          Details,
           language,
         });
 
@@ -77,7 +82,7 @@ const userRegisteration = async (req, res) => {
         const token = jwt.sign(
           { userID: user._id },
           process.env.JWT_SECRET_KEY,
-          { expiresIn: "3d" }
+          { expiresIn: "5d" }
         );
 
         res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
@@ -86,14 +91,16 @@ const userRegisteration = async (req, res) => {
           message: "Ok",
           UserData,
           ProfessionData,
+          isDone:true
         });
+
       } catch (error) {
         console.log(error);
-        res.send({ status: "failed", message: "Unable to Register" });
+        res.send({ status: "failed", message: "Unable to Register",isDone:false });
       }
     } else {
       console.log(name, email, location, password, number);
-      res.send({ status: "failed", message: "All fields ar required" });
+      res.send({ status: "failed", message: "All fields ar required",isDone:false });
     }
   }
 };

@@ -19,6 +19,7 @@ import MyForm from "./components/form/Form";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { setNestedObjectValues } from "formik";
+import PageNotFound from './components/404page';
 
 function App() {
   const location = useLocation();
@@ -55,7 +56,9 @@ function App() {
             <Route path="login" element={<Login />} />
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
-          <Route path="chat" element={<ChatbotBox />}></Route>
+          <Route path="chat" element={<ChatbotBox/>}></Route>
+          <Route path=":anyother" element={<PageNotFound></PageNotFound>}></Route>
+          
         </Routes>
       </UserAuthProvider>
       {canShow && <Footer></Footer>}

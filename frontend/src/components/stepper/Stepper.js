@@ -15,10 +15,15 @@ import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import lang from "../../utils/lang/stepperLang";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser,addProffesion } from "../../utils/slices/userSlice";
 
 
 const StepperComp = () => {
   const langKey = useSelector((store) => store.lang.lang);
+
+  const dispatch = useDispatch();
   const steps = [
     "Personal Details",
     "Other Details",
@@ -104,13 +109,8 @@ const StepperComp = () => {
     if (!values.category) {
       error.category = lang[langKey].required;
     }
-    if (!values.experience) {
-      error.experience = lang[langKey].required;
-    }
-    if (!values.barNo) {
-      error.barNo = lang[langKey].required;
-    }
 
+    console.log(error);
     return error;
   };
 
@@ -183,16 +183,44 @@ const StepperComp = () => {
     handleNext();
   };
 
-  const onSubmit = (values, onSubmitProps) => {
+  const onSubmit = async (values, onSubmitProps) => {
     setMessage(["Submitting", "info"]);
     setOpenNotifi(true);
 
     console.log("Complete Data:", values);
+    
+    const res = await axios.post("http://localhost:4004/api/register",{
+      name : values.username,
+      number : values.phone_no,
+      email : values.email,
+      password:values.password,
+      occupation:values.occupation,
+      dob:values.dob,
+      isServiceProvider:true,
+      location : values.location,
+      language:values.language,
+      Category:values.category,
+      Details :values.extra
+    });
+
+
+    console.log(res);
+    if(res?.data.isDone){
+        console.log("Signing-in",res.data.UserData,res.data.ProfessionData);
+        dispatch(addUser(res.data.UserData));
+        dispatch(addProffesion(res.data.ProfessionData))
+    }
+
+
+
+
     setTimeout(() => {
-      onSubmitProps.resetForm();
+      // onSubmitProps.resetForm();
       onSubmitProps.setSubmitting(false);
-      navigate('/home');
+      navigate('/');
     }, 3000);
+
+
   };
 
   useEffect(() => {
@@ -217,7 +245,7 @@ const StepperComp = () => {
               validate={validate}
             >
               {(formik) => {
-                console.log(formik.errors);
+               
                 return (
                   <Form className="flex flex-col w-full gap-y-4">
                     <TabPanel value={activeStep} index={0}>
@@ -346,7 +374,7 @@ const StepperComp = () => {
                           id="dob"
                           name="dob"
                           autoComplete="off"
-                          placeholder="10/09/2003"
+                          placeholder="20-01-2003"
                         />
                         <br></br>
                         <span className="w-full text-end text-sm px-2 text-red-800">
@@ -445,45 +473,9 @@ const StepperComp = () => {
                           <ErrorMessage name="category" />
                         </span>
                       </div>
-                      <div className="flex flex-wrap w-full box-boder md:py-2">
-                        <label
-                          className="flex w-40 px-1 pt-2"
-                          htmlFor="experience"
-                        >
-                          {lang[langKey].experience}
-                        </label>
-                        <Field
-                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
-                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                          type="text"
-                          id="experience"
-                          name="experience"
-                          autoComplete="off"
-                          placeholder={lang[langKey].experience}
-                        />
-                        <br></br>
-                        <span className="w-full text-end text-sm px-2 text-red-800">
-                          <ErrorMessage name="experience" />
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap w-full box-boder md:py-2">
-                        <label className="flex w-40 px-1 pt-2" htmlFor="exper">
-                          {lang[langKey].barno}
-                        </label>
-                        <Field
-                          style={{ backgroundColor: "rgba(227, 230, 234, 1)" }}
-                          className="flex-1 appearance-none h-10 border box-border border-gray-400 rounded px-3 py-1.5 focus:border-2 focus:outline-none focus:border-blue-500"
-                          type="text"
-                          id="barNo"
-                          name="barNo"
-                          autoComplete="off"
-                          placeholder={lang[langKey].barno}
-                        />
-                        <br></br>
-                        <span className="w-full text-end text-sm px-2 text-red-800">
-                          <ErrorMessage name="exper" />
-                        </span>
-                      </div>
+
+                     
+
                     </TabPanel>
                     <TabPanel value={activeStep} index={3}>
                       <div className="flex w-full flex-col pb-6">

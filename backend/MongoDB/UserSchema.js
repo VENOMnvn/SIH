@@ -16,7 +16,7 @@ const USER = new Schema ({
         type : Number
     },
     dob : {
-        type : Date
+        type : String
     },
     IsServiceProvider : {
         type : Boolean,
@@ -26,8 +26,7 @@ const USER = new Schema ({
         type :String
     },
     isProfileComplete : {
-        type:Boolean,
-        default : false
+        type:Boolean
     },
     professionDetails : {
         type : mongoose.Schema.Types.ObjectId,

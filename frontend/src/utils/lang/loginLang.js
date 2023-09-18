@@ -1,6 +1,6 @@
 const lang = {
     english: {
-        username: "Username",
+        username: "Email",
         password: "Password",
         continue: "Login to Continue",
         login: "Login",
@@ -8,7 +8,7 @@ const lang = {
         noaccount: "Don't have an account?",
     },
     hindi: {
-        username: "यूजरनेम",
+        username: "यूजरने",
         password: "पासवर्ड",
         continue: "जारी रखने के लिए लॉगिन करें",
         login: "लॉगिन करें",

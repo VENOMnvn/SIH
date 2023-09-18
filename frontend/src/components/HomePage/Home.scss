@@ -8,6 +8,7 @@
 		grid-template-columns: 1.5fr 5fr 2fr;
 		grid-template-rows: 8% 92%;
 
+		
 		.modalRedirect{
 			position: fixed;
 			height: 100vh;
@@ -34,6 +35,9 @@
 			grid-template-columns: 2fr 4fr;
 		}
 		.top{
+			*{
+				color: gray;
+			}
 			grid-column-start: 1;
 			grid-column-end: 4;
 			display: flex;

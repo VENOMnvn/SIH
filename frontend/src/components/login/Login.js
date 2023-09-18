@@ -6,8 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import axios from "axios";
 import backg from "../../static/backg.svg";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch } from "react-redux";
 import lang from "../../utils/lang/loginLang";
+import { addUser,addProffesion } from "../../utils/slices/userSlice";
 
 const initialValues = {
   username: "",
@@ -27,9 +28,13 @@ const validate = (values) => {
   return error;
 };
 
+
+
 const Login = () => {
   const { setMessage, setOpenNotifi, backendUrl, setUser } = useUserAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const langKey = useSelector((store) => store.lang.lang);
 
@@ -38,15 +43,24 @@ const Login = () => {
     setOpenNotifi(true);
 
     const data = {
-      username: values.username,
+      email: values.username,
       password: values.password,
     };
 
     axios
-      .post(`${backendUrl}/user/login`, data)
+      .post(`${backendUrl}/api/login`, data)
       .then((res) => {
+        console.log(res);
         setOpenNotifi(false);
-        setUser({ username: res.data?.username, email: res.data?.email });
+        
+        if(res.data.isLogin){
+
+          dispatch(addUser(res.data.user));
+          dispatch(addProffesion(res.data.proffesional));
+        }else{
+          
+        }
+
         if (res?.data?.token) localStorage.setItem("token", res.data.token);
         if (res?.data?.refreshToken)
           localStorage.setItem("refreshToken", res.data.refreshToken);
@@ -98,7 +112,7 @@ const Login = () => {
                     />
                     <br></br>
                     <span className="w-full text-end text-sm px-2 text-red-800">
-                      <ErrorMessage name="username" />
+                      <ErrorMessage name="email" />
                     </span>
                   </div>
                   <div className="flex flex-wrap w-full box-boder md:py-2">

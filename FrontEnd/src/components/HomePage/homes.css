@@ -34,8 +34,10 @@ color: black;
     color:#414BF4;
 }
 .username{
-    font-size: 14px;
+    font-size: 18px;
     color: black;
+    margin-left: 5px
+    ;
 }
 .profile{
     font-size: 9px;

@@ -78,22 +78,26 @@ const Signup = () => {
       password: values.password,
     };
 
-    // axios
-    //   .post(`${backendUrl}/user/signup`, data)
-    //   .then((res) => {
-    //     setOpenNotifi(false);
-    //     setMessage(["Success", "success"]);
-    //     setOpenNotifi(true);
-    //     onSubmitProps.resetForm();
-    //     onSubmitProps.setSubmitting(false);
-    //     handleComplete();
-    //   })
-    //   .catch((err) => {
-    //     setOpenNotifi(false);
-    //     setMessage([err?.response?.data?.error || "Unknown error!", "error"]);
-    //     setOpenNotifi(true);
-    //     onSubmitProps.setSubmitting(false);
-    //   });
+    axios
+      .post(`http://localhost:4004/api/register`, data)
+      .then((res) => {
+
+        
+        setOpenNotifi(false);
+        setMessage(["Success", "success"]);
+        setOpenNotifi(true);
+        onSubmitProps.resetForm();
+        onSubmitProps.setSubmitting(false);
+        
+      })
+      .catch((err) => {
+        setOpenNotifi(false);
+        setMessage([err?.response?.data?.error || "Unknown error!", "error"]);
+        setOpenNotifi(true);
+        onSubmitProps.setSubmitting(false);
+      });
+
+    
   };
 
   return (
