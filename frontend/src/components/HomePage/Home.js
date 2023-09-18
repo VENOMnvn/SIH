@@ -15,51 +15,41 @@ import lawyer from "./Rectangle 19.png";
 import lawyer2 from "./Rectangle 25.png"
 import lawyer3 from "./Rectangle 28.png"
 import { useSelector ,useDispatch} from "react-redux";
+
+// import { useSelector } from "react-redux";
+
 import lang from "../../utils/lang/homeLang";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { removeUser } from "../../utils/slices/userSlice";
+
+const dropdown = {
+  advocate: [
+    "Criminal Lawyers",
+    "Civil Lawyers",
+    "Family Lawyers",
+    "Property Lawyers",
+    "Immigration Lawyers",
+    "Intellectual Property Lawyers",
+    "Tax Lawyers",
+    "Labour Lawyers",
+    "Enviromental Lawyers",
+    "Consumer Lawyers",
+  ],
+  legal: [
+    "Corporate Legal Consultants",
+    "Tax Consultants",
+    "Intellectual Property Consultants",
+    "Family Law Consultants",
+    "Compilance Consultants",
+    "Real Estate Consultants",
+  ],
+  notary: ["Notaries for Document Verification", "NOtaries for Affidavits"],
+  mediators: ["Mediation Services"],
+  arbitrators: ["Arbitration Services"],
+};
 
 const Home = () => {
-  const langKey = useSelector((store) => store.lang.lang);
-
-  const dropdown = {
-    advocate: [
-      lang[langKey].crime,
-      lang[langKey].civil,
-      lang[langKey].family,
-      lang[langKey].property,
-      lang[langKey].immi,
-      lang[langKey].intel,
-      lang[langKey].tax,
-      lang[langKey].labour,
-      lang[langKey].env,
-      lang[langKey].con,
-    ],
-    legal: [
-      lang[langKey].corp,
-      lang[langKey].taxc,
-      lang[langKey].intelc,
-      lang[langKey].famc,
-      lang[langKey].comp,
-      lang[langKey].real,
-    ],
-    notary: [
-      lang[langKey].notdoc,
-      lang[langKey].notaff,
-    ],
-    mediators: [
-      lang[langKey].sermed,
-    ],
-    arbitrators: [
-      lang[langKey].serab,
-    ],
-  };
-
-  const dispatach = useDispatch();
-
-
   const toggleModal = useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [field, setField] = React.useState("");
@@ -68,8 +58,6 @@ const Home = () => {
     setAnchorEl(event.currentTarget);
     setField(event.currentTarget.id);
   };
-  const user = useSelector(state => state.user.user);
-
   const handleSearch = (name) => {
     console.log(name);
     setAnchorEl(null);
@@ -78,12 +66,13 @@ const Home = () => {
   const togglingModal = () => {
     toggleModal.current.style.display = "flex";
   };
+  const langKey = useSelector((store) => store.lang.lang);
 
   return (
     <div className="Homepage">
       <div className="top">
         <Button
-          style={{ textTransform: 'none' }}
+          style={{ textTransform: "none" }}
           id="advocate"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -93,7 +82,7 @@ const Home = () => {
           {lang[langKey].advocates}
         </Button>
         <Button
-          style={{ textTransform: 'none' }}
+          style={{ textTransform: "none" }}
           id="legal"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -103,7 +92,7 @@ const Home = () => {
           {lang[langKey].legal}
         </Button>
         <Button
-          style={{ textTransform: 'none' }}
+          style={{ textTransform: "none" }}
           id="notary"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -113,7 +102,7 @@ const Home = () => {
           {lang[langKey].notary}
         </Button>
         <Button
-          style={{ textTransform: 'none' }}
+          style={{ textTransform: "none" }}
           id="mediators"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -123,7 +112,7 @@ const Home = () => {
           {lang[langKey].mediators}
         </Button>
         <Button
-          style={{ textTransform: 'none' }}
+          style={{ textTransform: "none" }}
           id="arbitrators"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -157,7 +146,7 @@ const Home = () => {
               <img src={userimage} alt="userimage"></img>
             </div>
             <div className="user">
-              <div className="username"> {user==false?"Signup/Login" : user.name[0].toUpperCase() + user.name.slice(1)} </div>
+              <div className="username">User Name</div>
               <div className="profile">{lang[langKey].view}</div>
             </div>
           </div>
@@ -187,24 +176,12 @@ const Home = () => {
             </div>
             <div className="name">{lang[langKey].cases}</div>
           </div>
-         {
-        // <div className="homelogo">
-        //   <div>
-        //     <img src={frame} alt="home icon"></img>
-        //   </div>
-        //   <div className="name">{lang[langKey].more}</div>
-        // </div>
-         }
-          {
-            useSelector(state=>state.user.user == false ? "" : <div className="homelogo" onClick={()=>dispatach(removeUser())}>
-            <div >
-            {
+          <div className="homelogo">
+            <div>
               <img src={frame} alt="home icon"></img>
-            }
             </div>
-            <div className="name">Logout</div>
-          </div>)
-          }
+            <div className="name">{lang[langKey].more}</div>
+          </div>
         </div>
       </div>
       <div className="center">
@@ -222,7 +199,8 @@ const Home = () => {
           <div className="ses">{lang[langKey].browse}</div>
           <div className="button">
             <button>
-              {lang[langKey].start} <img src={vector} className="vector" alt="myimg"></img>
+              {lang[langKey].start}{" "}
+              <img src={vector} className="vector" alt="myimg"></img>
             </button>
           </div>
         </div>
