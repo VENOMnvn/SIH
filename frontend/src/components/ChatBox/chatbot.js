@@ -9,6 +9,10 @@ const ChatbotBox = (params) => {
   const submitBtn = useRef();
   const [Stage, setStage] = useState(1);
   const [replyTurn, setReplyTurn] = useState(true);
+  const [queryToSend,setquery] = useState({
+    location:"",
+    Category:""
+  })
 
   const TypesOfCases = [
     "Criminal",
@@ -23,8 +27,7 @@ const ChatbotBox = (params) => {
     "Consumer"
   ];
   const [msgAry, setMsgAry] = useState([]);
-
-  useEffect(() => {
+  const StageRegulator = async ()=>{
     if (Stage == 1) {
       setMsgAry([
         ...msgAry,
@@ -33,9 +36,10 @@ const ChatbotBox = (params) => {
     }
     if (Stage == 2) {
 
-      AIanswer(
+      await AIanswer(
         `answer in only yes or no and tell me is this place or area called ${submitBtn.current.value} existed or not`
       );
+
     }
     if (Stage == 3) {
       setMsgAry([
@@ -55,6 +59,7 @@ const ChatbotBox = (params) => {
         { sender: "bot", msg: "Want to Redirect or Want some More Info" },
       ]);
     }
+    
     if (Stage == 6) {
       setMsgAry([
         ...msgAry,
@@ -73,6 +78,11 @@ const ChatbotBox = (params) => {
     }
 
     submitBtn.current.value = "";
+
+  };
+
+  useEffect(() => {
+    StageRegulator();
   }, [replyTurn]);
 
   const AIanswer = async (query) => {
@@ -107,10 +117,15 @@ const ChatbotBox = (params) => {
         return;
       }
 
+      if(Stage == 2){
+        setquery({...queryToSend,location:submitBtn.current.value})
+      }
+
       setMsgAry([
         ...tempArray,
         { sender: "bot", msg: gptResults.choices?.[0]?.message?.content },
       ]);
+
       setStage(Stage + 1);
       setReplyTurn(!replyTurn);
     }
@@ -148,16 +163,21 @@ const ChatbotBox = (params) => {
 
   const submitMsg = () => {
     if (submitBtn.current.value == "Yes" && Stage == 5) {
-      params.idea();
+      params.idea(queryToSend);
+      console.log(queryToSend);
     }
     setMsgAry([...msgAry, { sender: "user", msg: submitBtn.current.value }]);
     setStage(Stage + 1);
     setReplyTurn(!replyTurn);
   };
 
+
   const submitChoice = (ele) => {
     setStage(Stage + 1);
     submitBtn.current.value = ele;
+   if(Stage==3){
+    setquery({...queryToSend,Category:ele});
+   }
     submitMsg();
   };
 

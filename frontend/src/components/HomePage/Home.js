@@ -12,42 +12,57 @@ import frame from "./Frame 38.png";
 import userimage from "./Frame 26.png";
 import vector from "./Vector.png";
 import lawyer from "./Rectangle 19.png";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import lang from "../../utils/lang/homeLang";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-
-const dropdown = {
-  advocate: [
-    "Criminal Lawyers",
-    "Civil Lawyers",
-    "Family Lawyers",
-    "Property Lawyers",
-    "Immigration Lawyers",
-    "Intellectual Property Lawyers",
-    "Tax Lawyers",
-    "Labour Lawyers",
-    "Enviromental Lawyers",
-    "Consumer Lawyers",
-  ],
-  legal: [
-    "Corporate Legal Consultants",
-    "Tax Consultants",
-    "Intellectual Property Consultants",
-    "Family Law Consultants",
-    "Compilance Consultants",
-    "Real Estate Consultants",
-  ],
-  notary: ["Notaries for Document Verification", "NOtaries for Affidavits"],
-  mediators: ["Mediation Services"],
-  arbitrators: ["Arbitration Services"],
-};
+import axios from "axios";
+import { removeUser } from "../../utils/slices/userSlice";
 
 const Home = () => {
+  const langKey = useSelector((store) => store.lang.lang);
+
+  const dropdown = {
+    advocate: [
+      lang[langKey].crime,
+      lang[langKey].civil,
+      lang[langKey].family,
+      lang[langKey].property,
+      lang[langKey].immi,
+      lang[langKey].intel,
+      lang[langKey].tax,
+      lang[langKey].labour,
+      lang[langKey].env,
+      lang[langKey].con,
+    ],
+    legal: [
+      lang[langKey].corp,
+      lang[langKey].taxc,
+      lang[langKey].intelc,
+      lang[langKey].famc,
+      lang[langKey].comp,
+      lang[langKey].real,
+    ],
+    notary: [
+      lang[langKey].notdoc,
+      lang[langKey].notaff,
+    ],
+    mediators: [
+      lang[langKey].sermed,
+    ],
+    arbitrators: [
+      lang[langKey].serab,
+    ],
+  };
+
+
+  const dispatach = useDispatch();
   const toggleModal = useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [field, setField] = React.useState("");
+  const [resultToFilter,setresultToFilter] = React.useState(false);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,10 +73,15 @@ const Home = () => {
     setAnchorEl(null);
   };
 
-  const togglingModal = () => {
+  const togglingModal = async (dataOfquery) => {
+    console.log(dataOfquery);
+
+    const res = await axios.post('http://localhost:4004/api/filter',dataOfquery);
+    console.log(res);
+    setresultToFilter(res);
     toggleModal.current.style.display = "flex";
   };
-  const langKey = useSelector((store) => store.lang.lang);
+  // const langKey = useSelector((store) => store.lang.lang);
 
   return (
     <div className="Homepage">
@@ -256,7 +276,7 @@ const Home = () => {
         }}
       >
         <div className="modalContain">
-          <ModalContent />
+          <ModalContent dataContent={resultToFilter}/>
         </div>
       </div>
     </div>

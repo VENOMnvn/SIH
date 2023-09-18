@@ -2,9 +2,15 @@ const user = require("../MongoDB/UserSchema");
 const ProfessionModel = require('../MongoDB/professionSchema');
 
 const filterFunction = async (req,res)=>{
-     const {occupation,Location,Category} = req.body;
+     
+     console.log(req.body);
+     const {location,Category} = req.body;
+
      try{
-         const result = await ProfessionModel.find({Category,Location}).populate("userid");
+
+         console.log(location,Category);
+         const result = await ProfessionModel.find({Category:Category.toLowerCase(),Location:location.toLowerCase()}).populate("userid");
+         console.log(result);
          res.send({
          result
          });

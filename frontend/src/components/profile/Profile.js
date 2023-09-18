@@ -84,7 +84,7 @@ const Profile = () => {
 
   const langKey = useSelector((store) => store.lang.lang);
   const user = useSelector(state=>state.user);
-
+  console.log(user);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

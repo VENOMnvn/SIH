@@ -43,12 +43,12 @@ const userRegisteration = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
         const doc = new User({
-          name: name,
+          name: name.toLowerCase(),
           number: number,
           email: email,
           password: hashPassword,
-          location: location,
-          profession: occupation,
+          location: location.toLowerCase(),
+          profession: occupation.toLowerCase(),
           dob,
           IsServiceProvider:IsServiceProvider,
           Details,
@@ -64,7 +64,7 @@ const userRegisteration = async (req, res) => {
           BarNumber,
           Occupation: occupation,
           name,
-          Location: location,
+          Location: location.toLowerCase(),
         });
 
         const resByProffesion = await userProfession.save();
