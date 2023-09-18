@@ -1,63 +1,65 @@
 import React from "react";
 
-const contentData = [
-  {
-    id: 1,
-    imgSrc: "https://dummyimage.com/720x400",
-    title: "Chichen",
-    session: 26,
-    subtitle: "SUBTITLE",
-    rating:3.9,
-    salary: 500,
-    description:
-      "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
-  },
-  {
-    id: 2,
-    imgSrc: "https://dummyimage.com/721x401",
-    title: "Colosseum",
-    session: 26,
-    subtitle: "SUBTITLE",
-    salary: 500,
-    rating:3.9,
-    description:
-      "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
-  },
-  {
-    id: 3,
-    imgSrc: "https://dummyimage.com/722x402",
-    title: " of Giza",
-    subtitle: "SUBTITLE",
-    session: 26,
-    rating:3.9,
-    salary: 500,
-    description:
-      "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
-  },
-  {
-    id: 4,
-    imgSrc: "https://dummyimage.com/723x403",
-    title: "San ",
-    session: 26,
-    subtitle: "SUBTITLE",
-    rating:3.9,
-    salary: 500,
-    description:
-      "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
-  },
-];
+const [salary,session,rating,description] = [1000,23,4.5,"Lawyer as per your needs"];
 
-const ContentCard = ({ imgSrc, title, session, subtitle, salary, rating, description }) => (
-    <div className="xl:w-1/4 md:w-1/2 p-4" key={title}>
+// const contentData = [
+//   {
+//     id: 1,
+//     imgSrc: "https://dummyimage.com/720x400",
+//     title: "Chichen",
+//     session: 26,
+//     subtitle: "SUBTITLE",
+//     rating:3.9,
+//     salary: 500,
+//     description:
+//       "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
+//   },
+//   {
+//     id: 2,
+//     imgSrc: "https://dummyimage.com/721x401",
+//     title: "Colosseum",
+//     session: 26,
+//     subtitle: "SUBTITLE",
+//     salary: 500,
+//     rating:3.9,
+//     description:
+//       "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
+//   },
+//   {
+//     id: 3,
+//     imgSrc: "https://dummyimage.com/722x402",
+//     title: " of Giza",
+//     subtitle: "SUBTITLE",
+//     session: 26,
+//     rating:3.9,
+//     salary: 500,
+//     description:
+//       "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
+//   },
+//   {
+//     id: 4,
+//     imgSrc: "https://dummyimage.com/723x403",
+//     title: "San ",
+//     session: 26,
+//     subtitle: "SUBTITLE",
+//     rating:3.9,
+//     salary: 500,
+//     description:
+//       "Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.",
+//   },
+// ];
+
+const ContentCard = (params) => (
+    <div className="xl:w-1/4 md:w-1/2 p-4" key={params.user_id?.name}>
       <div className="p-6 rounded-lg flex flex-col justify-between">
         <img
           className="h-40 rounded w-full object-cover object-center mb-3"
-          src={imgSrc}
+          src={"https://tse2.mm.bing.net/th?id=OIP.jUNv1G1kKJbVPlZYBOSsDQAAAA&pid=Api&P=0&h=180"}
           alt="content"
         />
         <div>
           <div className="flex items-center justify-between">
-            <div className="text-base font-bold">{title}</div>
+            <div className="text-base font-bold">{ params?.userid?.name[0].toUpperCase() + params?.userid?.name.slice(1) }</div>
             <div className="text-[#414BF4]">{`${session} sessions `}</div>
           </div>
           <div className="text-sm text-[#585858] font-semibold mt-2">
@@ -89,7 +91,10 @@ const ContentCard = ({ imgSrc, title, session, subtitle, salary, rating, descrip
   );
   
 
-const ModalContent = () => {
+const ModalContent = (params) => {
+  console.log(params.dataContent?.data?.result);
+  const contentData = params.dataContent?.data?.result
+
   return (
     <section className="text-gray-600 body-font">
       <div className=" px-5  mx-auto">
@@ -102,9 +107,9 @@ const ModalContent = () => {
           </div>
         </div>
         <div className="flex flex-wrap -m-4">
-          {contentData.map((content) => (
+          { contentData?.length !=0 ? contentData?.map((content) => (
             <ContentCard {...content} key={content.id} />
-          ))}
+          ))  : "No Service Provider Found as per demand please search at another request" }
         </div>
 
         <div className=" w-full mt-10 flex justify-end">

@@ -18,7 +18,7 @@ router.post("/register", userRegisteration);
 router.post("/login", userLogin);
 router.post("/send-otp", SendOtp);
 router.get("/logout", userLogout);
-router.get("/filter", filterFunction);
+router.post("/filter", filterFunction);
 
 
 
