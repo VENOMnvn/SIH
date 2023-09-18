@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import backg from "../../static/backg.svg";
+import backg from "../../static/backg.png";
 import { useUserAuth } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
@@ -208,8 +208,10 @@ const StepperComp = () => {
 
     if(res?.data.isDone){
         console.log("Signing-in",res.data.UserData,res.data.ProfessionData);
+
         dispatch(addUser(res.data.UserData));
-        dispatch(addProffesion(res.data.ProfessionData))
+        dispatch(addProffesion(res.data.ProfessionData));
+
     }else{
       alert(res.data);
     }

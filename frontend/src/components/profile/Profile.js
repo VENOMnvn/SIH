@@ -83,6 +83,8 @@ const Profile = () => {
   const [timeId, setTimeId] = React.useState(0);
 
   const langKey = useSelector((store) => store.lang.lang);
+  const user = useSelector(state=>state.user);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -115,7 +117,7 @@ const Profile = () => {
             <img src={profile} alt="profile" />
           </div>
           <div className="pl-[14rem] flex flex-col items-start h-[10rem] justify-center">
-            <h1 className="text-2xl font-bold">Rashmi Babre</h1>
+            <h1 className="text-2xl font-bold">{user.user.name}</h1>
             <p className="">$500/{lang[langKey].hour}</p>
             <p>3.9⭐</p>
           </div>
@@ -150,11 +152,7 @@ const Profile = () => {
               <div className="flex flex-col box-border w-auto lg:w-1/2 text-left lg:pr-2 gap-y-4">
                 <div className="py-4">
                   <p className="">
-                    Ms. Rashmi Babre leads as a Design Director at YUJ designs.
-                    Her role involves going into depths of User Centred
-                    Methodology (UCD), UX principles, life-centric design
-                    approach, best practices, design direction, design
-                    management and proje…
+                    {user.proffesion.Details}
                   </p>
                 </div>
                 <div className="flex flex-col gap-y-4">

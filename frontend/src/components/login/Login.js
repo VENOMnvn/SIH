@@ -5,7 +5,7 @@ import { useUserAuth } from "../../context/userContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import axios from "axios";
-import backg from "../../static/backg.svg";
+import backg from "../../static/backg.png";
 import { useSelector ,useDispatch } from "react-redux";
 import lang from "../../utils/lang/loginLang";
 import { addUser,addProffesion } from "../../utils/slices/userSlice";

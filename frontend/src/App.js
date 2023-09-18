@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      {canShow && <Navbar></Navbar>}
+      {canShow ? <Navbar></Navbar> : <NavForLogin></NavForLogin>}
       <UserAuthProvider>
         <Notifications />
         <Routes>

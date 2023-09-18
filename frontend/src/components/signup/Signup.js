@@ -3,7 +3,7 @@ import React from "react";
 import { useUserAuth } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import backg from "../../static/backg.svg";
+import backg from "../../static/backg.png";
 import axios from "axios";
 import lang from "../../utils/lang/signupLang";
 import { useSelector } from "react-redux";
