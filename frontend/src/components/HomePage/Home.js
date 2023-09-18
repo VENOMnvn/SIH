@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import NavBar from "../navbar/Navbar";
 import "./Home.scss";
 import "./homes.css";
 import ChatbotBox from "../ChatBox/chatbot";
@@ -13,7 +12,6 @@ import frame from "./Frame 38.png";
 import userimage from "./Frame 26.png";
 import vector from "./Vector.png";
 import lawyer from "./Rectangle 19.png";
-import { fontSize } from "@mui/system";
 import { useSelector } from "react-redux";
 import lang from "../../utils/lang/homeLang";
 import Button from "@mui/material/Button";
@@ -69,6 +67,7 @@ const Home = () => {
     <div className="Homepage">
       <div className="top">
         <Button
+        style={{ textTransform: 'none' }}
           id="advocate"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -78,6 +77,7 @@ const Home = () => {
           {lang[langKey].advocates}
         </Button>
         <Button
+        style={{ textTransform: 'none' }}
           id="legal"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -87,6 +87,7 @@ const Home = () => {
           {lang[langKey].legal}
         </Button>
         <Button
+        style={{ textTransform: 'none' }}
           id="notary"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -96,6 +97,7 @@ const Home = () => {
           {lang[langKey].notary}
         </Button>
         <Button
+        style={{ textTransform: 'none' }}
           id="mediators"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -105,6 +107,7 @@ const Home = () => {
           {lang[langKey].mediators}
         </Button>
         <Button
+        style={{ textTransform: 'none' }}
           id="arbitrators"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -191,7 +194,7 @@ const Home = () => {
           <div className="ses">{lang[langKey].browse}</div>
           <div className="button">
             <button>
-              {lang[langKey].start} <img src={vector} className="vector"></img>
+              {lang[langKey].start} <img src={vector} className="vector" alt="myimg"></img>
             </button>
           </div>
         </div>
@@ -199,7 +202,7 @@ const Home = () => {
           <div className="head">{lang[langKey].connect}</div>
           <div className="all">
             <div className="lawyer">
-              <img src={lawyer} className="image-law"></img>
+              <img src={lawyer} className="image-law" alt="myimg"></img>
               <div className="datas">
                 <div className="nam">
                   Jaydee Devine{" "}
@@ -211,7 +214,7 @@ const Home = () => {
               </div>
             </div>
             <div className="lawyer">
-              <img src={lawyer} className="image-law"></img>
+              <img src={lawyer} className="image-law" alt="myimg"></img>
               <div className="datas">
                 <div className="nam">
                   Jaydee Devine{" "}
@@ -223,7 +226,7 @@ const Home = () => {
               </div>
             </div>
             <div className="lawyer">
-              <img src={lawyer} className="image-law"></img>
+              <img src={lawyer} className="image-law" alt="myimg"></img>
               <div className="datas">
                 <div className="nam">
                   Jaydee Devine{" "}
@@ -239,7 +242,7 @@ const Home = () => {
       </div>
       <div className="right">
         <div className="chatboxtitle">
-          <img src={chatbot} /> {lang[langKey].gobot}
+          <img src={chatbot} alt="myimg"/> {lang[langKey].gobot}
         </div>
         <ChatbotBox idea={togglingModal}></ChatbotBox>
       </div>
