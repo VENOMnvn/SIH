@@ -80,7 +80,7 @@ const Home = () => {
     setField(event.currentTarget.id);
   };
   const handleSearch = (name) => {
-    console.log(name);
+    console.log(name+"naveen");
     setAnchorEl(null);
   };
 
