@@ -70,11 +70,17 @@ const ChatbotBox = (params) => {
       AIanswer(
         "Act as a Legal Case Category suggestion System and suggest in which category my case falls in." +
         submitBtn.current.value +
-        "Give me suggestion strictly from following list of categories [criminal, civil, family, property, immigration, intellectual property,tax labour, environmental, consumer]"
+        "Give me suggestion in one sentence, strictly from following list of categories [criminal, civil, family, property, immigration, intellectual property,tax labour, environmental, consumer]"
       );
     }
     if (Stage == 8) {
-      setMsgAry([...msgAry, { sender: "bot", msg: "Nice meeting you" }]);
+      setMsgAry([...msgAry, { sender: "bot", msg: "Want more legal advice. Provide more details" }]);
+    }
+    if(Stage == 9){
+      await AIanswer("Act as Legal Advicer. Provide legal advice in points in 100 words for the following query."+submitBtn.current.value);
+    }
+    if(Stage == 10){
+      setMsgAry([...msgAry, { sender: "bot", msg: "Hope you got your answer" }]);
     }
 
     submitBtn.current.value = "";
@@ -106,7 +112,7 @@ const ChatbotBox = (params) => {
       });
 
       if (
-        gptResults.choices?.[0]?.message?.content?.toLowerCase().includes("no")
+        gptResults.choices?.[0]?.message?.content?.toLowerCase().includes("no") && Stage==1
       ) {
         setMsgAry([
           ...tempArray,
