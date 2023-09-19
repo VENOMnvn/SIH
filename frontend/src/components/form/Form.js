@@ -16,10 +16,11 @@ import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import lang from "../../utils/lang/formLang";
 
 
 const MyForm = () => {
+  const langKey = useSelector(store => store.lang.lang);
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -49,7 +50,7 @@ const MyForm = () => {
   const [panImage, setPanImage] = useState(null);
   const [licenseImage, setLicenseImage] = useState(null);
   const [educationalCertificate, setEducationalCertificate] = useState(null);
-  
+
   const [specilization, setSpecilization] = useState("");
   const [experiences, setExperiences] = useState([]);
   const [category, setCategory] = useState("");
@@ -59,17 +60,17 @@ const MyForm = () => {
 
   const navigate = useNavigate();
 
-  const user = useSelector(state=>state.user);
+  const user = useSelector(state => state.user);
   console.log(user);
-  
-  useEffect(()=>{
-    if(user.user == false){
+
+  useEffect(() => {
+    if (user.user == false) {
       console.log("run");
       navigate('/');
     }
-  },[]);
+  }, []);
 
-  
+
 
   const submitHandlerOne = async (e) => {
     e.preventDefault();
@@ -84,7 +85,7 @@ const MyForm = () => {
           licenseNo,
           barCouncilNo,
           officeAddress,
-          user_id : user?.proffesion._id
+          user_id: user?.proffesion._id
         }
       );
 
@@ -151,8 +152,8 @@ const MyForm = () => {
     try {
       const response = await Axios.post(
         "http://localhost:4004/api/proffesionalData",
-        {...formData,user_id:user?.proffesion._id},
-       
+        { ...formData, user_id: user?.proffesion._id },
+
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -187,16 +188,16 @@ const MyForm = () => {
       specilization,
       experiences,
     };
-      try {
+    try {
 
-        const response = await Axios.post(
-          "http://localhost:4004/api/proffesionalData",
-          {...submittedData,user_id:user?.proffesion._id},
-        );
-        console.log("Response:", response.data);
-      } catch (error) {
-        console.error("Error sending data:", error);
-      }
+      const response = await Axios.post(
+        "http://localhost:4004/api/proffesionalData",
+        { ...submittedData, user_id: user?.proffesion._id },
+      );
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
   };
 
   return (
@@ -209,13 +210,13 @@ const MyForm = () => {
               variant="h6"
               color={activeStep === 0 ? "blue-gray" : "gray"}
             >
-              Step 1
+              {lang[langKey].step} 1
             </Typography>
             <Typography
               color={activeStep === 0 ? "blue-gray" : "gray"}
               className="font-normal"
             >
-              Personal Details
+              {lang[langKey].person}
             </Typography>
           </div>
         </Step>
@@ -226,13 +227,13 @@ const MyForm = () => {
               variant="h6"
               color={activeStep === 1 ? "blue-gray" : "gray"}
             >
-              Step 2
+              {lang[langKey].step} 2
             </Typography>
             <Typography
               color={activeStep === 1 ? "blue-gray" : "gray"}
               className="font-normal"
             >
-              Documents Upload
+              {lang[langKey].doc}
             </Typography>
           </div>
         </Step>
@@ -243,13 +244,13 @@ const MyForm = () => {
               variant="h6"
               color={activeStep === 2 ? "blue-gray" : "gray"}
             >
-              Step 3
+              {lang[langKey].step} 3
             </Typography>
             <Typography
               color={activeStep === 2 ? "blue-gray" : "gray"}
               className="font-normal"
             >
-              Skill Details
+              {lang[langKey].skill}
             </Typography>
           </div>
         </Step>
@@ -272,7 +273,7 @@ const MyForm = () => {
                 >
                   <Grid item xs={6}>
                     <TextField
-                      label="Aadhar No"
+                      label={lang[langKey].aadhar}
                       type="number"
                       variant="outlined"
                       fullWidth
@@ -284,7 +285,7 @@ const MyForm = () => {
                   <Grid item xs={6}>
                     <TextField
                       type="number"
-                      label="Pan No"
+                      label={lang[langKey].pan}
                       variant="outlined"
                       fullWidth
                       name="panNo"
@@ -295,7 +296,7 @@ const MyForm = () => {
                   <Grid item xs={6}>
                     <TextField
                       type="number"
-                      label="License No"
+                      label={lang[langKey].license}
                       variant="outlined"
                       fullWidth
                       name="licenseNo"
@@ -306,7 +307,7 @@ const MyForm = () => {
                   <Grid item xs={6}>
                     <TextField
                       type="number"
-                      label="Bar Council No"
+                      label={lang[langKey].bar}
                       variant="outlined"
                       fullWidth
                       name="barCouncilNo"
@@ -317,7 +318,7 @@ const MyForm = () => {
                   <Grid item xs={12}>
                     <TextField
                       type="text"
-                      label="Office Address"
+                      label={lang[langKey].office}
                       variant="outlined"
                       fullWidth
                       name="officeAddress"
@@ -328,10 +329,10 @@ const MyForm = () => {
                 </Grid>
                 <div className="mt-10 flex justify-between mb-5">
                   <Button onClick={handlePrev} disabled={isFirstStep}>
-                    Prev
+                    {lang[langKey].prev}
                   </Button>
                   <Button type="submit" disabled={isLastStep}>
-                    Next
+                    {lang[langKey].next}
                   </Button>
                 </div>
               </form>
@@ -363,8 +364,8 @@ const MyForm = () => {
                         fullWidth
                       >
                         {adharImage
-                          ? "Adhar Image Selected"
-                          : "Upload Adhar Image"}
+                          ? lang[langKey].saadhar
+                          : lang[langKey].uaadhar}
                       </Button>
                     </label>
                   </Grid>
@@ -385,7 +386,7 @@ const MyForm = () => {
                         startIcon={<ImageIcon />}
                         fullWidth
                       >
-                        {panImage ? "Pan Image Selected" : "Upload Pan Image"}
+                        {panImage ? lang[langKey].span : lang[langKey].upan}
                       </Button>
                     </label>
                   </Grid>
@@ -407,8 +408,8 @@ const MyForm = () => {
                         fullWidth
                       >
                         {licenseImage
-                          ? "License Image Selected"
-                          : "Upload License Image"}
+                          ? lang[langKey].slic
+                          : lang[langKey].ulic}
                       </Button>
                     </label>
                   </Grid>
@@ -430,18 +431,18 @@ const MyForm = () => {
                         fullWidth
                       >
                         {educationalCertificate
-                          ? " Educational Certificate Image Selected"
-                          : "Upload Educational Certificate Image"}
+                          ? lang[langKey].sedu
+                          : lang[langKey].uedu}
                       </Button>
                     </label>
                   </Grid>
                 </Grid>
                 <div className="mt-20 flex justify-between mb-5">
                   <Button onClick={handlePrev} disabled={isFirstStep}>
-                    Prev
+                    {lang[langKey].prev}
                   </Button>
                   <Button type="submit" disabled={isLastStep}>
-                    Next
+                    {lang[langKey].next}
                   </Button>
                 </div>
               </form>
@@ -456,7 +457,7 @@ const MyForm = () => {
                   columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 >
                   <Grid item xs={12}>
-                    <label>Specialization</label>
+                    <label>{lang[langKey].special}</label>
                     <Select
                       variant="outlined"
                       fullWidth
@@ -546,7 +547,7 @@ const MyForm = () => {
                       onClick={addExperience}
                       fullWidth
                     >
-                      Add Experience
+                      {lang[langKey].addexp}
                     </Button>
                   </Grid>
                   <Grid item xs={6} mb={"20px"}>
@@ -556,7 +557,7 @@ const MyForm = () => {
                       type="submit"
                       fullWidth
                     >
-                      Submit
+                      {lang[langKey].submit}
                     </Button>
                   </Grid>
                 </Grid>

@@ -9,9 +9,9 @@ const ChatbotBox = (params) => {
   const submitBtn = useRef();
   const [Stage, setStage] = useState(1);
   const [replyTurn, setReplyTurn] = useState(true);
-  const [queryToSend,setquery] = useState({
-    location:"",
-    Category:""
+  const [queryToSend, setquery] = useState({
+    location: "",
+    Category: ""
   })
 
   const TypesOfCases = [
@@ -27,11 +27,11 @@ const ChatbotBox = (params) => {
     "Consumer"
   ];
   const [msgAry, setMsgAry] = useState([]);
-  const StageRegulator = async ()=>{
+  const StageRegulator = async () => {
     if (Stage == 1) {
       setMsgAry([
         ...msgAry,
-        { sender: "bot", msg: "Hii ! Please Name of Your City" },
+        { sender: "bot", msg: "Hii ! Please Tell Name of Your City" },
       ]);
     }
     if (Stage == 2) {
@@ -59,7 +59,7 @@ const ChatbotBox = (params) => {
         { sender: "bot", msg: "Want to Redirect or Want some More Info" },
       ]);
     }
-    
+
     if (Stage == 6) {
       setMsgAry([
         ...msgAry,
@@ -117,8 +117,8 @@ const ChatbotBox = (params) => {
         return;
       }
 
-      if(Stage == 2){
-        setquery({...queryToSend,location:submitBtn.current.value})
+      if (Stage == 2) {
+        setquery({ ...queryToSend, location: submitBtn.current.value })
       }
 
       setMsgAry([
@@ -175,9 +175,9 @@ const ChatbotBox = (params) => {
   const submitChoice = (ele) => {
     setStage(Stage + 1);
     submitBtn.current.value = ele;
-   if(Stage==3){
-    setquery({...queryToSend,Category:ele});
-   }
+    if (Stage == 3) {
+      setquery({ ...queryToSend, Category: ele });
+    }
     submitMsg();
   };
 

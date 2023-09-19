@@ -3,22 +3,22 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const UserAuthContext = createContext();
 
-export const UserAuthProvider = ({children}) => {
+export const UserAuthProvider = ({ children }) => {
 
-    const backendUrl = "http://localhost:4004";
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState([null, "info"]);
-    const [openNotifi, setOpenNotifi] = useState(false);
-    const token = localStorage.getItem('token');
-    const refreshToken = localStorage.getItem('refreshToken');
+  const backendUrl = "http://localhost:4004";
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState([null, "info"]);
+  const [openNotifi, setOpenNotifi] = useState(false);
+  const token = localStorage.getItem('token');
+  const refreshToken = localStorage.getItem('refreshToken');
 
-    const revokeAccessToken = () => {
-      axios.get(`${backendUrl}/user/access`, {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`
-        }
-      })
+  const revokeAccessToken = () => {
+    axios.get(`${backendUrl}/user/access`, {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`
+      }
+    })
       .then((res) => {
         localStorage.setItem("token", res.data?.Token)
         localStorage.setItem("refreshToken", res.data?.refreshToken)
@@ -27,31 +27,32 @@ export const UserAuthProvider = ({children}) => {
         setLoading(false);
         setMessage([err.response.data, "error"]);
         setOpenNotifi(true);
-        
+
       });
-    }
+  }
 
 
-    useEffect(() => {
-      if(token){
+  useEffect(() => {
+    if (token) {
       setLoading(true);
-      axios.get(`${backendUrl}/user/verifyToken`, 
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(res => {
-        console.log(res.data);
-        setUser(res.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        revokeAccessToken();
-      }) }
-    }, [token]);
+      axios.get(`${backendUrl}/user/verifyToken`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(res => {
+          console.log(res.data);
+          setUser(res.data);
+          setLoading(false);
+        })
+        .catch(err => {
+          revokeAccessToken();
+        })
+    }
+  }, [token]);
 
-    return (
+  return (
     <UserAuthContext.Provider
       value={{
         user,
@@ -64,11 +65,11 @@ export const UserAuthProvider = ({children}) => {
         backendUrl
       }}
     >
-        {children}
+      {children}
     </UserAuthContext.Provider>
-    )
+  )
 }
 
 export const useUserAuth = () => {
-    return useContext(UserAuthContext);
+  return useContext(UserAuthContext);
 };
