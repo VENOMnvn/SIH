@@ -31,9 +31,9 @@ const PROFESSION = new Schema({
     panNo: Number,
     licenseNo: Number,
     barCouncilNo: Number,
-    officeAddress: Number,
+    officeAddress: String,
     specilization:String,
-    ahdharimage : {
+    adharImage : {
         type : Object,
         default:{
             public_id :"",

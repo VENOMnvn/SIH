@@ -15,8 +15,7 @@ cloudinary.config({
 const maxAge = 3 * 24 * 60 * 60; // 3 days
 
 const userRegisteration = async (req, res) => {
-
-  console.log( "Data Start Here -> ",req.body,"<- Data End Here" )
+  console.log("Data Start Here -> ", req.body, "<- Data End Here");
 
   const {
     name,
@@ -31,12 +30,16 @@ const userRegisteration = async (req, res) => {
     Experience,
     BarNumber,
     Category,
-    Details
+    Details,
   } = req.body;
 
   const user = await User.findOne({ email: email });
   if (user) {
-    res.send({ status: "failed", message: "Email already exists",isDone:false});
+    res.send({
+      status: "failed",
+      message: "Email already exists",
+      isDone: false,
+    });
   } else {
     if (name && number && email && password && location) {
       try {
@@ -50,7 +53,7 @@ const userRegisteration = async (req, res) => {
           location: location.toLowerCase(),
           profession: occupation.toLowerCase(),
           dob,
-          IsServiceProvider:IsServiceProvider,
+          IsServiceProvider: IsServiceProvider,
           Details,
           language,
         });
@@ -59,7 +62,7 @@ const userRegisteration = async (req, res) => {
 
         const userProfession = new ProfessionModel({
           userid: user._id,
-          Category : Category.toLowerCase(),
+          Category: Category.toLowerCase(),
           Experience,
           BarNumber,
           Occupation: occupation,
@@ -91,16 +94,23 @@ const userRegisteration = async (req, res) => {
           message: "Ok",
           UserData,
           ProfessionData,
-          isDone:true
+          isDone: true,
         });
-
       } catch (error) {
         console.log(error);
-        res.send({ status: "failed", message: "Unable to Register",isDone:false });
+        res.send({
+          status: "failed",
+          message: "Unable to Register",
+          isDone: false,
+        });
       }
     } else {
       console.log(name, email, location, password, number);
-      res.send({ status: "failed", message: "All fields ar required",isDone:false });
+      res.send({
+        status: "failed",
+        message: "All fields ar required",
+        isDone: false,
+      });
     }
   }
 };
@@ -113,7 +123,6 @@ const addDetails = async (req, res) => {
   console.log("Bar Council No:", barCouncilNo);
   console.log("Office Address:", officeAddress);
   res.send("OK");
-
 };
 
 const uploadDocs = async (req, res) => {
@@ -121,8 +130,11 @@ const uploadDocs = async (req, res) => {
 
   // Document upload on cloudinary
 
+  // console.log("ndifio",req.params.id)
+  const userId = req?.params?.id
   try {
     // Upload files to Cloudinary
+
     const adharImageResult = req.files.adharImage[0];
     const panImageResult = req.files.panImage[0];
     const licenseImageResult = req.files.licenseImage[0];
@@ -138,22 +150,48 @@ const uploadDocs = async (req, res) => {
     const mycloudAdhar = await cloudinary.v2.uploader.upload(
       adharImageResultUri.content
     );
-    const mycloudPan = await cloudinary.v2.uploader.upload(
-      panImageResultUri.content
-    );
-    const mycloudLicense = await cloudinary.v2.uploader.upload(
-      licenseImageResultUri.content
-    );
-    const mycloudCertificate = await cloudinary.v2.uploader.upload(
-      educationalCertificateResultUri.content
-    );
+    // const mycloudPan = await cloudinary.v2.uploader.upload(
+    //   panImageResultUri.content
+    // );
+    // const mycloudLicense = await cloudinary.v2.uploader.upload(
+    //   licenseImageResultUri.content
+    // );
+    // const mycloudCertificate = await cloudinary.v2.uploader.upload(
+    //   educationalCertificateResultUri.content
+    // );
 
-    res.send({
-      mycloudAdhar,
-      mycloudPan,
-      mycloudLicense,
-      mycloudCertificate
-    });
+    console.log(mycloudAdhar.public_id)
+    console.log(mycloudAdhar.secure_url)
+    
+
+    ProfessionModel.findById(userId).then((profession) => {
+      console.log(profession);
+
+      profession.adharImage= {
+        public_id: mycloudAdhar?.public_id || "",
+        url: mycloudAdhar?.secure_url || "",
+      };
+      // profession.panImage={
+      //   public_id: mycloudPan?.public_id || "",
+      // url: mycloudPan?.secure_url || "",
+      // };
+      // profession.licenseImage={
+      //   public_id: mycloudLicense?.public_id || "",
+      // url: mycloudLicense?.secure_url || "",
+      // };
+      // profession.certificateImage={
+      //   public_id: mycloudCertificate?.public_id || "",
+      // url: mycloudCertificate?.secure_url || "",
+      // }
+
+      profession.save().then((response) => 
+         res.status(200).send("OK")
+      )
+      .catch((error) => {
+        console.log(error)
+      });
+    })
+
 
   } catch (error) {
     console.error("Error uploading files:", error);
@@ -167,40 +205,39 @@ const addExperience = (req, res) => {
   res.json({ message: "Data received successfully on the server." });
 };
 
-
 const proffesionalData = (req, res) => {
   console.log(res.body);
   res.send("OK");
 };
-
 
 const profileComplete = async (req, res) => {
   console.log(req.body);
 
   console.log("RUn");
 
-  const {adharNo,
+  const {
+    adharNo,
     panNo,
     licenseNo,
     barCouncilNo,
     officeAddress,
-    user_id ,
+    user_id,
     specilization,
-    experiences
+    experiences,
   } = req.body;
 
-   const result = await ProfessionModel.findByIdAndUpdate(user_id,{
+  const result = await ProfessionModel.findByIdAndUpdate(user_id, {
     adharNo,
     panNo,
     licenseNo,
     barCouncilNo,
     officeAddress,
     specilization,
-    Experience:experiences
-    });
+    Experience: experiences,
+  });
 
-    console.log(result);
-    res.send("OK");
+  console.log(result);
+  res.send("OK");
 };
 
 module.exports = {

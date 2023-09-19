@@ -1,6 +1,6 @@
 import React from "react";
 import backg from "../../static/cover.svg";
-import profile from "../../static/profile.svg";
+import defaultProfile from "../../static/defaultProfile.jpg";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import { Button, IconButton } from "@mui/material";
@@ -114,7 +114,7 @@ const Profile = () => {
       <div className="relative flex flex-col w-full items-center p-4 pt-0">
         <div className="relative flex w-full md:w-4/5">
           <div className="absolute top-[-34px] border-4 border-white rounded-full overflow-hidden">
-            <img src={profile} alt="profile" />
+            <img src={user?.user?.img || defaultProfile} width={"200px"} alt="profile" />
           </div>
           <div className="pl-[14rem] flex flex-col items-start h-[10rem] justify-center">
             <h1 className="text-2xl font-bold">{user.user.name}</h1>

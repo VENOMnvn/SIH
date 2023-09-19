@@ -20,12 +20,8 @@ router.post("/send-otp", SendOtp);
 router.get("/logout", userLogout);
 router.post("/filter", filterFunction);
 
-
-
-router.post("/addDetails", addDetails);
-
 router.post(
-  "/uploadDocs",
+  "/uploadDocs/:id",
   upload.fields([
     { name: "adharImage", maxCount: 1 },
     { name: "panImage", maxCount: 1 },
@@ -34,7 +30,6 @@ router.post(
   ]),
   uploadDocs
 );
-
 
 router.post("/addExperience", addExperience);
 router.post("/proffesionalData", profileComplete);
