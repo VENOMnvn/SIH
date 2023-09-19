@@ -31,6 +31,7 @@ import { removeUser } from "../../utils/slices/userSlice";
 
 const Home = () => {
   const langKey = useSelector((store) => store.lang.lang);
+  const user = useSelector(state => state.user);
 
   const dropdown = {
     advocate: [
@@ -170,7 +171,9 @@ const Home = () => {
               <img src={userimage} alt="userimage"></img>
             </div>
             <div className="user">
-              <div className="username">User Name</div>
+              <div className="username">
+              {user.user == false ? "Signup/Login":user.user.name}
+              </div>
               <div className="profile">{lang[langKey].view}</div>
             </div>
           </div>
@@ -200,11 +203,11 @@ const Home = () => {
             </div>
             <div className="name">{lang[langKey].cases}</div>
           </div>
-          <div className="homelogo">
+          <div className="homelogo" onClick={()=>dispatach(removeUser())}>
             <div>
               <img src={frame} alt="home icon"></img>
             </div>
-            <div className="name">{lang[langKey].more}</div>
+            <div className="name">Logout</div>
           </div>
         </div>
       </div>

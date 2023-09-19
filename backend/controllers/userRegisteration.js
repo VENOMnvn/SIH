@@ -59,14 +59,14 @@ const userRegisteration = async (req, res) => {
 
         const userProfession = new ProfessionModel({
           userid: user._id,
-          Category,
+          Category : Category.toLowerCase(),
           Experience,
           BarNumber,
           Occupation: occupation,
           name,
           Location: location.toLowerCase(),
         });
-
+s
         const resByProffesion = await userProfession.save();
         const resByUser = await User.findByIdAndUpdate(user._id, {
           professionDetails: userProfession._id,
