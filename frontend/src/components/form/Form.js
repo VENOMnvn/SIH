@@ -18,9 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import lang from "../../utils/lang/formLang";
 
-
 const MyForm = () => {
-  const langKey = useSelector(store => store.lang.lang);
+  const langKey = useSelector((store) => store.lang.lang);
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -60,21 +59,19 @@ const MyForm = () => {
 
   const navigate = useNavigate();
 
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   console.log(user);
 
   useEffect(() => {
     if (user.user == false) {
       console.log("run");
-      navigate('/');
+      navigate("/");
     }
   }, []);
 
-
-
   const submitHandlerOne = async (e) => {
     e.preventDefault();
-    setActiveStep(1)
+    setActiveStep(1);
 
     try {
       const response = await Axios.post(
@@ -85,7 +82,7 @@ const MyForm = () => {
           licenseNo,
           barCouncilNo,
           officeAddress,
-          user_id: user?.proffesion._id
+          user_id: user?.proffesion._id,
         }
       );
 
@@ -141,7 +138,7 @@ const MyForm = () => {
 
   const submitHandlerTwo = async (e) => {
     e.preventDefault();
-    setActiveStep(2)
+    setActiveStep(2);
 
     const formData = new FormData();
     formData.append("adharImage", adharImage);
@@ -191,13 +188,12 @@ const MyForm = () => {
       experiences,
     };
     try {
-
       const response = await Axios.post(
         "http://localhost:4004/api/proffesionalData",
-        { ...submittedData, user_id: user?.proffesion._id },
+        { ...submittedData, user_id: user?.proffesion._id }
       );
       console.log("Response:", response.data);
-      navigate('/')
+      navigate("/");
     } catch (error) {
       console.error("Error sending data:", error);
     }
@@ -410,9 +406,7 @@ const MyForm = () => {
                         startIcon={<ImageIcon />}
                         fullWidth
                       >
-                        {licenseImage
-                          ? lang[langKey].slic
-                          : lang[langKey].ulic}
+                        {licenseImage ? lang[langKey].slic : lang[langKey].ulic}
                       </Button>
                     </label>
                   </Grid>
@@ -470,9 +464,28 @@ const MyForm = () => {
                         setSpecilization(e.target.value);
                       }}
                     >
-                      <MenuItem value="Option 1">Option 1</MenuItem>
-                      <MenuItem value="Option 2">Option 2</MenuItem>
-                      <MenuItem value="Option 3">Option 3</MenuItem>
+                      <MenuItem value="Criminal Lawyers">
+                        Criminal Lawyers
+                      </MenuItem>
+                      <MenuItem value="Civil Lawyers">Civil Lawyers</MenuItem>
+                      <MenuItem value="Family Lawyers">Family Lawyers</MenuItem>
+                      <MenuItem value="Property Lawyers">
+                        Property Lawyers
+                      </MenuItem>
+                      <MenuItem value="Immigration Lawyers">
+                        Immigration Lawyers
+                      </MenuItem>
+                      <MenuItem value="Intellectual Property Lawyers">
+                        Intellectual Property Lawyers
+                      </MenuItem>
+                      <MenuItem value="Tax Lawyers">Tax Lawyers</MenuItem>
+                      <MenuItem value="Labor Lawyers">Labor Lawyers</MenuItem>
+                      <MenuItem value="Environment Lawyers">
+                        Environment Lawyers
+                      </MenuItem>
+                      <MenuItem value="Consumer Lawyers">
+                        Consumer Lawyers
+                      </MenuItem>
                     </Select>
                   </Grid>
                   {experiences.map((experience, index) => (
@@ -490,16 +503,34 @@ const MyForm = () => {
                             setExperiences(updatedExperiences);
                           }}
                         >
-                          <MenuItem value="Criminal Lawyers">Criminal Lawyers</MenuItem>
-                          <MenuItem value="Civil Lawyers">Civil Lawyers</MenuItem>
-                          <MenuItem value="Family Lawyers">Family Lawyers</MenuItem>
-                          <MenuItem value="Property Lawyers">Property Lawyers</MenuItem>
-                          <MenuItem value="Immigration Lawyers">Immigration Lawyers</MenuItem>
-                          <MenuItem value="Intellectual Property Lawyers">Intellectual Property Lawyers</MenuItem>
+                          <MenuItem value="Criminal Lawyers">
+                            Criminal Lawyers
+                          </MenuItem>
+                          <MenuItem value="Civil Lawyers">
+                            Civil Lawyers
+                          </MenuItem>
+                          <MenuItem value="Family Lawyers">
+                            Family Lawyers
+                          </MenuItem>
+                          <MenuItem value="Property Lawyers">
+                            Property Lawyers
+                          </MenuItem>
+                          <MenuItem value="Immigration Lawyers">
+                            Immigration Lawyers
+                          </MenuItem>
+                          <MenuItem value="Intellectual Property Lawyers">
+                            Intellectual Property Lawyers
+                          </MenuItem>
                           <MenuItem value="Tax Lawyers">Tax Lawyers</MenuItem>
-                          <MenuItem value="Labor Lawyers">Labor Lawyers</MenuItem>
-                          <MenuItem value="Environment Lawyers">Environment Lawyers</MenuItem>
-                          <MenuItem value="Consumer Lawyers">Consumer Lawyers</MenuItem>
+                          <MenuItem value="Labor Lawyers">
+                            Labor Lawyers
+                          </MenuItem>
+                          <MenuItem value="Environment Lawyers">
+                            Environment Lawyers
+                          </MenuItem>
+                          <MenuItem value="Consumer Lawyers">
+                            Consumer Lawyers
+                          </MenuItem>
                         </Select>
                       </Grid>
                       <Grid item xs={12}>
