@@ -16,10 +16,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../../utils/slices/langSlice";
 import lang from "../../utils/lang/navbarLang";
 
+
 const Navbar = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const user = useSelector(state=>state.user.user);
+
   const langKey = useSelector((store) => store.lang.lang);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -152,7 +156,7 @@ const Navbar = () => {
           </Button>
         ) : (
           <div className="flex gap-x-4">
-            <Avatar className="cursor-pointer">L</Avatar>
+            <Avatar className="cursor-pointer">{user?.name[0].toUpperCase()}</Avatar>
             <button
               style={{
                 color: "black",
