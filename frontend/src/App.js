@@ -56,9 +56,9 @@ function App() {
             <Route path="login" element={<Login />} />
           </Route>
           <Route path="chatbot" element={<Chatbot />} />
-          <Route path="chat" element={<ChatbotBox/>}></Route>
+          <Route path="chat" element={<ChatbotBox />}></Route>
           <Route path=":anyother" element={<PageNotFound></PageNotFound>}></Route>
-          
+
         </Routes>
       </UserAuthProvider>
       {canShow && <Footer></Footer>}
