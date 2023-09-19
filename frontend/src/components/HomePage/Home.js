@@ -12,7 +12,7 @@ import frame from "./Frame 38.png";
 import userimage from "./Frame 26.png";
 import vector from "./Vector.png";
 import lawyer from "./Rectangle 19.png";
-
+import { useNavigate } from "react-router-dom";
 import lawyer2 from "./Rectangle 25.png"
 import lawyer3 from "./Rectangle 28.png"
 import { useSelector ,useDispatch} from "react-redux";
@@ -32,6 +32,7 @@ import { removeUser } from "../../utils/slices/userSlice";
 const Home = () => {
   const langKey = useSelector((store) => store.lang.lang);
   const user = useSelector(state => state.user);
+  const navigate = useNavigate();
 
   const dropdown = {
     advocate: [
@@ -172,7 +173,7 @@ const Home = () => {
             </div>
             <div className="user">
               <div className="username">
-              {user.user == false ? "Signup/Login":user.user.name}
+              {user.user == false ? "Signup/Login" : <div >{user.user.name[0].toUpperCase() + user.user.name.slice(1)}</div>}
               </div>
               <div className="profile">{lang[langKey].view}</div>
             </div>
