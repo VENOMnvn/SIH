@@ -81,6 +81,7 @@ const Home = () => {
   };
   const handleSearch = (name) => {
     console.log(name+"naveen");
+    console.log(name+"OK");
     setAnchorEl(null);
   };
 

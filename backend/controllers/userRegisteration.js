@@ -66,7 +66,7 @@ const userRegisteration = async (req, res) => {
           name,
           Location: location.toLowerCase(),
         });
-s
+
         const resByProffesion = await userProfession.save();
         const resByUser = await User.findByIdAndUpdate(user._id, {
           professionDetails: userProfession._id,
