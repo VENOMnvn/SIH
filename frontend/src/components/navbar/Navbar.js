@@ -156,7 +156,7 @@ const Navbar = () => {
           </Button>
         ) : (
           <div className="flex gap-x-4">
-            <Avatar className="cursor-pointer">{user?.name[0].toUpperCase()}</Avatar>
+            <Avatar onClick={() => navigate("/profile")} className="cursor-pointer">{user?.name[0].toUpperCase()}</Avatar>
             <button
               style={{
                 color: "black",

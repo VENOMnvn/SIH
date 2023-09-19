@@ -151,6 +151,8 @@ const MyForm = () => {
 
     try {
       const response = await Axios.post(
+        `http://localhost:4004/api/uploadDocs/${user?.proffesion._id}`,
+        formData,
         "http://localhost:4004/api/proffesionalData",
         { ...formData, user_id: user?.proffesion._id },
 
@@ -195,6 +197,7 @@ const MyForm = () => {
         { ...submittedData, user_id: user?.proffesion._id },
       );
       console.log("Response:", response.data);
+      navigate('/')
     } catch (error) {
       console.error("Error sending data:", error);
     }
@@ -487,9 +490,16 @@ const MyForm = () => {
                             setExperiences(updatedExperiences);
                           }}
                         >
-                          <MenuItem value="Option 1">Option 1</MenuItem>
-                          <MenuItem value="Option 2">Option 2</MenuItem>
-                          <MenuItem value="Option 3">Option 3</MenuItem>
+                          <MenuItem value="Criminal Lawyers">Criminal Lawyers</MenuItem>
+                          <MenuItem value="Civil Lawyers">Civil Lawyers</MenuItem>
+                          <MenuItem value="Family Lawyers">Family Lawyers</MenuItem>
+                          <MenuItem value="Property Lawyers">Property Lawyers</MenuItem>
+                          <MenuItem value="Immigration Lawyers">Immigration Lawyers</MenuItem>
+                          <MenuItem value="Intellectual Property Lawyers">Intellectual Property Lawyers</MenuItem>
+                          <MenuItem value="Tax Lawyers">Tax Lawyers</MenuItem>
+                          <MenuItem value="Labor Lawyers">Labor Lawyers</MenuItem>
+                          <MenuItem value="Environment Lawyers">Environment Lawyers</MenuItem>
+                          <MenuItem value="Consumer Lawyers">Consumer Lawyers</MenuItem>
                         </Select>
                       </Grid>
                       <Grid item xs={12}>
