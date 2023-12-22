@@ -7,6 +7,7 @@ import openai from "../../utils/openai";
 
 const ChatbotBox = (params) => {
   const submitBtn = useRef();
+
   const [Stage, setStage] = useState(1);
   const [replyTurn, setReplyTurn] = useState(true);
   const [queryToSend, setquery] = useState({
@@ -26,7 +27,9 @@ const ChatbotBox = (params) => {
     "Enviromental",
     "Consumer"
   ];
+
   const [msgAry, setMsgAry] = useState([]);
+  
   const StageRegulator = async () => {
     if (Stage == 1) {
       setMsgAry([
